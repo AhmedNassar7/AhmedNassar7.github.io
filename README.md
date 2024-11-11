@@ -1,10 +1,12 @@
 # Portfolio
 
+<!-- markdownlint-disable MD033 -->
 <p align="center">
   <img src="public/logo.svg" alt="Portfolio Logo" />
 </p>
+<!-- markdownlint-enable MD033 -->
 
-Welcome to my personal website, a passionate Software Engineer and Web Developer. This website showcases my skills, projects, and experiences through a visually appealing, dynamic, and interactive platform.
+Welcome to my personal website, a passionate Software Engineer and Web Developer. This website showcases my skills, projects, and experiences through a visually appealing, dynamic, responsive and interactive platform.
 
 ## 🌐 Demo
 
@@ -12,33 +14,75 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 ## ✨ Features
 
-- `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes (mobile, tablet, and desktop).
-- `Dynamic & Interactive Experience` – Powered by **AOS** for animated transitions and **CSS animations** to create an engaging, interactive user journey.
-- `Interactive Particles Background` – Powered by **Particles.js** for a dynamic modern and immersive and modern experience.
+- `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
+- `Dynamic & Interactive Experience` – Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
+- `Interactive Particles Background` – Interactive & dynamic background with animated particles powered by **[Particles.js](https://vincentgarreau.com/particles.js/)** for modern experience and immersive look.
 - `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
-- `Smooth Navigation` – A user-friendly **Navbar** with quick access links and a collapsible menu for mobile-friendly navigation.
-- `Rotating Quotes` – Displays rotating programming quotes with the ability to switch quotes manually.
+- `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible  menu.
+- `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
 - `Custom Scrollbar` – Personalized **scrollbar** with unique **UI/UX** design.
-- `Scroll-to-Top Button` – A button that appears when the user scrolls down and allows for smooth scrolling back to the top.
+- `Scroll-to-Top Button` – Appears when scrolling down, allowing smooth scrolling back to the top.
 - `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
 - `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
-- `Modular & Scalable Architecture` – Built with **SCSS** and a **component-based structure**, ensuring easy maintenance, scalability, and clean code for future updates.
-- `Cross-Browser Compatibility` – The site functions seamlessly across modern browsers.
-- `Performance Optimization` – Fast load times and smooth performance on all devices.
+- `Modular & Scalable Architecture` – Built with **SCSS** and a **components** for easy maintenance, scalability, and clean code.
+- `Performance Optimization` – **Fast load times** and **smooth performance** on all devices.
+- `Cross-Browser Compatibility` – Works seamlessly across all modern browsers.
 
 ## 🛠️ Technologies Used
 
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
-[![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
-[![Font Awesome](https://img.shields.io/badge/Font_Awesome-5288D2?style=for-the-badge&logo=font-awesome&logoColor=white)](https://fontawesome.com/)
-[![AOS](https://img.shields.io/badge/AOS-3C9B8B?style=for-the-badge&logo=git&logoColor=white)](https://michalsnik.github.io/aos/)
-[![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)](https://prettier.io/)
-[![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org/)
+<!-- markdownlint-disable MD033 -->
+<p align="center">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+    </a>
+    &nbsp;
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+    &nbsp;
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+    </a>
+    &nbsp;
+    <a href="https://reactjs.org/">
+        <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
+    </a>
+    &nbsp;
+    <a href="https://sass-lang.com/">
+        <img src="https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="SCSS">
+    </a>
+    &nbsp;
+    <a href="https://getbootstrap.com/">
+        <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap">
+    </a>
+    &nbsp;
+    <a href="https://vitejs.dev/">
+        <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+    </a>
+    &nbsp;
+    <a href="https://firebase.google.com/">
+        <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
+    </a>
+    &nbsp;
+    <a href="https://fontawesome.com/">
+        <img src="https://img.shields.io/badge/Font_Awesome-5288D2?style=for-the-badge&logo=font-awesome&logoColor=white" alt="Font Awesome">
+    </a>
+    &nbsp;
+    <a href="https://michalsnik.github.io/aos/">
+        <img src="https://img.shields.io/badge/AOS-3C9B8B?style=for-the-badge&logo=git&logoColor=white" alt="AOS">
+    </a>
+    &nbsp;
+    <a href="https://vincentgarreau.com/particles.js/">
+        <img src="https://img.shields.io/badge/Particles.js-ffffff?style=for-the-badge&logo=code&logoColor=black" alt="Particles.js">
+    </a>
+    &nbsp;
+    <a href="https://prettier.io/">
+        <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white" alt="Prettier">
+    </a>
+    &nbsp;
+    <a href="https://eslint.org/">
+        <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
+    </a>
+</p>
+<!-- markdownlint-enable MD033 -->
 
 ## 📋 Features Breakdown
 
@@ -141,6 +185,26 @@ To run this project locally, follow these steps:
 ## 🎯 Goals and Vision
 
 As a passionate developer, my vision is to create scalable, efficient, and innovative software solutions that solve real-world problems. I aim to continuously improve my skills in full-stack development and contribute to the growth of the tech community by building impactful projects.
+
+## 🌍 Contact Me for Freelance or Consulting
+
+If you're interested in collaborating, hiring, or seeking consulting services, please don't hesitate to get in touch with me. I’m available for freelance work, project consultation, collaboration and new opportunities.
+
+<!-- markdownlint-disable MD033 -->
+<p align="center">
+    <a href="https://www.linkedin.com/in/ahmed-nassar/">
+        <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+    </a>
+    &nbsp;
+    <a href="https://github.com/AhmedNassar7">
+        <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+    </a>
+    &nbsp;
+    <a href="mailto:a.moh.nassar00@gmail.com">
+        <img src="https://img.shields.io/badge/Email-FF4B5C?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
+    </a>
+</p>
+<!-- markdownlint-enable MD033 -->
 
 ## 📄 License
 
