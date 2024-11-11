@@ -105,10 +105,10 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 ### 4. Resume Section 📝
 
 - **`Education`**: Information about academic qualifications.
-- **`Experience`**: Professional experiences and job history.
-- **`Projects`**: Showcases of notable projects with descriptions and technologies used.
-- **`Skills`**: A list of technical skills and tools.
-- **`Download Resume`**: Button to download and open the resume in PDF format at another tab.
+- *`Experience`*: Professional experiences and job history.
+- *`Projects`*: Showcases of notable projects with descriptions and technologies used.
+- *`Skills`*: A list of technical skills and tools.
+- *`Download Resume`*: Button to download and open the resume in PDF format at another tab.
 
 ### 5. Contact Section 📬
 
