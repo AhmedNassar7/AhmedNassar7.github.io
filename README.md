@@ -12,22 +12,6 @@ Welcome to my personal website! This website showcases my skills, projects, and 
 
 You can view the live portfolio here: [Portfolio](https://your-live-portfolio-link.com)
 
-## ✨ Features
-
-- `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
-- `Dynamic & Interactive Experience` – Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
-- `Interactive Particles Background` – Interactive & dynamic background with animated particles powered by **[Particles.js](https://vincentgarreau.com/particles.js/)** for modern experience and immersive look.
-- `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
-- `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible  menu.
-- `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
-- `Custom Scrollbar` – Personalized **scrollbar** with unique **UI/UX** design.
-- `Scroll-to-Top Button` – Appears when scrolling down, allowing smooth scrolling back to the top.
-- `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
-- `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
-- `Modular & Scalable Architecture` – Built with **SCSS** and a **components** for easy maintenance, scalability, and clean code.
-- `Performance Optimization` – **Fast load times** and **smooth performance** on all devices.
-- `Cross-Browser Compatibility` – Works seamlessly across all modern browsers.
-
 ## 🛠️ Technologies Used
 
 <!-- markdownlint-disable MD033 -->
@@ -80,6 +64,22 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 </p>
 <!-- markdownlint-enable MD033 -->
 
+## ✨ Features
+
+- `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
+- `Dynamic & Interactive Experience` – Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
+- `Interactive Particles Background` – Interactive & dynamic background with animated particles powered by **[Particles.js](https://vincentgarreau.com/particles.js/)** for modern experience and immersive look.
+- `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
+- `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible menu.
+- `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
+- `Custom Scrollbar` – Personalized **scrollbar** with unique **UI/UX** design.
+- `Scroll-to-Top Button` – Appears when scrolling down, allowing smooth scrolling back to the top.
+- `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
+- `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
+- `Modular & Scalable Architecture` – Built with **SCSS** and a **components** for easy maintenance, scalability, and clean code.
+- `Performance Optimization` – **Fast load times** and **smooth performance** on all devices.
+- `Cross-Browser Compatibility` – Works seamlessly across all modern browsers.
+
 ## 📋 Features Breakdown
 
 ### 1. Navbar 🔽
@@ -92,23 +92,23 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 ### 2. Home Section 🏠
 
-- **Profile Image**: Personal image displayed on the homepage.
-- **Name & Typing Effect**: Dynamic typing effect displaying the user's name.
-- **Social Media Links**: Links to LinkedIn, GitHub, and other social profiles.
-- **Scroll Arrow**: A downward arrow to help users navigate to the next section.
+- `Profile Image` – Personal image displayed on the homepage.
+- `Typing Effect` – Dynamic typing string effect displaying.
+- `Social Media Links` – Links to LinkedIn, GitHub, and other social profiles.
+- `Scroll Arrow` – A downward arrow to help users navigate to the next section.
 
 ### 3. About Section 📑
 
-- **Personal Information**: A brief introduction and bio.
-- **Contact Information**: Information on how to get in touch, including social media links.
+- ``Personal Information`` – A brief introduction and bio.
+- `Contact Information` – Information on how to get in touch.
 
 ### 4. Resume Section 📝
 
-- **Education**: Information about academic qualifications.
-- **Experience**: Professional experiences and job history.
-- **Projects**: Showcases of notable projects with descriptions and technologies used.
-- **Skills**: A list of technical skills and tools.
-- **Download Resume**: Button to download the full resume in PDF format 📥
+- **`Education`**: Information about academic qualifications.
+- **`Experience`**: Professional experiences and job history.
+- **`Projects`**: Showcases of notable projects with descriptions and technologies used.
+- **`Skills`**: A list of technical skills and tools.
+- **`Download Resume`**: Button to download and open the resume in PDF format at another tab.
 
 ### 5. Contact Section 📬
 
