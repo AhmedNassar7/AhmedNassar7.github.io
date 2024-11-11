@@ -70,10 +70,6 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
         <img src="https://img.shields.io/badge/AOS-3C9B8B?style=for-the-badge&logo=git&logoColor=white" alt="AOS">
     </a>
     &nbsp;
-    <a href="https://vincentgarreau.com/particles.js/">
-        <img src="https://img.shields.io/badge/Particles.js-ffffff?style=for-the-badge&logo=code&logoColor=black" alt="Particles.js">
-    </a>
-    &nbsp;
     <a href="https://prettier.io/">
         <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white" alt="Prettier">
     </a>
@@ -88,9 +84,11 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 ### 1. Navbar 🔽
 
-- Logo and quick links to **Home**, **About**, **Resume**, and **Contact** sections.
-- Mobile-friendly collapsible menu.
-- Theme toggle to switch between light and dark themes.
+- `Logo` – Incorporates my custom logo.
+- `Smooth-Scrolling Links` – Quick links to different sections with smooth scrolling.
+- `Theme Toggle` – Toggle button for switching between light and dark themes
+- `Mobile-Friendly Menu` – Collapsible, mobile-responsive menu for easier navigation.
+- `Scroll Progress Bar` – Visual indicator at the top of the navbar will display the scroll position.
 
 ### 2. Home Section 🏠
 
