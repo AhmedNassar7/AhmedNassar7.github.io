@@ -6,7 +6,7 @@
 </p>
 <!-- markdownlint-enable MD033 -->
 
-Welcome to my personal website! This website showcases my skills, projects, and experiences through a visually appealing, dynamic and interactive platform. Built with modern technologies, the site is fully responsive and provides a smooth, engaging user experience across all devices..
+Welcome to my personal website! This website showcases my skills, projects, and experiences through a visually appealing, dynamic and interactive platform. Built with modern technologies, the site is fully responsive and provides a smooth, engaging user experience across all devices.
 
 ## 🌐 Demo
 
@@ -68,7 +68,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 - `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
 - `Dynamic & Interactive Experience` – Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
-- `Interactive Particles Background` – Interactive & dynamic background with animated particles powered by **[Particles.js](https://vincentgarreau.com/particles.js/)** for modern experience and immersive look.
+- `Interactive Particles Background` – Interactive & dynamic background with animated particles for modern experience and immersive look.
 - `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
 - `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible menu.
 - `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
@@ -76,7 +76,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 - `Scroll-to-Top Button` – Appears when scrolling down, allowing smooth scrolling back to the top.
 - `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
 - `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
-- `Modular & Scalable Architecture` – Built with **SCSS** and a **components** for easy maintenance, scalability, and clean code.
+- `Modular & Scalable Architecture` – Built with **SCSS** and a **components** for easy maintenance and scalability.
 - `Performance Optimization` – **Fast load times** and **smooth performance** on all devices.
 - `Cross-Browser Compatibility` – Works seamlessly across all modern browsers.
 
@@ -85,7 +85,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 ### 1. Navbar 🔽
 
 - `Logo` – Incorporates my custom logo.
-- `Smooth-Scrolling Links` – Quick links to different sections with smooth scrolling.
+- `Smooth-Scrolling Links` – Quick links to sections (Home, About, Resume, Contact) with smooth scrolling.
 - `Theme Toggle` – Toggle button for switching between light and dark themes
 - `Mobile-Friendly Menu` – Collapsible, mobile-responsive menu for easier navigation.
 - `Scroll Progress Bar` – Visual indicator at the top of the navbar will display the scroll position.
@@ -104,32 +104,32 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 ### 4. Resume Section 📝
 
-- **`Education`**: Information about academic qualifications.
-- *`Experience`*: Professional experiences and job history.
-- *`Projects`*: Showcases of notable projects with descriptions and technologies used.
-- *`Skills`*: A list of technical skills and tools.
-- *`Download Resume`*: Button to download and open the resume in PDF format at another tab.
+- `Education` – Information about academic qualifications.
+- `Experience` – Professional experiences and job history.
+- `Projects` – Showcases of notable projects with descriptions and technologies used.
+- `Skills` – A list of technical skills and tools.
+- `Download Resume` – Button to download and open the resume in PDF format at another tab.
 
 ### 5. Contact Section 📬
 
-- **Contact Form**: Collects user information including name, email, country, and message.
-- **Country Dropdown**: A dropdown with flags and search functionality for selecting countries.
+- `Contact Form` – Collects user information including name, email, country, and message.
+- `Country Dropdown` – A dropdown with flags and search functionality for selecting countries.
 - Integrated with **Firebase** and **EmailJS** for form submission.
 
 ### 6. Quotes Section 💬
 
-- **Rotating Quotes**: Displays 5 rotating programming quotes that auto-update every 5 seconds.
-- **Manual Quote Change**: Users can click to change the current quote.
+- `Rotating Quotes` – Displays 5 rotating programming quotes that auto-update every 5 seconds.
+- `Manual Quote Change` – Users can click to change the current quote.
 
 ### 7. Footer Section 📌
 
-- **Quick Links**: Links to sections (Home, About, Resume, Contact).
-- **Social Media Links**: Icons linking to social media profiles.
-- **Copyright Notice**: “© Ahmed Nassar [Year] – All Rights Reserved.”
+- `Quick Links` – Links to sections (Home, About, Resume, Contact).
+- `Social Media Links` – Icons linking to social media profiles.
+- `Copyright Notice` – “© Ahmed Nassar [Year] – All Rights Reserved.”
 
 ### 8. Interactive Background 🎨
 
-- Powered by **[Particles.js](https://particles.js.org/)**, creating a visually engaging, interactive background for the site.
+- Powered by **[Particles.js](https://particles.js.org/)**, creating a visually engaging, interactive & dynamic background with animated particles for modern experience and immersive look.
 
 ### 9. Scroll-to-Top Button ⬆️
 
@@ -137,7 +137,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 ### 10. Modular Component Structure 🧩
 
-- The website is built with a component-based architecture, allowing easy maintenance and scalability.
+- The website is built with a component-based architecture, allowing easy maintenance, scalability, and and clean code for future updates.
 
 ## 🛠️ Installation
 
@@ -204,7 +204,7 @@ If you're interested in collaborating, hiring, or seeking consulting services, p
 </p>
 <!-- markdownlint-enable MD033 -->
 
-## 📄 License
+## ⚖️ License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
