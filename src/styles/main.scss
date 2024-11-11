@@ -1,0 +1,181 @@
+// Custom Variables
+$primary: #646cff;
+$secondary: #535bf2;
+$dark: #242424;
+$light: #ffffff;
+
+// Import Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Global Styles
+:root {
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --dark: #{$dark};
+  --light: #{$light};
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease;
+
+  &.dark-theme {
+    background-color: var(--dark);
+    color: var(--light);
+  }
+
+  &.light-theme {
+    background-color: var(--light);
+    color: var(--dark);
+  }
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+
+  &:hover {
+    background: var(--secondary);
+  }
+}
+
+// Navigation
+.navbar {
+  backdrop-filter: blur(10px);
+
+  .nav-link {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+// Progress Bar
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+  z-index: 1100;
+}
+
+// Sections
+section {
+  min-height: 100vh;
+  padding: 100px 0;
+  position: relative;
+}
+
+// Animations
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Social Icons
+.social-icons {
+  a {
+    color: var(--primary);
+    margin: 0 10px;
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
+
+    &:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+  }
+}
+
+// Scroll to Top Button
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+// Skills Animation
+.skills-slider {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+
+  .skills-track {
+    display: inline-block;
+    animation: slide 30s linear infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

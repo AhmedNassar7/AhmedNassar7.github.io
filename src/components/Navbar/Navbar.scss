@@ -1,0 +1,83 @@
+.navbar {
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  .navbar-nav {
+    @media (max-width: 991px) {
+      padding: 1rem 0;
+
+      .nav-item + .nav-item {
+        border-top: none;
+      }
+    }
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    &:hover::after,
+    &.active::after {
+      width: 100%;
+      opacity: 1;
+    }
+
+    &:hover,
+    &.active {
+      color: var(--primary);
+    }
+  }
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  padding: 0.5rem;
+  cursor: pointer;
+  position: fixed;
+  top: 1.2rem;
+  right: 5rem;
+  z-index: 1100;
+  padding-top: 0px;
+  margin-top: -5px;
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  z-index: 2000;
+  transition: width 0.1s ease;
+}
+
+.custom-toggler {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &.collapsed {
+    color: var(--secondary);
+  }
+}

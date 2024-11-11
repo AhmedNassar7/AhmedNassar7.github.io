@@ -1,0 +1,94 @@
+.quotes-section {
+  padding: 80px 0;
+
+  .quotes-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .quote-content {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+  }
+
+  .quote-text {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+    font-style: italic;
+  }
+
+  .quote-author {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-top: 1rem;
+  }
+
+  .quote-icon {
+    color: var(--primary);
+    opacity: 0.5;
+    font-size: 1.5rem;
+
+    &.left {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    &.right {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  .quote-nav-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .quote-nav-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: var(--secondary);
+      transform: scale(1.1);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .quotes-section {
+    .quote-text {
+      font-size: 1.2rem;
+    }
+
+    .quote-author {
+      font-size: 1rem;
+    }
+
+    .quote-nav-btn {
+      font-size: 1.2rem;
+      padding: 0.5rem;
+    }
+  }
+}
