@@ -6,7 +6,7 @@
 </p>
 <!-- markdownlint-enable MD033 -->
 
-Welcome to my personal website, a passionate Software Engineer and Web Developer. This website showcases my skills, projects, and experiences through a visually appealing, dynamic, responsive and interactive platform.
+Welcome to my personal website! This website showcases my skills, projects, and experiences through a visually appealing, dynamic and interactive platform. Built with modern technologies, the site is fully responsive and provides a smooth, engaging user experience across all devices..
 
 ## 🌐 Demo
 
