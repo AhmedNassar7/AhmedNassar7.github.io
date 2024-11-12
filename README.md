@@ -139,7 +139,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 - The website is built with a **component-based architecture**, allowing easy maintenance, scalability, and and clean code for future updates.
 
-## Dynamic & Interactive Experience
+## ⚙️ Dynamic & Interactive Experience
 
 - Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
 
