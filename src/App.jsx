@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer';
 import ParticlesBackground from './components/ParticlesBackground/ParticlesBackground';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { Analytics } from '@vercel/analytics/react';
 import './styles/main.scss';
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Resume />
         <Contact />
         <Quotes />
+        <Analytics />
       </main>
       <Footer />
       <button
