@@ -10,7 +10,7 @@ Welcome to my **Personal Website**! This website showcases my skills, projects, 
 
 ## 🌐 Demo
 
-You can view the live portfolio here: [Portfolio](https://your-live-portfolio-link.com)
+You can view the live portfolio here: [Portfolio](https://ahmednassar7.github.io/portfolio/)
 
 ## 🛠️ Technologies Used
 
@@ -62,12 +62,12 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
         <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
     </a>
 </p>
-<!-- markdownlint-enable MD033 -->
+<!-- markdown-lint-enable MD033 -->
 
 ## ✨ Features
 
 - `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
-- `Interactive Particles Background` – Interactive background with animated particles for modern experience and immersive look.
+- `Interactive Particles Background` – Interactive background with animated particles for a modern experience and immersive look.
 - `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
 - `Dynamic & Interactive Experience` – Animated transitions and motion effects.
 - `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible menu.
@@ -113,7 +113,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 ### 5. Contact Section 📬
 
 - `Contact Form` – Collects user information including name, email, country, and message.
-- `Country Dropdown` – A dropdown with flags and search functionality for selecting countries.
+- `Country Dropdown` – A dropdown with flags and search functionality for select countries.
 - Integrated with **Firebase** and **EmailJS** for form submission.
 
 ### 6. Quotes Section 💬
@@ -129,7 +129,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 ### 8. Interactive Background 🎨
 
-- Powered by **[Particles.js](https://particles.js.org/)**, creating a visually engaging, interactive & dynamic background with animated particles for modern experience and immersive look.
+- Powered by **[Particles.JS](https://particles.js.org/)**, creating a visually engaging, interactive & dynamic background with animated particles for modern experience and immersive look.
 
 ### 9. Scroll-to-Top Button ⬆️
 
@@ -137,7 +137,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 ### 10. Modular & Scalable Architecture 🧩
 
-- The website is built with a **component-based architecture**, allowing easy maintenance, scalability, and and clean code for future updates.
+- The website is built with a **component-based architecture**, allowing easy maintenance, scalability, and clean code for future updates.
 
 ### 11. Dynamic & Interactive Experience ⚙️
 
@@ -200,7 +200,7 @@ This project deploys automatically to GitHub Pages using **GitHub Actions**. Fol
 - [Font Awesome](https://fontawesome.com/)
 - [AOS](https://michalsnik.github.io/aos/)
 - [EmailJS](https://www.emailjs.com/)
-- [Particles.js](https://vincentgarreau.com/particles.js/)
+- [Particles.JS](https://vincentgarreau.com/particles.js/)
 - [Firebase](https://firebase.google.com/)
 
 ## 🎯 Goals and Vision
@@ -209,7 +209,7 @@ As a passionate developer, my vision is to create scalable, efficient, and innov
 
 ## 🌍 Contact Me for Freelance or Consulting
 
-If you're interested in collaborating, hiring, or seeking consulting services, please don't hesitate to get in touch with me. I’m available for freelance work, project consultation, collaboration and new opportunities.
+If you're interested in collaborating, hiring, or seeking consulting services, please don't hesitate to get in touch with me. I’m available for freelance work, project consultation, collaboration, and new opportunities.
 
 <!-- markdownlint-disable MD033 -->
 <p align="center">
