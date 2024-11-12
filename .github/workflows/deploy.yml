@@ -12,40 +12,40 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3 # Checkout your repository
+        uses: actions/checkout@v3 # Latest version of checkout action
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3 # Setup Node.js environment
+      - name: Setup Node
+        uses: actions/setup-node@v3 # Latest version of setup-node action
         with:
-          node-version: '20' # Set to Node.js v20
+          node-version: '20' # Ensure Node.js v20 is used
 
       - name: Install dependencies
-        run: npm install # Install all dependencies
+        run: npm install # Install your npm dependencies
 
       - name: Build project
-        run: npm run build # Build the project using your build script
+        run: npm run build # Build the project
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v4 # Upload build files for deployment
+        uses: actions/upload-artifact@v4 # Latest version of upload-artifact action
         with:
           name: production-files
-          path: ./dist # The output directory
+          path: ./dist # Path to the build output
 
   deploy:
     name: Deploy
-    needs: build # Ensure deployment happens after build
+    needs: build # Make sure the build job runs before deploying
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' # Only deploy from the main branch
+    if: github.ref == 'refs/heads/main' # Deploy only from the main branch
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v4 # Download the build artifact
+        uses: actions/download-artifact@v4 # Latest version of download-artifact action
         with:
           name: production-files
-          path: ./dist
+          path: ./dist # Path to download the build output
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3 # Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3 # Latest version for deployment to GitHub Pages
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub token to authorize deployment
-          publish_dir: ./dist # Directory with production-ready files
+          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub token for authentication
+          publish_dir: ./dist # Directory to publish (from the build step)
