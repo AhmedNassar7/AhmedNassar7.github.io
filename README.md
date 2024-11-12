@@ -67,16 +67,17 @@ You can view the live portfolio here: [Portfolio](https://ahmednassar7.github.io
 ## ✨ Features
 
 - `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
-- `Interactive Particles Background` – Interactive background with animated particles for a modern experience and immersive look.
+- `Interactive Background` – Interactive background with animated particles for a modern experience and immersive look.
 - `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
-- `Dynamic & Interactive Experience` – Animated transitions and motion effects.
+- `Dynamic & Interactive` – Animated transitions and motion effects.
 - `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible menu.
+- `UI/UX Design` – followed the best practices of UI/UX design to ensure a smooth, user-friendly, and engaging experience
 - `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
 - `Custom Scrollbar` – Personalized **scrollbar** with unique **UI/UX** design.
 - `Scroll-to-Top Button` – Appears when scrolling down, allowing smooth scrolling back to the top.
 - `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
 - `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
-- `Modular & Scalable Architecture` – Built with **SCSS** and a **components** for easy maintenance and scalability.
+- `Modular & Scalable` – Built with **SCSS** and a **components** for easy maintenance and scalability.
 - `Performance Optimization` – **Fast load times** and **smooth performance** on all devices.
 - `Cross-Browser Compatibility` – Works seamlessly across all modern browsers.
 
@@ -142,6 +143,19 @@ You can view the live portfolio here: [Portfolio](https://ahmednassar7.github.io
 ### 11. Dynamic & Interactive Experience ⚙️
 
 - Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
+
+### 12. UI/UX Design Principles 🎨
+
+- This portfolio follows the best practices of UI/UX design to ensure a smooth, user-friendly, and engaging experience. The following principles have been incorporated into the design:
+
+- `Consistency`: Consistent design patterns, such as uniform color schemes, typography, and spacing, are applied throughout the website.
+- `Simplicity` and `Clarity`: The interface is clean and uncluttered, making it easy for users to focus on the content and navigate the site efficiently.
+- `Responsive Design`: The layout adapts seamlessly to different screen sizes and devices, ensuring a smooth experience on desktop, tablet, and mobile.
+- `Feedback` and `Interactivity`: Clear feedback is provided for all interactions (e.g., buttons, form submissions), and interactive elements (such as the rotating quotes and scroll-to-top button) enhance user engagement.
+- `Accessibility`: The site is designed with accessibility in mind, following best practices for color contrast, keyboard navigation, and ARIA roles.
+- `Visual Hierarchy`: The content is organized with a clear visual hierarchy, helping users focus on important information and navigate through the sections smoothly.
+- `Smooth Navigation`: Easy-to-use navigation ensures users can quickly access different sections of the site with minimal effort.
+- `Performance Optimization`: Fast load times and smooth performance ensure a seamless experience for users across all devices.
 
 ## 🛠️ Installation
 

@@ -57,7 +57,7 @@ const Home = () => {
                 alt="Ahmed Nassar"
                 className="profile-image"
               />
-              <div className="orbit-ball orbit-ball-blue"></div>
+              <div className="orbit-ball orbit-ball-1"></div>
               <div className="orbit-ball orbit-ball-2"></div>
               {/* <div className="orbit-ball orbit-ball-3"></div> */}
             </div>
@@ -96,20 +96,25 @@ const Home = () => {
                   </a>
                 ))}
               </div>
+              <div>
+                <Link
+                  to="about"
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  className="scroll-indicator"
+                >
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    className="scroll-arrow"
+                  />
+                </Link>
+              </div>
             </div>
           </Col>
         </Row>
       </Container>
-      <Link
-        to="about"
-        spy={true}
-        smooth={true}
-        offset={-70}
-        duration={500}
-        className="scroll-indicator"
-      >
-        <FontAwesomeIcon icon={faChevronDown} className="scroll-arrow" />
-      </Link>
     </section>
   );
 };

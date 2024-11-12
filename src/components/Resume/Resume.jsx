@@ -58,6 +58,13 @@ const Resume = () => {
       url: 'https://www.orangedigitalcenters.com/country/EG/home',
     },
     {
+      company: 'Information Technology Institute',
+      role: 'Full Stack Web Development using Python',
+      date: 'Jul 2024 – Sep 2024',
+      location: 'Cairo, Egypt',
+      url: 'https://iti.gov.eg/home',
+    },
+    {
       company: 'Nokia',
       role: 'Software Engineer Intern',
       date: 'Aug 2023 – Oct 2023',

@@ -10,6 +10,7 @@ import ParticlesBackground from './components/ParticlesBackground/ParticlesBackg
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Analytics } from '@vercel/analytics/react';
+import ReactGA from 'react-ga4';
 import './styles/main.scss';
 
 function App() {
@@ -17,6 +18,10 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
+    // Initialize Google Analytics
+    ReactGA.initialize('G-XGC9BKTSD1'); // Replace with your Measurement ID
+    ReactGA.send('pageview');
+
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
     document.body.className = `${savedTheme}-theme`;
