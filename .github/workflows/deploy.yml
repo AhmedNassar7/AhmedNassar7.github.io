@@ -1,31 +1,35 @@
-name: Deploy React app to GitHub Pages
+name: Deploy Portfolio
 
 on:
   push:
     branches:
-      - main # Change to the branch you want to deploy from
+      - main # This will trigger the action on every push to the main branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # The job will run on the latest Ubuntu runner
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js with the version you use locally
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20.17.0' # Specify your Node.js version
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Build the project
+      # Step 4: Build the project
+      - name: Build the application
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages # The branch to deploy to
-          folder: dist # The folder containing the production build
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # Step 5: Deploy to GitHub Pages (or another platform like Firebase, Netlify, etc.)
+      - name: Deploy
+        run: |
+          git remote add origin https://github.com/AhmedNassar7/portfolio.git
+          git push -f origin main
