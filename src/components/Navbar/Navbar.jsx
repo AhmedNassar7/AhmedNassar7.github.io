@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-scroll';
 import { Container, Nav, Navbar as BootstrapNavbar } from 'react-bootstrap';
 import { Sun, Moon } from 'lucide-react';
+import logo from '/public/logo.svg';
 import './Navbar.scss';
 
 const Navbar = ({ theme, toggleTheme }) => {
@@ -40,7 +41,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         <Container>
           <BootstrapNavbar.Brand href="#home">
             <img
-              src="/logo.svg"
+              src={logo}
               alt="Logo"
               height="30"
               className="d-inline-block align-top"
