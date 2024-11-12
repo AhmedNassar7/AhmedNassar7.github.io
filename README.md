@@ -67,9 +67,9 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 ## ✨ Features
 
 - `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
-- `Dynamic & Interactive Experience` – Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
 - `Interactive Particles Background` – Interactive & dynamic background with animated particles for modern experience and immersive look.
 - `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
+- `Dynamic & Interactive Experience` – Animated transitions and motion effects.
 - `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible menu.
 - `Rotating Quotes` – Display of rotating programming quotes, with **manual** and **auto-change** options.
 - `Custom Scrollbar` – Personalized **scrollbar** with unique **UI/UX** design.
@@ -135,9 +135,13 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 - Appears when the user scrolls down and allows them to quickly scroll back to the top.
 
-### 10. Modular Component Structure 🧩
+### 10. Modular & Scalable Architecture 🧩
 
-- The website is built with a component-based architecture, allowing easy maintenance, scalability, and and clean code for future updates.
+- The website is built with a **component-based architecture**, allowing easy maintenance, scalability, and and clean code for future updates.
+
+## Dynamic & Interactive Experience
+
+- Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
 
 ## 🛠️ Installation
 
