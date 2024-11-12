@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-scroll';
 import { Container, Nav, Navbar as BootstrapNavbar } from 'react-bootstrap';
 import { Sun, Moon } from 'lucide-react';
-import logo from '/public/logo.svg';
+import logo from '/logo.svg';
 import './Navbar.scss';
 
 const Navbar = ({ theme, toggleTheme }) => {

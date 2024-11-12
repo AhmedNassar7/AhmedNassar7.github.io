@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import { TypeAnimation } from 'react-type-animation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import porfileImage from '/portfolio/src/assets/images/profile.png';
+import porfileImage from '/assets/images/profile.png';
 import {
   faWhatsapp,
   faGithub,
