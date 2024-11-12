@@ -130,18 +130,22 @@
 
 /* Name styling with gradient text effect */
 .home-section .name {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 700;
   background: linear-gradient(45deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
+  white-space: nowrap; /* Ensure the name stays on the same line */
 }
 
 /* Typing container styles */
 .home-section .typing-container {
   min-height: 2.5em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .home-section .typing-container .typing-text {
@@ -149,6 +153,7 @@
   color: var(--primary);
   font-weight: 600;
   letter-spacing: -0.5px;
+  text-align: center;
 }
 
 /* Tagline styling */
@@ -157,12 +162,15 @@
   opacity: 0.9;
   font-weight: 500;
   line-height: 1.2;
+  text-align: center;
 }
 
 /* Social links with hover effect */
 .home-section .social-links {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .home-section .social-links .social-icon {
@@ -174,6 +182,24 @@
 .home-section .social-links .social-icon:hover {
   color: var(--secondary);
   transform: translateY(-8px);
+}
+
+@media (max-width: 768px) {
+  .home-section .name {
+    font-size: 2.8rem;
+  }
+
+  .home-section .typing-container .typing-text {
+    font-size: 1.8rem;
+  }
+
+  .home-section .tagline {
+    font-size: 1.2rem;
+  }
+
+  .home-section .social-links .social-icon {
+    font-size: 1.5rem;
+  }
 }
 
 /* Scroll indicator styles */

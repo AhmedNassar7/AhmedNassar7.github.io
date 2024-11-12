@@ -50,15 +50,32 @@
   background: none;
   border: none;
   color: var(--primary);
-  padding: 0.5rem;
   cursor: pointer;
-  position: fixed;
-  top: 1.2rem;
-  right: 5rem;
   z-index: 1100;
+  display: flex;
   padding-top: 0px;
-  margin-top: -5px;
+  align-items: center;
+  margin-left: auto;
+
+  @media (max-width: 991px) {
+    font-size: 1.3rem;
+    margin-left: 0; 
+    right: 5rem; 
+  }
+
+  @media (max-width: 767px) {
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 1.5rem;
+    position: fixed;
+    top: 1.2rem;
+    right: 5rem;  
+    top: 16px;
+  }
 }
+
 
 .scroll-progress {
   position: fixed;
@@ -81,3 +98,4 @@
     color: var(--secondary);
   }
 }
+
