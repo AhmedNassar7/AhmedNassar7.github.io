@@ -62,7 +62,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           <BootstrapNavbar.Toggle
             aria-controls="basic-navbar-nav"
             onClick={() => setExpanded(!expanded)}
-            className="custom-toggler d-block d-sm-none"
+            className="custom-toggler"
           >
             {expanded ? '✕' : '☰'}
           </BootstrapNavbar.Toggle>
