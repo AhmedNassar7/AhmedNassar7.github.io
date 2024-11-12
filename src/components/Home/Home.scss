@@ -44,30 +44,41 @@
 .home-section .orbit-ball {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.8;
   pointer-events: none; 
   z-index: 1;
+  animation-timing-function: ease-in-out;
 }
 
 /* Blue orbit ball - larger size */
-.home-section .orbit-ball-blue {
-  width: 90px; 
-  height: 90px;
-  background-color: blue; 
-  animation: up-down 1s ease-in-out infinite, change-opacity 1s ease-in-out infinite;
+.home-section .orbit-ball {
+  width: 85px; 
+  height: 85px;
+  background-color: var(--primary); 
+  animation: up-down 1s ease-in-out infinite;
   top: 250px;
   left: 300px;
 }
 
-/* Purple orbit ball - smaller size */
-.home-section .orbit-ball-purple {
-  width: 80px;  
-  height: 80px;
-  background-color: rgba(123, 0, 255, 1); 
+.home-section .orbit-ball-2 {
+  width: 70px;  
+  height: 70px;
+  background-color: var(--primary);
   animation: change-opacity 1s ease-in-out infinite; 
-  top: -20px; 
-  left: -80px;
+  top: -30px; 
+  left: -75px;
+  opacity: 0.7;
 }
+
+/* Purple orbit ball */
+// .home-section .orbit-ball-3 {
+//   width: 80px;  
+//   height: 80px;
+//   background-color: var(--primary); 
+//   animation: orbit 6s linear infinite;
+//   top: 35%;
+//   left: 35%;
+//   animation-delay: -2s;
+// }
 
 /* Content wrapper for aligning elements */
 .home-section .content-wrapper {
@@ -163,14 +174,18 @@
 }
 
 /* Keyframes for orbit animation */
-@keyframes orbit {
-  0% {
-    transform: rotate(0deg) translateX(140px) rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg) translateX(140px) rotate(-360deg);
-  }
-}
+// @keyframes orbit {
+//   0% {
+//     transform: rotate(0deg) translateX(140px) rotate(0deg);
+//     top: 250px;
+//     left: -90px;
+//   }
+//   100% {
+//     transform: rotate(360deg) translateX(140px) rotate(-360deg);
+//     top: -20px;
+//     left: 70%;
+//   }
+// }
 
 /* Keyframes for up and down movement */
 @keyframes up-down {
@@ -182,13 +197,16 @@
   }
 }
 
+
 /* Keyframes for changing opacity */
 @keyframes change-opacity {
   0% {
-    opacity: 0.5; 
+    opacity: 0.7; 
+    background-color: rgba(0, 0, 255, 0.5); /* Lighter blue color */
   }
   100% {
-    opacity: 0.7; 
+    opacity: 1; 
+    background-color: var(--primary); /* Full opacity with primary blue color */
   }
 }
 

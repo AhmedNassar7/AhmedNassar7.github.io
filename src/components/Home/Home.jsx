@@ -58,7 +58,8 @@ const Home = () => {
                 className="profile-image"
               />
               <div className="orbit-ball orbit-ball-blue"></div>
-              <div className="orbit-ball orbit-ball-purple"></div>
+              <div className="orbit-ball orbit-ball-2"></div>
+              {/* <div className="orbit-ball orbit-ball-3"></div> */}
             </div>
           </Col>
           <Col md={6} className="text-center" data-aos="fade-left">
