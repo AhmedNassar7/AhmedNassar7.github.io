@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import { TypeAnimation } from 'react-type-animation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import porfileImage from '/assets/images/profile.png';
 import {
   faWhatsapp,
   faGithub,
@@ -54,7 +53,7 @@ const Home = () => {
           <Col md={6} className="text-center" data-aos="fade-right">
             <div className="profile-image-container">
               <img
-                src={porfileImage}
+                src="/portfolio/assets/images/profile.png"
                 alt="Ahmed Nassar"
                 className="profile-image"
               />

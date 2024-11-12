@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import resume from '/portfolio/src/assets/PDFs/resume.pdf';
 import {
   faGithub,
   faPython,
@@ -153,14 +152,14 @@ const Resume = () => {
   const handleResumeDownload = () => {
     // Download resume
     const link = document.createElement('a');
-    link.href = { resume };
+    link.href = '/portfolio/assets/PDFs/resume.pdf';
     link.download = 'Ahmed_Nassar_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
     // Open resume in new tab
-    window.open('/portfolio/src/assets/PDFs/resume.pdf', '_blank');
+    window.open('/portfolio/assets/PDFs/resume.pdf', '_blank');
   };
 
   return (
