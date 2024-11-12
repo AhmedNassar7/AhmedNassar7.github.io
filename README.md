@@ -1,4 +1,4 @@
-# Portfolio
+# Portfolio – Personal Website
 
 <!-- markdownlint-disable MD033 -->
 <p align="center">
