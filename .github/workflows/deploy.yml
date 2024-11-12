@@ -1,35 +1,51 @@
-name: Deploy Portfolio
+name: Deploy
 
 on:
   push:
     branches:
-      - main # This will trigger the action on every push to the main branch
+      - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest # The job will run on the latest Ubuntu runner
+  build:
+    name: Build
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js with the version you use locally
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '20.17.0' # Specify your Node.js version
+          node-version: '20' # Match your local Node version
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Build the project
-      - name: Build the application
+      - name: Build project
         run: npm run build
 
-      # Step 5: Deploy to GitHub Pages (or another platform like Firebase, Netlify, etc.)
-      - name: Deploy
-        run: |
-          git remote add origin https://github.com/AhmedNassar7/portfolio.git
-          git push -f origin main
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v2
+        with:
+          name: production-files
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: production-files
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

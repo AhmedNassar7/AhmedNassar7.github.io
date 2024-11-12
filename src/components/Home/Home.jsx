@@ -53,7 +53,7 @@ const Home = () => {
           <Col md={6} className="text-center" data-aos="fade-right">
             <div className="profile-image-container">
               <img
-                src="../../assets/images/profile.jpg"
+                src="/src/assets/images/profile.png"
                 alt="Ahmed Nassar"
                 className="profile-image"
               />

@@ -152,14 +152,14 @@ const Resume = () => {
   const handleResumeDownload = () => {
     // Download resume
     const link = document.createElement('a');
-    link.href = '../../assets/PDFs/resume.pdf';
+    link.href = '/src/assets/PDFs/resume.pdf';
     link.download = 'Ahmed_Nassar_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
     // Open resume in new tab
-    window.open('../../assets/PDFs/resume.pdf', '_blank');
+    window.open('/src/assets/PDFs/resume.pdf', '_blank');
   };
 
   return (
