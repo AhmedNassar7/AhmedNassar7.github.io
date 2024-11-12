@@ -6,7 +6,7 @@
 </p>
 <!-- markdownlint-enable MD033 -->
 
-Welcome to my personal website! This website showcases my skills, projects, and experiences through a visually appealing, dynamic and interactive platform. Built with modern technologies, the site is fully responsive and provides a smooth, engaging user experience across all devices.
+Welcome to my **Personal Website**! This website showcases my skills, projects, and experiences through a visually appealing, dynamic, and interactive platform. Built with modern technologies, and fully responsive, and provides a smooth, engaging user experience across all devices.
 
 ## 🌐 Demo
 
@@ -67,7 +67,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 ## ✨ Features
 
 - `Fully Responsive Design` – Fully responsive layout that adapts across all devices and screen sizes.
-- `Interactive Particles Background` – Interactive & dynamic background with animated particles for modern experience and immersive look.
+- `Interactive Particles Background` – Interactive background with animated particles for modern experience and immersive look.
 - `Dynamic Sections` – Content dynamically updates with smooth transitions as users scroll.
 - `Dynamic & Interactive Experience` – Animated transitions and motion effects.
 - `Smooth Navigation` – Easy-to-use navbar with quick links and mobile-friendly collapsible menu.
@@ -139,7 +139,7 @@ You can view the live portfolio here: [Portfolio](https://your-live-portfolio-li
 
 - The website is built with a **component-based architecture**, allowing easy maintenance, scalability, and and clean code for future updates.
 
-## ⚙️ Dynamic & Interactive Experience
+### 11. Dynamic & Interactive Experience ⚙️
 
 - Animated transitions and motion effects powered by **[AOS](https://michalsnik.github.io/aos/)** and **CSS animations**.
 
