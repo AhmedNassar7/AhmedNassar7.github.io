@@ -173,6 +173,25 @@ To run this project locally, follow these steps:
 
 5. Open your browser and visit `http://localhost:5173` to see the portfolio in action 🚀
 
+## 🚀 Deployment
+
+This project deploys automatically to GitHub Pages using **GitHub Actions**. Follow these steps to configure and understand the deployment setup:
+
+1. **GitHub Actions Workflow**:
+   - The deployment process is managed by the workflow file located in `.github/workflows/deploy.yml`.
+   - Any changes pushed to the `main` branch will trigger the deployment workflow.
+
+2. **GitHub Pages Settings**:
+   - Navigate to your repository's **Settings** > **Pages**.
+   - Set **Source** to the `gh-pages` branch, and select **Root** as the deployment folder.
+
+3. **Live Demo**:
+   - Once deployment succeeds, the live version of the portfolio will be available at [https://your-username.github.io/your-repo-name](https://your-username.github.io/your-repo-name).
+   - **Note**: Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name. Example: [https://AhmedNassar7.github.io/portfolio](https://AhmedNassar7.github.io/portfolio).
+
+4. **Re-running Failed Deployments**:
+   - If a deployment fails, go to **Actions** in your repository, find the failed job, and click **Re-run job** to try the deployment again.
+
 ## 🤝 Acknowledgments
 
 - [React](https://reactjs.org/)
