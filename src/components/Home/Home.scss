@@ -1,112 +1,157 @@
+/* Main section styles */
 .home-section {
   position: relative;
   overflow: hidden;
-  padding-top: 70px;
+  padding-top: 20px; 
   min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center; 
+}
 
-  .profile-image-container {
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-  }
-
-  .profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 5px solid var(--primary);
-    transition: transform 0.3s ease;
-    box-shadow: 0 0 30px rgba(100, 108, 255, 0.3);
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 2rem;
-  }
-
-  .name {
-    font-size: 4rem;
-    font-weight: 700;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -1px;
-  }
-
-  .typing-container {
-    min-height: 2.5em;
-
-    .typing-text {
-      font-size: 2rem;
-      color: var(--primary);
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-  }
-
-  .tagline {
-    font-size: 1.5rem;
-    opacity: 0.9;
-    font-weight: 500;
-    line-height: 1.2;
-  }
-
-  .social-links {
-    display: flex;
-    gap: 2rem;
-
-    .social-icon {
-      font-size: 1.8rem;
-      color: var(--primary);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-      &:hover {
-        color: var(--secondary);
-        transform: translateY(-8px);
-      }
-    }
-  }
-
-  .scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-    opacity: 0.8;
-    transition: all 0.3s ease;
-
-    .scroll-arrow {
-      font-size: 2rem;
-      color: var(--primary);
-      animation: bounce 2s infinite;
-    }
-
-    &:hover {
-      opacity: 1;
-      transform: translateX(-50%) translateY(-5px);
-    }
+@media (max-width: 768px) {
+  .home-section {
+    padding-top: 70px; 
   }
 }
 
+/* Profile image container */
+.home-section .profile-image-container {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Profile image with hover effect */
+.home-section .profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid var(--primary);
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 30px rgba(100, 108, 255, 0.3);
+  position: relative; 
+  z-index: 2;
+}
+
+.home-section .profile-image:hover {
+  transform: scale(1.05);
+}
+
+/* Orbit ball styles */
+.home-section .orbit-ball {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none; 
+  z-index: 1;
+}
+
+/* Blue orbit ball - larger size */
+.home-section .orbit-ball-blue {
+  width: 90px; 
+  height: 90px;
+  background-color: blue; 
+  animation: up-down 1s ease-in-out infinite, change-opacity 1s ease-in-out infinite;
+  top: 250px;
+  left: 300px;
+}
+
+/* Purple orbit ball - smaller size */
+.home-section .orbit-ball-purple {
+  width: 80px;  
+  height: 80px;
+  background-color: rgba(123, 0, 255, 1); 
+  animation: change-opacity 1s ease-in-out infinite; 
+  top: -20px; 
+  left: -80px;
+}
+
+/* Content wrapper for aligning elements */
+.home-section .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+/* Name styling with gradient text effect */
+.home-section .name {
+  font-size: 4rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
+}
+
+/* Typing container styles */
+.home-section .typing-container {
+  min-height: 2.5em;
+}
+
+.home-section .typing-container .typing-text {
+  font-size: 2rem;
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Tagline styling */
+.home-section .tagline {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Social links with hover effect */
+.home-section .social-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.home-section .social-links .social-icon {
+  font-size: 1.8rem;
+  color: var(--primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-section .social-links .social-icon:hover {
+  color: var(--secondary);
+  transform: translateY(-8px);
+}
+
+/* Scroll indicator styles */
+.home-section .scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.home-section .scroll-indicator .scroll-arrow {
+  font-size: 2rem;
+  color: var(--primary);
+  animation: bounce 2s infinite;
+}
+
+.home-section .scroll-indicator:hover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+/* Keyframes for bounce animation */
 @keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
+  0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
   40% {
@@ -117,24 +162,53 @@
   }
 }
 
+/* Keyframes for orbit animation */
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(140px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(140px) rotate(-360deg);
+  }
+}
+
+/* Keyframes for up and down movement */
+@keyframes up-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Keyframes for changing opacity */
+@keyframes change-opacity {
+  0% {
+    opacity: 0.5; 
+  }
+  100% {
+    opacity: 0.7; 
+  }
+}
+
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
-  .home-section {
-    .name {
-      font-size: 2.8rem;
-    }
+  .home-section .name {
+    font-size: 2.8rem;
+  }
 
-    .typing-text {
-      font-size: 1.8rem;
-    }
+  .home-section .typing-container .typing-text {
+    font-size: 1.8rem;
+  }
 
-    .tagline {
-      font-size: 1.2rem;
-    }
+  .home-section .tagline {
+    font-size: 1.2rem;
+  }
 
-    .profile-image-container {
-      width: 250px;
-      height: 250px;
-      margin-bottom: 2rem;
-    }
+  .home-section .profile-image-container {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 2rem;
   }
 }
