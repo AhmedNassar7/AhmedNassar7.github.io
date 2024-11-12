@@ -12,40 +12,40 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3 # Updated to latest v3
+        uses: actions/checkout@v3 # Checkout your repository
 
-      - name: Setup Node
-        uses: actions/setup-node@v3 # Updated to latest v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3 # Setup Node.js environment
         with:
-          node-version: '20' # Use the version you are using, Node.js v20 in this case
+          node-version: '20' # Set to Node.js v20
 
       - name: Install dependencies
-        run: npm install
+        run: npm install # Install all dependencies
 
       - name: Build project
-        run: npm run build
+        run: npm run build # Build the project using your build script
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v4 # Updated to v4
+        uses: actions/upload-artifact@v4 # Upload build files for deployment
         with:
           name: production-files
-          path: ./dist
+          path: ./dist # The output directory
 
   deploy:
     name: Deploy
-    needs: build
+    needs: build # Ensure deployment happens after build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' # Only deploy from the main branch
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v4 # Updated to v4
+        uses: actions/download-artifact@v4 # Download the build artifact
         with:
           name: production-files
           path: ./dist
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3 # Deploy to GitHub Pages
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub token to authorize deployment
+          publish_dir: ./dist # Directory with production-ready files
