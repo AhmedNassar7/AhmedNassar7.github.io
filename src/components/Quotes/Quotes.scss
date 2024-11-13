@@ -74,6 +74,30 @@
       transform: scale(1.1);
     }
   }
+
+  .quote-points {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    .quote-point {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &.active {
+        background-color: var(--primary);
+      }
+
+      &:hover {
+        background-color: var(--secondary);
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {

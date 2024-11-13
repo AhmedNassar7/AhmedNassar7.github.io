@@ -157,6 +157,15 @@ const Resume = () => {
   };
 
   const handleResumeDownload = () => {
+    // Track resume download event
+    if (window.gtag) {
+      window.gtag('event', 'download_resume', {
+        event_category: 'Resume',
+        event_label: 'Resume Download',
+        value: 1,
+      });
+    }
+
     // Download resume
     const link = document.createElement('a');
     link.href = '/portfolio/assets/PDFs/resume.pdf';

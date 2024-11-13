@@ -17,10 +17,7 @@ const Quotes = () => {
       text: "Programming is not about typing, it's about thinking.",
       author: 'Bjarne Stroustrup',
     },
-    {
-      text: 'Make it work, make it right, make it fast.',
-      author: 'Kent Beck',
-    },
+    { text: 'Make it work, make it right, make it fast.', author: 'Kent Beck' },
     {
       text: 'Simplicity is prerequisite for reliability.',
       author: 'Edsger W. Dijkstra',
@@ -37,10 +34,7 @@ const Quotes = () => {
       text: 'Good code is easy for humans to understand.',
       author: 'Martin Fowler',
     },
-    {
-      text: 'Experience is learning from mistakes.',
-      author: 'Oscar Wilde',
-    },
+    { text: 'Experience is learning from mistakes.', author: 'Oscar Wilde' },
     {
       text: 'Your most unhappy customers are your greatest source of learning.',
       author: 'Bill Gates',
@@ -69,9 +63,12 @@ const Quotes = () => {
     );
   };
 
+  const selectQuote = (index) => {
+    setCurrentQuote(index);
+  };
+
   useEffect(() => {
     const interval = setInterval(nextQuote, 3500);
-
     return () => clearInterval(interval);
   }, [nextQuote]);
 
@@ -90,6 +87,15 @@ const Quotes = () => {
             <button onClick={nextQuote} className="quote-nav-btn">
               <FontAwesomeIcon icon={faChevronRight} />
             </button>
+          </div>
+          <div className="quote-points">
+            {quotes.map((_, index) => (
+              <span
+                key={index}
+                onClick={() => selectQuote(index)}
+                className={`quote-point ${index === currentQuote ? 'active' : ''}`}
+              />
+            ))}
           </div>
         </div>
       </div>
