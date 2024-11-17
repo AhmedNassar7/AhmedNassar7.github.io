@@ -2,6 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
+import sitemap from 'vite-plugin-sitemap';
+
+const siteUrl = 'https://ahmednassar7.github.io/portfolio';
 
 export default defineConfig({
   plugins: [
@@ -10,6 +13,9 @@ export default defineConfig({
       open: true,
     }),
     terser(),
+    sitemap({
+      siteUrl,
+    }),
   ],
   base: '/portfolio/',
   build: {
