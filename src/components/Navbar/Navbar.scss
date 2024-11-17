@@ -59,8 +59,8 @@
 
   @media (max-width: 991px) {
     font-size: 1.3rem;
-    margin-left: 0; 
-    right: 5rem; 
+    margin-left: 0;
+    right: 5rem;
   }
 
   @media (max-width: 767px) {
@@ -71,11 +71,10 @@
     font-size: 1.5rem;
     position: fixed;
     top: 1.2rem;
-    right: 5rem;  
+    right: 5rem;
     top: 16px;
   }
 }
-
 
 .scroll-progress {
   position: fixed;
@@ -98,4 +97,3 @@
     color: var(--secondary);
   }
 }
-

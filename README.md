@@ -100,7 +100,7 @@ You can view the live portfolio here: [Portfolio](https://ahmednassar7.github.io
 
 ### 3. About Section 📑
 
-- ``Personal Information`` – A brief introduction and bio.
+- `Personal Information` – A brief introduction and bio.
 - `Contact Information` – Information on how to get in touch.
 
 ### 4. Resume Section 📝
@@ -192,14 +192,17 @@ To run this project locally, follow these steps:
 This project deploys automatically to GitHub Pages using **GitHub Actions**. Follow these steps to configure and understand the deployment setup:
 
 1. **GitHub Actions Workflow**:
+
    - The deployment process is managed by the workflow file located in `.github/workflows/deploy.yml`.
    - Any changes pushed to the `main` branch will trigger the deployment workflow.
 
 2. **GitHub Pages Settings**:
+
    - Navigate to your repository's **Settings** > **Pages**.
    - Set **Source** to the `gh-pages` branch, and select **Root** as the deployment folder.
 
 3. **Live Demo**:
+
    - Once deployment succeeds, the live version of the portfolio will be available at [https://your-username.github.io/your-repo-name](https://your-username.github.io/your-repo-name).
    - **Note**: Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name. Example: [https://AhmedNassar7.github.io/portfolio](https://AhmedNassar7.github.io/portfolio).
 
