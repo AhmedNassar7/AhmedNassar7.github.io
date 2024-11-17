@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { trackEvent } from '../utils/analytics';
+import { trackEvent } from '../../utils/analytics';
 import {
   faGithub,
   faPython,
