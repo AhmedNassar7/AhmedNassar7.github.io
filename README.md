@@ -250,14 +250,24 @@ This project deploys automatically to GitHub Pages using **GitHub Actions**. Fol
 
 ## 🤝 Acknowledgments
 
-- [React](https://reactjs.org/)
-- [Bootstrap](https://getbootstrap.com/)
-- [Vite](https://vitejs.dev/)
-- [Font Awesome](https://fontawesome.com/)
-- [AOS](https://michalsnik.github.io/aos/)
-- [EmailJS](https://www.emailjs.com/)
-- [Particles.JS](https://vincentgarreau.com/particles.js/)
-- [Firebase](https://firebase.google.com/)
+<p align="center">
+    <img src="https://img.shields.io/badge/HTML5-5-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML5">
+    <img src="https://img.shields.io/badge/CSS3-3-1572B6?style=flat&logo=css3&logoColor=white" alt="CSS3">
+    <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="JavaScript">
+    <img src="https://img.shields.io/badge/React-17.0.2-61DAFB?style=flat&logo=react&logoColor=black" alt="React">
+    <img src="https://img.shields.io/badge/SCSS-3-CC6699?style=flat&logo=sass&logoColor=white" alt="SCSS">
+    <img src="https://img.shields.io/badge/Bootstrap-5.0-7952B3?style=flat&logo=bootstrap&logoColor=white" alt="Bootstrap">
+    <img src="https://img.shields.io/badge/Vite-2.9.0-646CFF?style=flat&logo=vite&logoColor=white" alt="Vite">
+    <img src="https://img.shields.io/badge/Firebase-9.0-FFCA28?style=flat&logo=firebase&logoColor=black" alt="Firebase">
+    <img src="https://img.shields.io/badge/Font_Awesome-5-5288D2?style=flat&logo=font-awesome&logoColor=white" alt="Font Awesome">
+    <img src="https://img.shields.io/badge/Prettier-2.0-F7B93E?style=flat&logo=prettier&logoColor=white" alt="Prettier">
+    <img src="https://img.shields.io/badge/ESLint-7.0-4B32C3?style=flat&logo=eslint&logoColor=white" alt="ESLint">
+    <img src="https://img.shields.io/badge/Google_Analytics-4.0-E37400?style=flat&logo=google-analytics&logoColor=white" alt="Google Analytics">
+    <img src="https://img.shields.io/badge/Google_Search_Console-3.0-4285F4?style=flat&logo=google&logoColor=white" alt="Google Search Console">
+    <img src="https://img.shields.io/badge/Particles.js-3.0-00BFFF?style=flat&logo=javascript&logoColor=white" alt="Particles.js">
+    <img src="https://img.shields.io/badge/AOS-2.0-3C9B8B?style=flat&logo=aos&logoColor=white" alt="AOS">
+    <img src="https://img.shields.io/badge/EmailJS-3.0-1B74E4?style=flat&logo=email&logoColor=white" alt="EmailJS">
+</p>
 
 ## 🎯 Goals and Vision
 
