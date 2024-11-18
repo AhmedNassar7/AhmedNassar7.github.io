@@ -16,67 +16,52 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 
 <!-- markdownlint-disable MD033 -->
 <p align="center">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
         <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
     </a>
-    &nbsp;
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">
         <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
     </a>
-    &nbsp;
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
         <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
     </a>
-    &nbsp;
-    <a href="https://reactjs.org/">
+    <a href="https://reactjs.org/" target="_blank">
         <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
     </a>
-    &nbsp;
-    <a href="https://sass-lang.com/">
+    <a href="https://sass-lang.com/" target="_blank">
         <img src="https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="SCSS">
     </a>
-    &nbsp;
-    <a href="https://getbootstrap.com/">
+    <a href="https://getbootstrap.com/" target="_blank">
         <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap">
     </a>
-    &nbsp;
-    <a href="https://vitejs.dev/">
+    <a href="https://vitejs.dev/" target="_blank">
         <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
     </a>
-    &nbsp;
-    <a href="https://firebase.google.com/">
+    <a href="https://firebase.google.com/" target="_blank">
         <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
     </a>
-    &nbsp;
-    <a href="https://fontawesome.com/">
+    <a href="https://fontawesome.com/" target="_blank">
         <img src="https://img.shields.io/badge/Font_Awesome-5288D2?style=for-the-badge&logo=font-awesome&logoColor=white" alt="Font Awesome">
     </a>
-    &nbsp;
-    <a href="https://prettier.io/">
+    <a href="https://prettier.io/" target="_blank">
         <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white" alt="Prettier">
     </a>
-    &nbsp;
-    <a href="https://eslint.org/">
+    <a href="https://eslint.org/" target="_blank">
         <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
     </a>
-    &nbsp;
-    <a href="https://analytics.google.com/">
+    <a href="https://analytics.google.com/" target="_blank">
         <img src="https://img.shields.io/badge/Google_Analytics-E37400?style=for-the-badge&logo=google-analytics&logoColor=white" alt="Google Analytics">
     </a>
-    &nbsp;
-    <a href="https://search.google.com/search-console">
+    <a href="https://search.google.com/search-console" target="_blank">
         <img src="https://img.shields.io/badge/Google_Search_Console-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Search Console">
     </a>
-    &nbsp;
-    <a href="https://particles.js.org/">
+    <a href="https://particles.js.org/" target="_blank">
         <img src="https://img.shields.io/badge/Particles.js-00BFFF?style=for-the-badge&logo=javascript&logoColor=white" alt="Particles.js">
     </a>
-    &nbsp;
-    <a href="https://michalsnik.github.io/aos/">
+    <a href="https://michalsnik.github.io/aos/" target="_blank">
         <img src="https://img.shields.io/badge/AOS-3C9B8B?style=for-the-badge&logo=aos&logoColor=white" alt="AOS">
     </a>
-    &nbsp;
-    <a href="https://www.emailjs.com/">
+    <a href="https://www.emailjs.com/" target="_blank">
         <img src="https://img.shields.io/badge/EmailJS-1B74E4?style=for-the-badge&logo=email&logoColor=white" alt="EmailJS">
     </a>
 </p>
