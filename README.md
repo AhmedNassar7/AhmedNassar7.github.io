@@ -145,7 +145,16 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 
 - `Google Search Console` – Optimizes website **performance** and **speed** using **sitemap.xml** and best **SEO** practices to improve search visibility.
 - `SEO Techniques` – Implements strategies to boost search engine **rankings**.
-- `Structured Data` and `Meta Tags` – Enhances search engine **indexing**.
+
+### 15. Deployment 🚀
+
+The website is deployed on **GitHub Pages** using **GitHub Actions**. The deployment process is automated with a workflow file located at `.github/workflows/deploy.yml`. Here are the details:
+
+- `GitHub Actions` – Automates the deployment process to GitHub Pages.
+- `Continuous Deployment` – Push changes to the `main` branch to trigger automatic deployment.
+- `GitHub Pages Settings` – Configure repository settings to serve the website from the `gh-pages` branch.
+- `Re-run Failed Deployments` – Easily re-run failed deployment jobs from the GitHub Actions tab.
+- `Live Demo` – Access the live portfolio at [https://your-username.github.io/your-repo-name](https://your-username.github.io/your-repo-name) by replacing `your-username` and `your-repo-name` with your GitHub username and repository name.
 
 ## 🛠️ Installation
 
@@ -176,26 +185,6 @@ To run this project locally, follow these steps:
    ```
 
 5. Open your browser and visit `http://localhost:5173` to see the portfolio in action 🚀
-
-## 🚀 Deployment
-
-This project uses **GitHub Actions** to deploy automatically to GitHub Pages. Follow these steps:
-
-1. **Workflow File**:
-    - Located at `.github/workflows/deploy.yml`.
-    - Push changes to the `main` branch to trigger deployment.
-
-2. **GitHub Pages Settings**:
-    - Go to **Settings** > **Pages** in your repository.
-    - Set **Source** to `gh-pages` branch and **Root** as the folder.
-
-3. **Live Demo**:
-    - Access the live portfolio at [https://your-username.github.io/your-repo-name](https://your-username.github.io/your-repo-name).
-    - Replace `your-username` and `your-repo-name` with your GitHub username and repository name.
-
-4. **Re-run Failed Deployments**:
-    - Go to **Actions** in your repository.
-    - Find the failed job and click **Re-run job**.
 
 ## 🤝 Acknowledgments
 
