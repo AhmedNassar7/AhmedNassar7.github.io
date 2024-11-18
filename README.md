@@ -179,25 +179,23 @@ To run this project locally, follow these steps:
 
 ## 🚀 Deployment
 
-This project deploys automatically to GitHub Pages using **GitHub Actions**. Follow these steps to configure and understand the deployment setup:
+This project uses **GitHub Actions** to deploy automatically to GitHub Pages. Follow these steps:
 
-1. **GitHub Actions Workflow**:
-
-   - The deployment process is managed by the workflow file located in `.github/workflows/deploy.yml`.
-   - Any changes pushed to the `main` branch will trigger the deployment workflow.
+1. **Workflow File**:
+    - Located at `.github/workflows/deploy.yml`.
+    - Push changes to the `main` branch to trigger deployment.
 
 2. **GitHub Pages Settings**:
-
-   - Navigate to your repository's **Settings** > **Pages**.
-   - Set **Source** to the `gh-pages` branch, and select **Root** as the deployment folder.
+    - Go to **Settings** > **Pages** in your repository.
+    - Set **Source** to `gh-pages` branch and **Root** as the folder.
 
 3. **Live Demo**:
+    - Access the live portfolio at [https://your-username.github.io/your-repo-name](https://your-username.github.io/your-repo-name).
+    - Replace `your-username` and `your-repo-name` with your GitHub username and repository name.
 
-   - Once deployment succeeds, the live version of the portfolio will be available at [https://your-username.github.io/your-repo-name](https://your-username.github.io/your-repo-name).
-   - **Note**: Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name. Example: [https://AhmedNassar7.github.io/portfolio](https://AhmedNassar7.github.io/portfolio).
-
-4. **Re-running Failed Deployments**:
-   - If a deployment fails, go to **Actions** in your repository, find the failed job, and click **Re-run job** to try the deployment again.
+4. **Re-run Failed Deployments**:
+    - Go to **Actions** in your repository.
+    - Find the failed job and click **Re-run job**.
 
 ## 🤝 Acknowledgments
 
