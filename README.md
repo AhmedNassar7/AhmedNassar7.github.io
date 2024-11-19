@@ -81,8 +81,9 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 ### 5. Contact Section 📬
 
 - `Contact Form` – Collects user information including name, email, country, and message.
-- `Country Dropdown` – A dropdown with flags and search functionality for select countries.
-- Integrated with **Firebase** and **EmailJS** for form submission.
+- `Country Dropdown` – A dropdown with flags and search functionality for selecting countries.
+- `Firebase Integration` – Utilizes Firebase for storing and managing the collected messages in a secure database.
+- `EmailJS Integration` – Sends the collected messages directly to my email.
 
 ### 6. Quotes Section 💬
 
