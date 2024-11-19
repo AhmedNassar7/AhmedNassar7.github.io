@@ -1,1 +1,0 @@
-class s{draw(a,o,t){const e=o.shapeData;a.moveTo(-t/2,0),a.lineTo(t/2,0),a.lineCap=(e==null?void 0:e.cap)??"butt"}getSidesCount(){return 1}}async function i(n,a=!0){await n.addShape("line",new s,a)}export{i as l};
