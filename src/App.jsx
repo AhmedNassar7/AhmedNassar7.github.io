@@ -9,7 +9,6 @@ import Footer from './components/Footer/Footer';
 import ParticlesBackground from './components/ParticlesBackground/ParticlesBackground';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { Analytics } from '@vercel/analytics/react';
 import ReactGA from 'react-ga4';
 import './styles/main.scss';
 
@@ -19,7 +18,7 @@ function App() {
 
   useEffect(() => {
     // Initialize Google Analytics
-    ReactGA.initialize('G-XGC9BKTSD1'); // Replace with your Measurement ID
+    ReactGA.initialize('G-XGC9BKTSD1');
     ReactGA.send('pageview');
 
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -58,7 +57,6 @@ function App() {
         <Resume />
         <Contact />
         <Quotes />
-        <Analytics />
       </main>
       <Footer />
       <button
