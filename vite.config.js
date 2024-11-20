@@ -4,7 +4,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
 import sitemap from 'vite-plugin-sitemap';
 
-const siteUrl = 'https://ahmednassar7.github.io/portfolio/';
+const siteUrl = 'https://ahmednassar7.github.io';
 
 export default defineConfig({
   plugins: [
@@ -17,7 +17,7 @@ export default defineConfig({
       siteUrl,
     }),
   ],
-  base: '/portfolio/',
+  base: '/',
   build: {
     outDir: 'dist',
     rollupOptions: {

@@ -40,7 +40,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         <Container>
           <BootstrapNavbar.Brand href="#home">
             <img
-              src="/portfolio/logo.svg"
+              src="/logo.svg"
               alt="Logo"
               height="30"
               className="d-inline-block align-top"
