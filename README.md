@@ -1,8 +1,8 @@
-# Portfolio
+# Ahmed Nassar's Portfolio
 
 <!-- markdownlint-disable MD033 -->
 <div align="center">
-  <img src="public/web-app-manifest-192x192.png" alt="Portfolio Logo" />
+    <img src="public/web-app-manifest-192x192.png" alt="Portfolio Logo" width="130" height="130" />
 </div>
 
 🌟 Welcome to my **Personal Website**! Explore a world of creativity, innovation, and expertise through this **visually captivating**, **dynamic**, and **interactive** platform. Designed with cutting-edge technologies, this **fully responsive** website delivers a **seamless** and **engaging** user experience on any device. Dive in to discover my **skills**, **projects**, and **experiences**, all brought to life in a modern and immersive way 🚀
