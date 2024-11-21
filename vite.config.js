@@ -40,5 +40,7 @@ export default defineConfig({
     headers: {
       'Cache-Control': 'public, max-age=31536000',
     },
+    host: true, 
+    port: 5173,
   },
 });
