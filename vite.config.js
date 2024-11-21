@@ -14,12 +14,14 @@ export default defineConfig({
     }),
     terser(),
     sitemap({
-      siteUrl,
+      hostname: siteUrl,
+      routes: ['/'],
     }),
   ],
   base: '/',
   build: {
     outDir: 'dist',
+    minify: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -32,6 +34,11 @@ export default defineConfig({
           }
         },
       },
+    },
+  },
+  server: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000',
     },
   },
 });
