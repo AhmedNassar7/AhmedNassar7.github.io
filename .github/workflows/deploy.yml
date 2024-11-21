@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3 # Latest version of setup-node action
         with:
-          node-version: 'lts/*' # Ensure the latest LTS version of Node.js is used
+          node-version: '20' # Ensure Node.js v20 is used
 
       - name: Install dependencies
         run: npm install # Install your npm dependencies
@@ -35,8 +35,7 @@ jobs:
     name: Deploy
     needs: build # Make sure the build job runs before deploying
     runs-on: ubuntu-latest
-    # Deploy only when the main branch is pushed
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' # Deploy only from the main branch
 
     steps:
       - name: Download artifact
