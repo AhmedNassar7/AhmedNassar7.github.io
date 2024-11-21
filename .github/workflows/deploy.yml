@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3 # Latest version of setup-node action
         with:
-          node-version: '20.17.0' # Ensure Node.js v20.17.0 is used
+          node-version: 'lts/*' # Ensure the latest LTS version of Node.js is used
 
       - name: Install dependencies
         run: npm install # Install your npm dependencies
