@@ -4,13 +4,17 @@
 <head>
   <!-- Basic Meta Tags -->
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Nassar" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Ahmed Nassar">
   <meta name="description"
-    content="Ahmed Nassar's portfolio showcasing Software Engineering and Web Development projects. I am a Senior Computer Science Student passionate about Software Engineering and Web Development. Experienced and Showcasing skills in C++, Python, Java, HTML, CSS, JavaScript, React.js, Django, and more with responsive design and engaging UI/UX. Explore impactful projects and skills in databases, OOP, operating systems, data structures, and algorithms.">
-  <meta name="keywords"
-    content="Ahmed Nassar, portfolio, computer science, software engineering, web development, C++, Python, Java, 
+    content="Welcome to Ahmed Nassar's Portfolio! Discover my work as a Senior Computer Science Student specializing in Software Engineering and Web Development. Explore my innovative projects, skills, and achievements. Experienced in C++, Python, Java, HTML, CSS, JavaScript, React.js, Django, and more with responsive design and engaging UI/UX. Explore impactful projects and skills in databases, OOP, operating systems, data structures, and algorithms.">
+  <meta name="keywords" content="Ahmed Nassar, portfolio, computer science, software engineering, web development, C++, Python, Java, 
     React.js, Django, frontend, backend, HTML, CSS, JavaScript, Web Developer Portfolio, Ahmed Nassar Portfolio, 
     Full Stack Developer, Responsive Web Design, Web Design Services, Interactive Website Development, 
     JavaScript Developer Portfolio, Front-End Web Developer, React Developer Portfolio, Django Web Developer, 
@@ -33,54 +37,16 @@
 
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Ahmed Nassar | Software Engineer and Web Developer">
+  <meta name="author" content="Ahmed Nassar">
   <meta property="og:description"
     content="Discover Ahmed Nassar's portfolio showcasing expertise in Software Engineering, Web Development, and impactful projects.">
   <meta property="og:image" content="/assets/images/profile.png">
+  <meta property="og:image" content="https://ahmednassar7.github.io/assets/images/profile.png">
   <meta property="og:url" content="https://ahmednassar7.github.io/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
-
-  <!-- LinkedIn Meta Tags -->
-  <meta property="og:title" content="Ahmed Nassar | Portfolio">
-  <meta property="og:description"
-    content="Explore Ahmed Nassar's modern portfolio website with responsive design and interactive features.">
-  <meta property="og:image" content="https://ahmednassar7.github.io/assets/images/profile.png">
-  <meta property="og:url" content="https://ahmednassar7.github.io/">
-  <meta name="author" content="Ahmed Nassar">
-
-
-  <!-- Facebook Open Graph Meta Tags -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Ahmed Nassar | Portfolio">
-  <meta property="og:description"
-    content="Explore Ahmed Nassar's modern portfolio website with responsive design and interactive features.">
-  <meta property="og:image" content="https://ahmednassar7.github.io/assets/images/profile.png">
-  <meta property="og:url" content="https://ahmednassar7.github.io/">
   <meta property="og:site_name" content="Ahmed Nassar Portfolio">
-
-  <!-- Instagram Meta Tags (uses Open Graph) -->
-  <meta property="og:title" content="Ahmed Nassar | Portfolio">
-  <meta property="og:description"
-    content="Explore Ahmed Nassar's modern portfolio website with responsive design and interactive features.">
-  <meta property="og:image" content="https://ahmednassar7.github.io/assets/images/profile.png">
-  <meta property="og:url" content="https://ahmednassar7.github.io/">
-  <meta property="og:site_name" content="Ahmed Nassar Portfolio">
-
-  <!-- WhatsApp Meta Tags (uses Open Graph) -->
-  <meta property="og:title" content="Ahmed Nassar | Portfolio">
-  <meta property="og:description"
-    content="Explore Ahmed Nassar's modern portfolio website with responsive design and interactive features.">
-  <meta property="og:image" content="https://ahmednassar7.github.io/assets/images/profile.png">
-  <meta property="og:url" content="https://ahmednassar7.github.io/">
-  <meta property="og:site_name" content="Ahmed Nassar Portfolio">
-
-  <!-- Telegram Meta Tags (uses Open Graph) -->
-  <meta property="og:title" content="Ahmed Nassar | Portfolio">
-  <meta property="og:description"
-    content="Explore Ahmed Nassar's modern portfolio website with responsive design and interactive features.">
-  <meta property="og:image" content="https://ahmednassar7.github.io/assets/images/profile.png">
-  <meta property="og:url" content="https://ahmednassar7.github.io/">
-
+  <meta property="og:see_also" content="https://ahmednassar7.github.io/">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -93,10 +59,6 @@
   <meta name="rating" content="General">
   <meta name="distribution" content="global">
   <meta name="generator" content="React, Vite">
-
-  <!-- Icons -->
-  <link rel="icon" href="/logo.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/logo.svg">
 
   <!-- Canonical Link -->
   <link rel="canonical" href="https://ahmednassar7.github.io/">
@@ -122,11 +84,11 @@
         "@type": "WebPage",
         "name": "Ahmed Nassar Portfolio",
         "description": "Full-Stack Web Developer Portfolio showcasing skills in React, JavaScript, and web design.",
-        "url": "https://ahmednassar7.github.io/"
+        "url": "https://ahmednassar7.github.io/",
+        "logo": "https://ahmednassar7.github.io/assets/images/logo.png"
     }
     </script>
 
-  <!-- Schema.org JSON-LD for Rich Results -->
   <!-- Schema Markup for Person -->
   <script type="application/ld+json">
     {
@@ -134,25 +96,30 @@
       "@type": "Person",
       "name": "Ahmed Nassar",
       "url": "https://ahmednassar7.github.io/",
+      "image": "https://ahmednassar7.github.io/assets/images/profile.png",
+      "jobTitle": "Software Engineer and Web Developer",
+      "description": "Ahmed Nassar is a Senior Computer Science Student passionate about software engineering, and web development.",
+      "alumniOf": "Modern Academy in Maadi",
+      "email": "a.moh.nassar00@gmail.com",
       "sameAs": [
         "https://www.linkedin.com/in/nasssar/",
-        "https://github.com/AhmedNassar7"
+        "https://github.com/AhmedNassar7",
+        "https://www.instagram.com/ahmed_nassar__",
+        "https://fb.com/profile.php?id=100004270350132",
+        "https://wa.me/201110102554",
+        "https://t.me/nassarrrr"
       ],
-      "jobTitle": "Senior Computer Science Student",
-      "description": "Ahmed Nassar is a Senior Computer Science Student passionate about software engineering, web development, and impactful projects.",
-      "alumniOf": "Modern Academy in Maadi",
       "skills": [
         "C++", "Python", "Java", "C#", "JavaScript", "TypeScript", "HTML", "CSS", "SQL",
         "React", "Django", ".Net", "Bootstrap", "jQuery", "SCSS", "Redux", "Axios", "AJAX", "Firebase",
         "Git", "GitHub", "Azure", "AWS", "Docker", "Kubernetes", "Linux", "Postman", "MySQL", "PostgreSQL", "MongoDB",
         "Design Patterns", "Unit Testing", "System Design", "Microservices", "APIs", "CI/CD", "Clean Code", "Agile"
-      ],
-      "email": "a.moh.nassar00@gmail.com"
+      ]
     }
   </script>
 
   <title>Ahmed Nassar</title>
-  <script type="module" crossorigin src="/assets/index-C3SI8f_w.js"></script>
+  <script type="module" crossorigin src="/assets/index-Dvbo5D65.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/aos-Bt7Pa4gu.js">
   <link rel="modulepreload" crossorigin href="/assets/react-BhElmdpK.js">
   <link rel="modulepreload" crossorigin href="/assets/scheduler-DTKAQvWo.js">
