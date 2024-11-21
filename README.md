@@ -9,7 +9,7 @@
 
 ## 🌐 Demo
 
-You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.github.io/portfolio/)
+You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.github.io/)
 
 ## 🛠️ Technologies Used
 
