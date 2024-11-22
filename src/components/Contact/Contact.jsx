@@ -112,6 +112,14 @@ const Contact = () => {
     e.preventDefault();
     setStatus('sending');
 
+    // Track form submission event
+    trackEvent({
+      action: 'form_submit',
+      category: 'Contact',
+      label: formData.name || 'Anonymous',
+      value: 1,
+    });
+
     try {
       // Send message via EmailJS
       await emailjs.send(
@@ -136,6 +144,7 @@ const Contact = () => {
         timestamp: new Date(),
       });
 
+      // Reset form state
       setStatus('success');
       setFormData({ name: '', email: '', country: null, message: '' });
     } catch {
