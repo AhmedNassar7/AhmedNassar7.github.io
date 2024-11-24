@@ -56,6 +56,7 @@ const Home = () => {
                 src="/assets/images/profile.png"
                 alt="Ahmed Nassar"
                 className="profile-image"
+                loading="lazy"
               />
               <div className="orbit-ball orbit-ball-1"></div>
               <div className="orbit-ball orbit-ball-2"></div>

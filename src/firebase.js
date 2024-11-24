@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set } from 'firebase/database';
+import { getDatabase, ref, set, push } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA7rTw7G4vIhg5nonXi9QO9MviErNyXv2k',
@@ -17,14 +17,20 @@ const app = initializeApp(firebaseConfig);
 // Realtime Database setup
 const db = getDatabase(app);
 
-// Function to add data to Realtime Database
 export const addMessage = async (messageData) => {
   try {
-    const newMessageRef = ref(db, 'contactMessages/' + new Date().getTime());
-    await set(newMessageRef, messageData);
+    // Use `push()` for automatically generating a unique key
+    const newMessageRef = push(ref(db, 'contactMessages'));
+
+    // Save the message to the database with a timestamp
+    await set(newMessageRef, {
+      ...messageData,
+      timestamp: new Date().toISOString(), // Adding a timestamp (ISO format)
+    });
+
     console.log('Message saved successfully!');
   } catch (error) {
-    console.error('Error saving message:', error);
+    console.error('Error saving message to Firebase:', error.message);
   }
 };
 

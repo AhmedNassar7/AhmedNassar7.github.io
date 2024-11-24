@@ -4,9 +4,10 @@ import Select from 'react-select';
 import ReactCountryFlag from 'react-country-flag';
 import emailjs from 'emailjs-com';
 import { addMessage } from '../../firebase';
-import './Contact.scss';
+import { trackEvent } from './../../utils/analytics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceFrown } from '@fortawesome/free-regular-svg-icons';
+import './Contact.scss';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -112,15 +113,15 @@ const Contact = () => {
     e.preventDefault();
     setStatus('sending');
 
-    // Track form submission event
-    trackEvent({
-      action: 'form_submit',
-      category: 'Contact',
-      label: formData.name || 'Anonymous',
-      value: 1,
-    });
-
     try {
+      // Track form submission event
+      trackEvent({
+        action: 'form_submit',
+        category: 'Contact',
+        label: formData.name || 'Anonymous',
+        value: 1,
+      });
+
       // Send message via EmailJS
       await emailjs.send(
         'service_av6m7ke',
@@ -128,27 +129,32 @@ const Contact = () => {
         {
           from_name: formData.name,
           from_email: formData.email,
-          country: formData.country?.label,
+          country: formData.country?.label || 'N/A',
           message: formData.message,
           to_email: 'a.moh.nassar00@gmail.com',
         },
         'qNN3I3qiPiVG_BA7-',
       );
 
+      console.log('Email sent successfully');
+
       // Save form data to Firebase Realtime Database
       await addMessage({
         name: formData.name,
         email: formData.email,
-        country: formData.country?.label,
+        country: formData.country?.label || 'N/A',
         message: formData.message,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
       });
+
+      console.log('Message saved to Firebase');
 
       // Reset form state
       setStatus('success');
       setFormData({ name: '', email: '', country: null, message: '' });
-    } catch {
-      setStatus('error');
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setStatus('Submit form error');
     }
   };
 

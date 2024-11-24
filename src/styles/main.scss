@@ -171,6 +171,71 @@ section {
   }
 }
 
+// /* 3-Point Dynamic Loading Spinner */
+// .loading-spinner {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay */
+//   z-index: 9999;
+//   font-size: 1.5rem;
+//   font-weight: bold;
+//   color: var(--primary); /* Uses primary color defined in root */
+//   animation: fadeIn 1s ease-out forwards; /* Smooth fade-in transition for entire spinner */
+  
+//   .dots {
+//     display: flex;
+//     gap: 10px; /* Space between dots */
+//     align-items: center;
+
+//     .dot {
+//       width: 15px;
+//       height: 15px;
+//       background-color: var(--primary);
+//       border-radius: 50%;
+//       animation: bounce 1.2s infinite ease-in-out; /* Apply bouncing effect to dots */
+//     }
+
+//     /* Animation for each dot, with delays for sequential effect */
+//     .dot:nth-child(1) {
+//       animation-delay: 0s;
+//     }
+
+//     .dot:nth-child(2) {
+//       animation-delay: 0.2s;
+//     }
+
+//     .dot:nth-child(3) {
+//       animation-delay: 0.4s;
+//     }
+//   }
+
+//   /* Animation for fading in the spinner */
+//   @keyframes fadeIn {
+//     0% {
+//       opacity: 0;
+//     }
+//     100% {
+//       opacity: 1;
+//     }
+//   }
+
+//   /* Bounce animation for dots */
+//   @keyframes bounce {
+//     0%, 100% {
+//       transform: scale(1);
+//     }
+//     50% {
+//       transform: scale(1.5); /* Dots grow in size */
+//     }
+//   }
+// }
+
 @keyframes slide {
   0% {
     transform: translateX(0);

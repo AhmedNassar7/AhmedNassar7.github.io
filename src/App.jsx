@@ -9,28 +9,52 @@ import Footer from './components/Footer/Footer';
 import ParticlesBackground from './components/ParticlesBackground/ParticlesBackground';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { trackEvent } from './utils/analytics';
 import ReactGA from 'react-ga4';
+import { throttle } from 'lodash';
 import './styles/main.scss';
 
 function App() {
   const [theme, setTheme] = useState('light');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Initialize Google Analytics
-    ReactGA.initialize('G-XGC9BKTSD1');
-    ReactGA.send('pageview');
+    if (!ReactGA.isInitialized) {
+      try {
+        ReactGA.initialize('G-XGC9BKTSD1');
+        ReactGA.send('pageview');
+      } catch (error) {
+        console.error('Google Analytics initialization error:', error);
+      }
+    }
 
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-    document.body.className = `${savedTheme}-theme`;
+    try {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      setTheme(savedTheme);
+      document.body.className = `${savedTheme}-theme`;
+    } catch (error) {
+      console.error('Error accessing localStorage:', error);
+      setTheme('light');
+    }
 
-    const handleScroll = () => {
+    // Optimize scroll event handling
+    const handleScroll = throttle(() => {
       setShowScrollTop(window.pageYOffset > 300);
-    };
+    }, 200);
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Simulate loading time (for demo purposes)
+    // const timer = setTimeout(() => {
+    //   setLoading(false); // After 1 second, set loading to false
+    // }, 1500);
+
+    return () => {
+      // clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -62,6 +86,18 @@ function App() {
     });
   };
 
+  // if (loading) {
+  //   return (
+  //     <div className="loading-spinner">
+  //       <div className="dots">
+  //         <div className="dot"></div>
+  //         <div className="dot"></div>
+  //         <div className="dot"></div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   return (
     <>
       <ParticlesBackground theme={theme} />
@@ -78,6 +114,7 @@ function App() {
         className={`scroll-to-top ${showScrollTop ? 'visible' : ''}`}
         onClick={scrollToTop}
         aria-label="Scroll to top"
+        // aria-live="polite"
       >
         <FontAwesomeIcon icon={faArrowUp} />
       </button>
