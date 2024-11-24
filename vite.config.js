@@ -3,12 +3,17 @@ import react from '@vitejs/plugin-react';
 import sitemap from 'vite-plugin-sitemap';
 import compression from 'vite-plugin-compression';
 import viteImagemin from 'vite-plugin-imagemin';
-import { visualizer } from 'rollup-plugin-visualizer'; // Optional, use for analyzing bundle size
+import { visualizer } from 'rollup-plugin-visualizer';
+import { VitePWA } from 'vite-plugin-pwa';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = 'https://ahmednassar7.github.io'; // Change to your production site URL
 
 export default defineConfig(({ mode }) => {
-  // Development-specific configurations
   const isDev = mode === 'development';
 
   return {
@@ -51,12 +56,45 @@ export default defineConfig(({ mode }) => {
           gzipSize: true, // Show Gzip size in the visualizer
           brotliSize: true, // Show Brotli size in the visualizer
         }),
+      // PWA Plugin
+      VitePWA({
+        registerType: 'autoUpdate',
+        injectRegister: 'auto',
+        manifest: {
+          name: 'Ahmed Nassar',
+          short_name: 'Nassar',
+          icons: [
+            {
+              src: '/web-app-manifest-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'maskable',
+            },
+            {
+              src: '/web-app-manifest-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'maskable',
+            },
+          ],
+          theme_color: '#ffffff',
+          background_color: '#ffffff',
+          display: 'standalone',
+          start_url: '/',
+        },
+        workboxOptions: {
+          skipWaiting: true, // Skip waiting for the service worker to activate
+          clientsClaim: true, // Ensure service worker takes control of all pages
+        },
+      }),
     ],
-    base: '/', // Adjust base URL for GitHub Pages or other hosting
+    base: '/', // Set base URL for GitHub Pages or other hosting
     build: {
       outDir: 'dist', // Output directory for production build
       minify: isDev ? false : 'esbuild', // Disable minification in development for faster builds
       sourcemap: isDev, // Enable sourcemaps only in development
+      assetsDir: 'assets',
+      target: 'esnext', // Use modern JavaScript features (ESNext) for production
       rollupOptions: {
         output: {
           manualChunks(id) {
@@ -89,5 +127,24 @@ export default defineConfig(({ mode }) => {
       },
     },
     assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.gif'], // Optimize static assets
+    css: {
+      postcss: {
+        plugins: [
+          autoprefixer(), // Use imported autoprefixer
+          cssnano({ preset: 'default' }), // Use imported cssnano
+        ],
+      },
+      preprocessorOptions: {
+        scss: {
+          // No need to import main.scss here since it may already be imported elsewhere
+          additionalData: '', // Empty or remove this line if no global import needed
+        },
+      },
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
+    },
   };
 });

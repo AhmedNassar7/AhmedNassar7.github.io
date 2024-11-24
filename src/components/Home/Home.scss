@@ -272,6 +272,10 @@
 
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
+  .home-section .profile-image {
+    margin-top: 15px;
+  }
+
   .home-section .name {
     font-size: 2.8rem;
   }
