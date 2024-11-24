@@ -1,1 +1,0 @@
-import{E as r}from"./tsparticles-engine.DLgpyJd2.js";class s extends r{constructor(e){super(e),this.handleClickMode=t=>{if(t!=="pause")return;const a=this.container;a.getAnimationStatus()?a.pause():a.play()}}clear(){}init(){}async interact(){}isEnabled(){return!0}reset(){}}async function c(n,e=!0){await n.addInteractor("externalPause",t=>new s(t),e)}export{c as l};
