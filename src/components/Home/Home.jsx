@@ -19,10 +19,13 @@ import './Home.scss';
 const Home = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000,
-      once: true,
-      offset: 50,
+      duration: 1000, // Animation duration
+      once: true, // Ensures animation happens only once
+      offset: 50, // Appear without scrolling
     });
+    setTimeout(() => {
+      AOS.refresh();
+    }, 100);
   }, []);
 
   const socialLinks = [

@@ -17,7 +17,7 @@ import './styles/main.scss';
 function App() {
   const [theme, setTheme] = useState('light');
   const [showScrollTop, setShowScrollTop] = useState(false);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Initialize Google Analytics
@@ -30,6 +30,7 @@ function App() {
       }
     }
 
+    // Manage theme from localStorage
     try {
       const savedTheme = localStorage.getItem('theme') || 'light';
       setTheme(savedTheme);
@@ -46,13 +47,13 @@ function App() {
 
     window.addEventListener('scroll', handleScroll);
 
-    // Simulate loading time (for demo purposes)
-    // const timer = setTimeout(() => {
-    //   setLoading(false); // After 1 second, set loading to false
-    // }, 1500);
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setLoading(false); // After 1 second, set loading to false
+    }, 1000);
 
     return () => {
-      // clearTimeout(timer);
+      clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -86,17 +87,17 @@ function App() {
     });
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="loading-spinner">
-  //       <div className="dots">
-  //         <div className="dot"></div>
-  //         <div className="dot"></div>
-  //         <div className="dot"></div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="loading-spinner">
+        <div className="dots">
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -114,7 +115,7 @@ function App() {
         className={`scroll-to-top ${showScrollTop ? 'visible' : ''}`}
         onClick={scrollToTop}
         aria-label="Scroll to top"
-        // aria-live="polite"
+        aria-live="polite"
       >
         <FontAwesomeIcon icon={faArrowUp} />
       </button>
