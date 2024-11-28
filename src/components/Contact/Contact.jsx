@@ -5,6 +5,7 @@ import ReactCountryFlag from 'react-country-flag';
 import emailjs from 'emailjs-com';
 import { addMessage } from '../../firebase';
 import { trackEvent } from './../../utils/analytics';
+import { Logger, LogLevel } from '../../utils/logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceFrown } from '@fortawesome/free-regular-svg-icons';
 import './Contact.scss';
@@ -109,6 +110,14 @@ const Contact = () => {
     </div>
   );
 
+  const logger = new Logger(LogLevel.DEBUG);
+
+  /**
+   * Handles the form submission.
+   * Tracks the form submission event, sends the message via EmailJS,
+   * saves the form data to Firebase, and updates the form state.
+   * @param {Event} e - The form submission event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
@@ -123,38 +132,52 @@ const Contact = () => {
       });
 
       // Send message via EmailJS
-      await emailjs.send(
-        'service_av6m7ke',
-        'template_k953vzz',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
+      try {
+        // EmailJS config from environment variables
+        const emailResponse = await emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            country: formData.country?.label || 'N/A',
+            message: formData.message,
+            to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
+          },
+          import.meta.env.VITE_EMAILJS_USER_ID,
+        );
+        logger.info(`EmailJS Response: ${emailResponse}`);
+      } catch (emailError) {
+        logger.error(
+          `EmailJS Error: ${emailError?.status} ${emailError?.text}`,
+        );
+        setStatus('emailjs_error');
+        return; // Exit if EmailJS fails
+      }
+
+      // Save form data to Firebase
+      try {
+        await addMessage({
+          name: formData.name,
+          email: formData.email,
           country: formData.country?.label || 'N/A',
           message: formData.message,
-          to_email: 'a.moh.nassar00@gmail.com',
-        },
-        'qNN3I3qiPiVG_BA7-',
-      );
+        });
+        logger.info('Message saved to Firebase');
+      } catch (firebaseError) {
+        logger.error(
+          `Firebase Error: ${firebaseError.message || firebaseError}`,
+        );
+        setStatus('firebase_error');
+        return; // Exit if Firebase fails
+      }
 
-      console.log('Email sent successfully');
-
-      // Save form data to Firebase Realtime Database
-      await addMessage({
-        name: formData.name,
-        email: formData.email,
-        country: formData.country?.label || 'N/A',
-        message: formData.message,
-        timestamp: new Date().toISOString(),
-      });
-
-      console.log('Message saved to Firebase');
-
-      // Reset form state
+      // Reset form state on success
       setStatus('success');
       setFormData({ name: '', email: '', country: null, message: '' });
     } catch (error) {
-      console.error('Form submission error:', error);
-      setStatus('Submit form error');
+      logger.error(`Form submission error: ${error}`);
+      setStatus('submit form error');
     }
   };
 

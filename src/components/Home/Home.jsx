@@ -15,6 +15,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './Home.scss';
+import { trackEvent } from '../../utils/analytics';
 
 const Home = () => {
   useEffect(() => {
@@ -95,6 +96,22 @@ const Home = () => {
                     rel="noopener noreferrer"
                     className="social-icon"
                     aria-label={link.label}
+                    onClick={() => {
+                      try {
+                        trackEvent({
+                          action: 'click_social_media',
+                          category: 'Social Media',
+                          label: link.label,
+                          url: link.url,
+                          value: 1,
+                        });
+                      } catch (error) {
+                        console.error(
+                          'Tracking social media link click home failed:',
+                          error,
+                        );
+                      }
+                    }}
                   >
                     <FontAwesomeIcon icon={link.icon} />
                   </a>

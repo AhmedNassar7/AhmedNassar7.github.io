@@ -1,36 +1,62 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, push } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
+import { Logger, LogLevel } from './utils/logger';
 
+// Instantiate the Logger
+const logger = new Logger(LogLevel.DEBUG);
+
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyA7rTw7G4vIhg5nonXi9QO9MviErNyXv2k',
-  authDomain: 'portfolio-2554.firebaseapp.com',
-  databaseURL: 'https://portfolio-2554-default-rtdb.firebaseio.com/',
-  projectId: 'portfolio-2554',
-  storageBucket: 'portfolio-2554.appspot.com',
-  messagingSenderId: '324422445588',
-  appId: '1:324422445588:web:1c0dbe7ee91c99470f5501',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Realtime Database setup
 const db = getDatabase(app);
 
+/**
+ * Helper to get the current date and time in the desired format.
+ * @returns {string} Formatted timestamp in "YYYY-MM-DD HH:mm A" format
+ */
+const getFormattedTimestamp = () => {
+  const now = new Date();
+
+  // Format date as YYYY-MM-DD
+  const date = now.toISOString().split('T')[0];
+
+  // Format time in 12-hour format (e.g., 1:30 PM)
+  let hours = now.getHours();
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const period = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12; // Convert 0-hour or 13-hour to 12-hour format
+
+  return `${date} ${hours}:${minutes} ${period}`;
+};
+
+/**
+ * Add a message to the Firebase Realtime Database.
+ * @param {Object} messageData - The message data to save.
+ */
 export const addMessage = async (messageData) => {
   try {
-    // Use `push()` for automatically generating a unique key
-    const newMessageRef = push(ref(db, 'contactMessages'));
+    // Use timestamp as the key for the message
+    const timestampKey = Date.now().toString();
 
-    // Save the message to the database with a timestamp
-    await set(newMessageRef, {
+    // Save the message with a single formatted timestamp
+    await set(ref(db, `contactMessages/${timestampKey}`), {
       ...messageData,
-      timestamp: new Date().toISOString(), // Adding a timestamp (ISO format)
+      timestamp: getFormattedTimestamp(), // Save combined date and time
     });
 
-    console.log('Message saved successfully!');
+    logger.info('Message saved successfully!');
   } catch (error) {
-    console.error('Error saving message to Firebase:', error.message);
+    logger.error(`Error saving message to Firebase: ${error.message}`);
   }
 };
 
