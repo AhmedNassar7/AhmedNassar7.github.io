@@ -1,9 +1,36 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set } from 'firebase/database';
+import { getAnalytics } from 'firebase/analytics';
 import { Logger, LogLevel } from './utils/logger';
 
 // Instantiate the Logger
 const logger = new Logger(LogLevel.DEBUG);
+
+// Validate required Firebase environment variables
+const requiredEnvVariables = [
+  'VITE_FIREBASE_API_KEY',
+  'VITE_FIREBASE_AUTH_DOMAIN',
+  'VITE_FIREBASE_DATABASE_URL',
+  'VITE_FIREBASE_PROJECT_ID',
+  'VITE_FIREBASE_STORAGE_BUCKET',
+  'VITE_FIREBASE_MESSAGING_SENDER_ID',
+  'VITE_FIREBASE_APP_ID',
+];
+
+const missingVariables = requiredEnvVariables.filter(
+  (variable) => !import.meta.env[variable],
+);
+
+if (missingVariables.length > 0) {
+  missingVariables.forEach((variable) => {
+    logger.error(`Environment variable ${variable} is missing.`);
+  });
+  throw new Error(
+    `Missing required environment variables: ${missingVariables.join(', ')}`,
+  );
+} else {
+  logger.info('All required Firebase environment variables are present.');
+}
 
 // Firebase configuration
 const firebaseConfig = {
@@ -14,11 +41,17 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_GOOGLE_ANALYTICS_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Realtime Database
 const db = getDatabase(app);
+
+// Initialize Firebase Analytics
+export const analytics = getAnalytics(app);
 
 /**
  * Helper to get the current date and time in the desired format.
@@ -56,7 +89,9 @@ export const addMessage = async (messageData) => {
 
     logger.info('Message saved successfully!');
   } catch (error) {
-    logger.error(`Error saving message to Firebase: ${error.message}`);
+    logger.error(
+      `Error saving message to Firebase: ${error.message}. Stack: ${error.stack}`,
+    );
   }
 };
 

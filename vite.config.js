@@ -22,11 +22,15 @@ const requiredEnvVariables = [
   'VITE_GOOGLE_SITE_VERIFICATION',
   'VITE_GOOGLE_ANALYTICS_ID',
 ];
-requiredEnvVariables.forEach((variable) => {
-  if (!process.env[variable]) {
-    console.warn(`Environment variable ${variable} is missing.`);
-  }
-});
+
+const missingVariables = requiredEnvVariables.filter(
+  (variable) => !process.env[variable],
+);
+if (missingVariables.length > 0) {
+  console.warn(
+    `Warning: Missing required environment variables: ${missingVariables.join(', ')}`,
+  );
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = 'https://ahmednassar7.github.io';
@@ -82,8 +86,6 @@ export default defineConfig(({ mode }) => {
       createHtmlPlugin({
         inject: {
           data: {
-            title: 'Ahmed Nassar Portfolio',
-            description: 'Welcome to my portfolio website!',
             siteUrl,
             VITE_GOOGLE_SITE_VERIFICATION:
               process.env.VITE_GOOGLE_SITE_VERIFICATION,
@@ -192,7 +194,7 @@ export default defineConfig(({ mode }) => {
       postcss: {
         plugins: [
           autoprefixer(), // Use imported autoprefixer
-          cssnano({ preset: 'default' }), // Use imported cssnano
+          cssnano({ preset: 'advanced' }), // Use imported cssnano
         ],
       },
       preprocessorOptions: {
