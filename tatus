@@ -1,0 +1,64 @@
+* [33m4403bf37[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgh-pages[m[33m, [m[1;31morigin/gh-pages[m[33m)[m deploy: 522f26f57f802bf9fedd1d652c9855cae369f32e
+* [33m207714bd[m deploy: b3d0a656e3df88f739dbc3f48708c7cad13b82b1
+* [33mb1783009[m deploy: 1b8d3705e85429952910d26c70d44cbbb219fdee
+* [33m8b057017[m deploy: 0d22ad989015b2f4b563401a8fc3a3f7daa6a22c
+* [33m8c84e23e[m deploy: fadb82fd32a0d3687c7a11badfdf900408206aac
+* [33m25e70034[m deploy: 5ab149eda982074bd3bb3cab2fb9c3cab15bcbce
+* [33mf0ceadff[m deploy: 4f7f3d7be429499d858f0ea7adf2eb51aafc6087
+* [33m2a1afda1[m deploy: 55a906fb614d989027f2cd71953b55fa3fa7ad9e
+* [33m38556cdd[m deploy: 58c584dc4313618051ac6bd310fa8879a8476d8c
+* [33mab4f456d[m deploy: fce187c8673de3511a5e27af4e6b2e58666ae632
+* [33m0fc92a0b[m deploy: 76397de0e85f320f555257b47bc55e1bf9abf947
+* [33meeca2596[m deploy: 8cca882d7a6ba2dc0711678381699b99b65d87d6
+* [33m60b79281[m deploy: a39975c755405ee834759d13795d96b238a8f2f8
+* [33m9bde0c07[m deploy: b7aad24f4c803267cf22ccb90da2f1959227e7d0
+* [33m1392c87c[m Add new Babel plugin bugfixes module and Emotion package for useInsertionEffect
+* [33mba71630d[m Add new asset files and update robots.txt and sitemap.xml
+* [33m1feb01a7[m Add .gitignore to exclude node_modules directory
+* [33m13553833[m deploy: 7dbfb59581bd2d291f0ed608ef6fadfb984365a1
+* [33m04ba9746[m deploy: 21c6f490560d11e62631069570ef207b736d7ddb
+* [33m04510e87[m Add .gitignore for node_modules and update sitemap.xml format and content
+* [33m5203fcf8[m deploy: b32a9d7f5709a17131832ebf111f36f6a3630246
+* [33m9386a178[m Refactor .gitignore to remove unnecessary entries for cleaner configuration
+* [33m08381d3a[m Update .gitignore to include log files and editor configurations
+* [33m5c847a35[m Restore deploy.yml in gh-pages
+* [33m8e298600[m Add new asset files and update sitemap and robots.txt
+*   [33mba2aa058[m Update sitemap.xml with new lastmod timestamp
+[32m|[m[33m\[m  
+[32m|[m * [33ma68faa75[m deploy: db35ddb69609217b95813ef16d35d5d534d8c2d4
+* [33m|[m [33m814cba01[m Remove unnecessary entries from .gitignore for cleaner configuration
+[33m|[m[33m/[m  
+* [33m548161cd[m Update .gitignore to include log files, editor directories, and additional build artifacts
+* [33mb5c7810b[m Add .gitignore to exclude node_modules, .env, and dist directories
+* [33m4eaee6c3[m deploy: 238337894b2f64f4d8adcf64630ae306312a7aef
+* [33mf5db0f40[m Add .gitignore to exclude node_modules directory
+* [33m665b0c46[m deploy: 23ef16d96e377cbfcc643dda888d6e21a0f3fc40
+* [33ma27ad30a[m deploy: 399c2e2f08a50ec763cc7ed8e3549a0818cb9f38
+* [33m773d55b1[m Add .gitignore to exclude node_modules directory
+* [33m1d80b0cc[m deploy: 14ab68f7a49ad967cce8830f5389aed9ee00e3c1
+* [33m306467a8[m deploy: f37ea54afef1c4759d9e99ffaefb7372fb10d702
+* [33m96d965cb[m deploy: 4b3838a8b048abb582b9eb9b446f8538dbbf3d84
+*   [33m43f1f2c3[m Merge branch 'gh-pages' of https://github.com/AhmedNassar7/portfolio into gh-pages
+[34m|[m[35m\[m  
+[34m|[m * [33m47e023c4[m Updates
+* [35m|[m [33md72f5937[m Add new asset files and sitemap for improved functionality
+[35m|[m[35m/[m  
+* [33mfed0b2d5[m Refactor deployment scripts for improved efficiency
+* [33m1dda8049[m Add .gitignore to exclude unnecessary files
+* [33meaabbba9[m deploy: d88c35bb657ab5087454bb017876537d4c09750c
+* [33m8c6f2a46[m Remove Vercel configuration files and unused modulepreload links
+* [33m6b587651[m Deploy to GitHub Pages
+* [33m33aac9a8[m Update on gh-pages branch
+* [33m543d10f4[m deploy: a651791ede68e5f6a9e9703b7ee7ba55f22a4abb
+* [33m959aff67[m deploy: 55b52d741c89631d27cbbdd56470649da9bcc374
+* [33mc6ca3175[m deploy: 2ffa3745fc88baefafaea5a36b8b623b60e5c536
+* [33m81b38338[m deploy: d687fd758521b887b29c719124429abed7052122
+* [33m046658ef[m deploy: 27a3f1455d0c5abe4cf2cd694820624c85684da7
+* [33me0f9c1bc[m deploy: 3fd2389297e2be06f55c4ec272ee8e78466c0fab
+* [33m9163530a[m deploy: de3443e8ccd8aef16c9bfcb04744deef66d9fc24
+* [33m62e5077b[m deploy: eb7c8c24710a0cab34cecadc26155466dd706ae5
+* [33m43b090ea[m deploy: 625d83557ba2fd11e46c717dd566c5bf63aab3a2
+* [33ma7a51ce7[m deploy: 9f52f25b143c68f93c938889886c62a628fd6afc
+* [33m93c17b2e[m deploy: a537cb5add858373585c0783216fffb57ced6aea
+* [33mae83645a[m deploy: b442b58b013156668efa788bbefc75fb6ce597cd
+* [33m7db48cb1[m deploy: 9618533f8630d1c6123db475a46c84d94940a865
