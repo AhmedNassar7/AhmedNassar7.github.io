@@ -15,6 +15,7 @@ const requiredEnvVariables = [
   'VITE_FIREBASE_STORAGE_BUCKET',
   'VITE_FIREBASE_MESSAGING_SENDER_ID',
   'VITE_FIREBASE_APP_ID',
+  'VITE_FIREBASE_ANALYTICS_ID',
 ];
 
 const missingVariables = requiredEnvVariables.filter(
@@ -41,7 +42,7 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_GOOGLE_ANALYTICS_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_ANALYTICS_ID,
 };
 
 // Initialize Firebase

@@ -194,7 +194,9 @@ export default defineConfig(({ mode }) => {
       postcss: {
         plugins: [
           autoprefixer(), // Use imported autoprefixer
-          cssnano({ preset: 'advanced' }), // Use imported cssnano
+          cssnano({
+            preset: 'default', // Use 'default'
+          }),
         ],
       },
       preprocessorOptions: {
