@@ -1,6 +1,10 @@
 # Environment variables
 .env
 .env.*
+.env.development
+.env.production
+test-env.js
+validate-env.js
 
 # Build and cache files
 .parcel-cache/
