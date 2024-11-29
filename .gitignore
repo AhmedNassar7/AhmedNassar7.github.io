@@ -1,6 +1,7 @@
 # Environment variables
 .env
-.env.*
+.env.*  # Matches .env files with any suffix (e.g., .env.development, .env.test)
+*-env   # Matches any file ending with '-env' (e.g., test-env.js, validate-env.js)
 
 # Build and cache files
 .parcel-cache/
@@ -37,3 +38,8 @@ node_modules/
 
 # Test files
 .nyc_output/
+
+# Temporary files (IDE/OS specific)
+*.tmp
+*.temp
+
