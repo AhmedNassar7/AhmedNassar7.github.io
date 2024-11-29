@@ -38,7 +38,13 @@ const siteUrl = 'https://ahmednassar7.github.io';
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
 
+  // Set NODE_ENV for production if needed
+  process.env.NODE_ENV = mode === 'production' ? 'production' : 'development';
+
   return {
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    },
     plugins: [
       react(),
       // Linter
