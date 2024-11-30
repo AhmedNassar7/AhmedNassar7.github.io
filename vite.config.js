@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import process from 'process';
 import dotenv from 'dotenv';
+import { Logger, LogLevel } from './src/utils/logger';
 import react from '@vitejs/plugin-react';
 import sitemap from 'vite-plugin-sitemap';
 import compression from 'vite-plugin-compression';
@@ -14,43 +15,57 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import eslint from 'vite-plugin-eslint';
 
-// Load environment variables
-dotenv.config();
-
-// Validate required environment variables
-const requiredEnvVariables = [
-  'VITE_FIREBASE_API_KEY',
-  'VITE_FIREBASE_AUTH_DOMAIN',
-  'VITE_FIREBASE_DATABASE_URL',
-  'VITE_FIREBASE_PROJECT_ID',
-  'VITE_FIREBASE_STORAGE_BUCKET',
-  'VITE_FIREBASE_MESSAGING_SENDER_ID',
-  'VITE_FIREBASE_APP_ID',
-  'VITE_FIREBASE_ANALYTICS_ID',
-  'VITE_EMAILJS_SERVICE_ID',
-  'VITE_EMAILJS_TEMPLATE_ID',
-  'VITE_EMAILJS_USER_ID',
-  'VITE_GOOGLE_SITE_VERIFICATION',
-  'VITE_GOOGLE_ANALYTICS_ID',
-];
-
-const missingVariables = requiredEnvVariables.filter(
-  (variable) => !process.env[variable],
-);
-if (missingVariables.length > 0) {
-  console.warn(
-    `Warning: Missing required environment variables: ${missingVariables.join(', ')}`,
-  );
-}
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = 'https://ahmednassar7.github.io';
+const logger = new Logger(LogLevel.INFO);
 
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
 
+  // Load environment variables (Vite handles .env files automatically)
+  dotenv.config({ path: `.env.${mode}` });
+
+  // Required environment variables for the app to function correctly
+  const requiredEnvVariables = [
+    'VITE_FIREBASE_API_KEY',
+    'VITE_FIREBASE_AUTH_DOMAIN',
+    'VITE_FIREBASE_DATABASE_URL',
+    'VITE_FIREBASE_PROJECT_ID',
+    'VITE_FIREBASE_STORAGE_BUCKET',
+    'VITE_FIREBASE_MESSAGING_SENDER_ID',
+    'VITE_FIREBASE_APP_ID',
+    'VITE_FIREBASE_ANALYTICS_ID',
+    'VITE_EMAILJS_SERVICE_ID',
+    'VITE_EMAILJS_TEMPLATE_ID',
+    'VITE_EMAILJS_USER_ID',
+    'VITE_GOOGLE_SITE_VERIFICATION',
+    'VITE_GOOGLE_ANALYTICS_ID',
+  ];
+
+  // Validate environment variables
+  const missingVariables = requiredEnvVariables.filter(
+    (variable) => !process.env[variable],
+  );
+
+  if (missingVariables.length > 0) {
+    // In development, just log a warning
+    if (isDev) {
+      logger.warn(
+        `Warning: Missing required environment variables in development: ${missingVariables.join(', ')}`,
+      );
+    } else {
+      // Log an error and throw an exception in production
+      logger.error(
+        `Missing required environment variables in production: ${missingVariables.join(', ')}`,
+      );
+      throw new Error(
+        `Missing required environment variables in production: ${missingVariables.join(', ')}`,
+      );
+    }
+  }
+
   // Set NODE_ENV for production if needed
-  process.env.NODE_ENV = mode === 'production' ? 'production' : 'development';
+  process.env.NODE_ENV = isDev ? 'development' : 'production';
 
   return {
     define: {

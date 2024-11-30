@@ -8,11 +8,13 @@ export const LogLevel = {
 export class Logger {
   constructor(level = LogLevel.INFO) {
     this.level = level;
+    this.levels = Object.values(LogLevel);
   }
 
   log(message, level = LogLevel.INFO) {
     if (this.shouldLog(level)) {
-      console.log(`[${level.toUpperCase()}] ${message}`);
+      const timestamp = new Date().toISOString(); // Format: "YYYY-MM-DDTHH:mm:ss.sssZ"
+      console.log(`[${timestamp}] [${level.toUpperCase()}] ${message}`);
     }
   }
 
