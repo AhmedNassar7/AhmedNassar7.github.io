@@ -18,7 +18,10 @@
     "start": "vite",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "preinstall": "npm install vite"
+    "preinstall": "npm install vite",
+    "validate-env": "node validate-env.js",
+    "test-env": "node test-env.js",
+    "test-all": "npm run validate-env && npm run test-env"
   },
   "husky": {
     "hooks": {
