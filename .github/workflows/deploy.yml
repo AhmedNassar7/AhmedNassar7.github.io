@@ -32,6 +32,12 @@ jobs:
           echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> $GITHUB_ENV
           echo "VITE_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
           echo "VITE_FIREBASE_ANALYTICS_ID=${{ secrets.FIREBASE_ANALYTICS_ID }}" >> $GITHUB_ENV
+          echo "VITE_GOOGLE_SITE_VERIFICATION=${{ secrets.VITE_GOOGLE_SITE_VERIFICATION }}" >> $GITHUB_ENV
+          echo "VITE_GOOGLE_ANALYTICS_ID=${{ secrets.VITE_GOOGLE_ANALYTICS_ID }}" >> $GITHUB_ENV
+          echo "VITE_EMAILJS_SERVICE_ID=${{ secrets.EMAILJS_SERVICE_ID }}" >> $GITHUB_ENV
+          echo "VITE_EMAILJS_TEMPLATE_ID=${{ secrets.EMAILJS_TEMPLATE_ID }}" >> $GITHUB_ENV
+          echo "VITE_EMAILJS_USER_ID=${{ secrets.EMAILJS_USER_ID }}" >> $GITHUB_ENV
+          echo "VITE_EMAILJS_TO_EMAIL=${{ secrets.EMAILJS_TO_EMAIL }}" >> $GITHUB_ENV
 
       - name: Build project
         run: npm run build # Build the project
