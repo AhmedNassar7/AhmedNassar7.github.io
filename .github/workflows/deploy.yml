@@ -38,6 +38,14 @@ jobs:
           echo "VITE_EMAILJS_USER_ID=${{ secrets.VITE_EMAILJS_USER_ID }}" >> $GITHUB_ENV
           echo "VITE_EMAILJS_TO_EMAIL=${{ secrets.VITE_EMAILJS_TO_EMAIL }}" >> $GITHUB_ENV
 
+      - name: Debug environment variables
+        run: |
+          echo "Environment setup complete"
+          echo "VITE_GOOGLE_ANALYTICS_ID=$VITE_GOOGLE_ANALYTICS_ID"
+          # Don't log sensitive variables like API keys
+          echo "VITE_FIREBASE_API_KEY=***REDACTED***"
+          echo "VITE_EMAILJS_SERVICE_ID=***REDACTED***"
+
       - name: Build project
         run: npm run build # Build the project
 

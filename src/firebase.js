@@ -42,6 +42,13 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
+// Example for logging non-sensitive information in development
+if (import.meta.env.MODE === 'production') {
+  logger.info('Production mode enabled');
+} else {
+  logger.debug('Debugging mode active');
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
