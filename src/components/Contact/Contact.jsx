@@ -138,8 +138,8 @@ const Contact = () => {
           import.meta.env.VITE_EMAILJS_SERVICE_ID,
           import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
           {
-            from_name: formData.name,
-            from_email: formData.email,
+            from_name: formData.name || 'Anonymous',
+            from_email: formData.email || 'No Email Provided',
             country: formData.country?.label || 'N/A',
             message: formData.message,
             to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
@@ -158,8 +158,8 @@ const Contact = () => {
       // Save form data to Firebase
       try {
         await addMessage({
-          name: formData.name,
-          email: formData.email,
+          name: formData.name || 'Anonymous',
+          email: formData.email || 'No Email Provided',
           country: formData.country?.label || 'N/A',
           message: formData.message,
         });
@@ -200,7 +200,6 @@ const Contact = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    required
                     className="custom-input"
                   />
                 </Form.Group>
@@ -213,7 +212,6 @@ const Contact = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    required
                     className="custom-input"
                   />
                 </Form.Group>
