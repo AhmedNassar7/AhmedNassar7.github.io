@@ -2,6 +2,10 @@
 .env
 .env.*  # Matches .env files with any suffix (e.g., .env.development, .env.test)
 *-env   # Matches any file ending with '-env' (e.g., test-env.js, validate-env.js)
+.env.production
+.env.development
+test-env.js
+validate-env.js
 
 # Build and cache files
 .parcel-cache/

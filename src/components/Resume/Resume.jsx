@@ -157,6 +157,8 @@ const Resume = () => {
     ],
   };
 
+  const RESUME_URL = '/assets/PDFs/Ahmed_Nassar_Resume.pdf';
+
   const handleResumeDownload = () => {
     // Track resume download event
     trackEvent({
@@ -166,16 +168,21 @@ const Resume = () => {
       value: 1,
     });
 
-    // Download resume
+    // Open resume in a new tab
+    // const newTab = window.open(RESUME_URL, '_blank');
+    // if (!newTab) {
+    //   console.error(
+    //     'Failed to open a new tab. It might be blocked by the browser.',
+    //   );
+    // }
+
+    // Trigger resume download
     const link = document.createElement('a');
-    link.href = '/assets/PDFs/Ahmed_Nassar_Resume.pdf';
+    link.href = RESUME_URL;
     link.download = 'Ahmed_Nassar_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    // Open resume in new tab
-    window.open('/assets/PDFs/Ahmed_Nassar_Resume.pdf', '_blank');
   };
 
   return (
