@@ -76,43 +76,52 @@ const Resume = () => {
 
   const projects = [
     {
-      name: 'Smart Campus',
-      url: 'https://github.com/AhmedNassar7/Smart-Campus',
-      tech: ['Java', 'SQL', 'OOP', 'Java Swing'],
-      description: 'University management system for managing university data.',
+      name: 'Egypt Metro',
+      url: 'https://github.com/Egypt-Metro/backend',
+      tech: ['Python', 'Django', 'PostgreSQL', 'Docker', 'API', 'DRF', 'JWT'],
+      description:
+        'Egypt metro backend provide APIs, business logic, and an admin panel.',
+    },
+    {
+      name: 'Ahmed Nassar',
+      url: 'https://github.com/AhmedNassar7/AhmedNassar7.github.io',
+      tech: ['React', 'SCSS', 'HTML', 'CSS', 'Bootstrap', 'Firebase', 'UI/UX'],
+      description:
+        'Personal portfolio website in a modern, dynamic, and interactive way.',
+    },
+    {
+      name: 'Upwork Clone',
+      url: 'https://github.com/activecourses/upwork-clone-frontend',
+      tech: ['React', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Material-UI'],
+      description:
+        'Upwork clone frontend web application to replicate the core features of Upwork.',
     },
     {
       name: 'Weather Application',
       url: 'https://github.com/AhmedNassar7/Weather-Application',
-      tech: ['React', 'Material-UI', 'Weather API'],
+      tech: ['React', 'HTML', 'CSS', 'Material-UI', 'OpenAPI'],
       description:
         'Real-time weather forecasting app with location-based services.',
     },
     {
-      name: 'Pizza Ordering System',
-      url: 'https://github.com/AhmedNassar7/Pizza-Ordering-System',
-      tech: ['Java', 'SQL', 'Java Swing', 'OOP'],
+      name: 'Software Engineering',
+      url: 'https://github.com/AhmedNassar7/Software-Engineering',
+      tech: [
+        'MAANG',
+        'Internships',
+        'Open Source',
+        'Hackathons',
+        'Events',
+        'Discord',
+      ],
       description:
-        'Ordering system with user authentication, and shortest delivery path.',
+        'Community for software engineering opportunities worldwide.',
     },
     {
       name: 'Movie Hub',
       url: 'https://github.com/AhmedNassar7/Movie-Website',
-      tech: ['HTML', 'CSS', 'React', 'API'],
+      tech: ['React', 'JavaScript', 'HTML', 'CSS', 'API'],
       description: 'Website for discovering and browsing movies.',
-    },
-    {
-      name: 'Chat Application',
-      url: 'https://github.com/AhmedNassar7/Chat-Application',
-      tech: ['Java', 'SQL', 'Java Swing', 'OOP'],
-      description: 'Real-time chat application with multiple user support.',
-    },
-    {
-      name: 'Lufthansa',
-      url: 'https://github.com/AhmedNassar7/Lufthansa',
-      tech: ['C#', '.NET', 'Visual Studio'],
-      description:
-        'Airline management system with booking and scheduling features.',
     },
   ];
 
