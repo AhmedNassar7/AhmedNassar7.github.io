@@ -166,6 +166,15 @@ const Resume = () => {
     ],
   };
 
+  const trackProjectClick = (projectName) => {
+    trackEvent({
+      action: 'click',
+      category: 'Project Link',
+      label: projectName,
+      value: 1,
+    });
+  };
+
   const RESUME_URL = '/assets/PDFs/Ahmed_Nassar_Resume.pdf';
 
   const handleResumeDownload = () => {
@@ -275,6 +284,7 @@ const Resume = () => {
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackProjectClick(project.name)}
                       >
                         <FontAwesomeIcon icon={faGithub} />
                       </a>
