@@ -2,7 +2,7 @@ import ReactGA from 'react-ga4';
 import { Logger, LogLevel } from './logger';
 
 // Instantiate the Logger
-const logger = new Logger(LogLevel.DEBUG);
+const logger = new Logger(LogLevel.INFO);
 
 /**
  * Tracks an event using Google Analytics.

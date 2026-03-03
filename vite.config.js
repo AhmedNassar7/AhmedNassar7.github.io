@@ -75,7 +75,9 @@ export default defineConfig(({ mode }) => {
       // Linter
       eslint({
         cache: false, // Disable caching for updated linting rules
-        fix: true, // Automatically fix issues
+        fix: false, // Automatically fix issues
+        include: ['src/**/*.{js,jsx,ts,tsx}'],
+        exclude: ['node_modules', 'dist'],
       }),
       // Sitemap generation for SEO (only in production)
       !isDev &&
