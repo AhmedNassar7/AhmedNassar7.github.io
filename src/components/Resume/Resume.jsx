@@ -17,6 +17,7 @@ import {
   faBootstrap,
   faNodeJs,
   faSass,
+  faMicrosoft,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faGraduationCap,
@@ -33,6 +34,12 @@ import {
   faCloud,
   faCodeBranch,
   faFireAlt,
+  faDownload,
+  faEye,
+  faUserTie,
+  faServer,
+  faLock,
+  faTerminal,
 } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import './Resume.scss';
@@ -52,6 +59,34 @@ const Resume = () => {
 
   const experiences = [
     {
+      company: 'Beshara Group',
+      role: 'Java Developer',
+      date: 'Nov 2025 – Present',
+      location: 'Cairo, Egypt',
+      url: 'https://ebeshara.com/',
+    },
+    {
+      company: 'Django Software Foundation',
+      role: 'Open Source Contributor',
+      date: 'Jan 2025 – Present',
+      location: 'Remote',
+      url: 'https://www.djangoproject.com',
+    },
+    {
+      company: 'Mercor',
+      role: 'Software Engineer',
+      date: 'Oct 2025 – Dec 2025',
+      location: 'Remote',
+      url: 'https://www.mercor.com',
+    },
+    {
+      company: 'Nile University',
+      role: 'AI Researcher Intern',
+      date: 'Jul 2025 – Aug 2025',
+      location: 'Cairo, Egypt',
+      url: 'https://www.nu.edu.eg',
+    },
+    {
       company: 'Orange Digital Center',
       role: 'Software Engineer Intern',
       date: 'Sep 2024 – Oct 2024',
@@ -60,7 +95,7 @@ const Resume = () => {
     },
     {
       company: 'Information Technology Institute',
-      role: 'Full Stack Web Development using Python',
+      role: 'Web Development using Python',
       date: 'Jul 2024 – Sep 2024',
       location: 'Cairo, Egypt',
       url: 'https://iti.gov.eg/home',
@@ -78,30 +113,24 @@ const Resume = () => {
     {
       name: 'Egypt Metro',
       url: 'https://github.com/Egypt-Metro/backend',
-      tech: ['Python', 'Django', 'PostgreSQL', 'Docker', 'API', 'DRF', 'JWT'],
+      tech: ['Python', 'Django', 'PostgreSQL', 'JavaScript', 'Docker', 'DRF'],
       description:
-        'Egypt metro backend provide APIs, business logic, and an admin panel.',
+        'Scalable Django backend with 60+ RESTful APIs, online ticketing, QR codes, and real-time train tracking.',
     },
     {
-      name: 'Ahmed Nassar',
+      name: 'Portfolio',
       url: 'https://github.com/AhmedNassar7/AhmedNassar7.github.io',
-      tech: ['React', 'SCSS', 'HTML', 'CSS', 'Bootstrap', 'Firebase', 'UI/UX'],
+      tech: [
+        'React',
+        'JavaScript',
+        'Node.js',
+        'SCSS',
+        'Bootstrap',
+        'Firebase',
+        'GitHub Actions',
+      ],
       description:
-        'Personal portfolio website in a modern, dynamic, and interactive way.',
-    },
-    {
-      name: 'Upwork Clone',
-      url: 'https://github.com/activecourses/upwork-clone-frontend',
-      tech: ['React', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Material-UI'],
-      description:
-        'Upwork clone frontend web application to replicate the core features of Upwork.',
-    },
-    {
-      name: 'Weather Application',
-      url: 'https://github.com/AhmedNassar7/Weather-Application',
-      tech: ['React', 'HTML', 'CSS', 'Material-UI', 'OpenAPI'],
-      description:
-        'Real-time weather forecasting app with location-based services.',
+        'Interactive portfolio with animated backgrounds, dark/light themes, Firebase integration, and CI/CD deployment.',
     },
     {
       name: 'Software Engineering',
@@ -115,54 +144,83 @@ const Resume = () => {
         'Discord',
       ],
       description:
-        'Community for software engineering opportunities worldwide.',
+        'Community hub with 480+ GitHub Stars and 1000+ Discord members for software engineering opportunities.',
     },
     {
-      name: 'Movie Hub',
-      url: 'https://github.com/AhmedNassar7/Movie-Website',
-      tech: ['React', 'JavaScript', 'HTML', 'CSS', 'API'],
-      description: 'Website for discovering and browsing movies.',
+      name: 'Pizza Ordering System',
+      url: 'https://github.com/AhmedNassar7/Pizza-Ordering-System',
+      tech: ['Java', 'SQL', 'Java Swing', 'OOP'],
+      description:
+        "Pizza ordering system with Dijkstra's algorithm for optimal delivery routes and dynamic charge calculation.",
+    },
+    {
+      name: 'Upwork Clone',
+      url: 'https://github.com/activecourses/upwork-clone-frontend',
+      tech: ['React', 'TypeScript', 'JavaScript'],
+      description:
+        'Frontend web application replicating core Upwork features with TypeScript and Material-UI.',
+    },
+    {
+      name: 'Chat Application',
+      url: 'https://github.com/AhmedNassar7/Chat-Application',
+      tech: ['Java', 'SQL', 'Java Swing', 'OOP'],
+      description:
+        'Multi-threaded TCP/IP chat app with real-time messaging, file transfer, and client-server architecture.',
     },
   ];
 
   const skills = {
     Languages: [
-      { name: 'Python', icon: faPython },
       { name: 'Java', icon: faJava },
+      { name: 'Python', icon: faPython },
       { name: 'C++', icon: faCode },
-      { name: 'C#', icon: faCode },
+      { name: 'C#', icon: faMicrosoft },
+      { name: 'JavaScript', icon: faJs },
+      { name: 'TypeScript', icon: faJs },
+      { name: 'SQL', icon: faDatabase },
       { name: 'HTML', icon: faHtml5 },
       { name: 'CSS', icon: faCss3 },
-      { name: 'JavaScript', icon: faJs },
-      { name: 'SQL', icon: faDatabase },
     ],
     Frameworks: [
-      { name: 'React', icon: faReact },
       { name: 'Django', icon: faPython },
-      { name: '.NET', icon: faLayerGroup },
-      { name: 'Node.JS', icon: faNodeJs },
+      { name: 'DRF', icon: faPython },
+      { name: 'Spring Boot', icon: faJava },
+      { name: 'React', icon: faReact },
+      { name: 'Node.js', icon: faNodeJs },
       { name: 'Bootstrap', icon: faBootstrap },
       { name: 'SCSS', icon: faSass },
-      { name: 'Redux', icon: faLayerGroup },
       { name: 'Firebase', icon: faFireAlt },
+      { name: 'Redux', icon: faLayerGroup },
     ],
     Tools: [
       { name: 'Git', icon: faGit },
       { name: 'GitHub', icon: faGithub },
-      { name: 'AWS', icon: faAws },
       { name: 'Docker', icon: faDocker },
-      { name: 'Linux', icon: faLinux },
       { name: 'Kubernetes', icon: faCloud },
+      { name: 'AWS', icon: faAws },
+      { name: 'Linux', icon: faLinux },
+      { name: 'Postman', icon: faServer },
+      { name: 'Jira', icon: faCogs },
+      { name: 'Jenkins', icon: faCogs },
+    ],
+    Databases: [
       { name: 'PostgreSQL', icon: faDatabase },
       { name: 'MySQL', icon: faDatabase },
+      { name: 'Oracle', icon: faDatabase },
+      { name: 'MS SQL Server', icon: faDatabase },
+      { name: 'MongoDB', icon: faDatabase },
+      { name: 'SQLite', icon: faDatabase },
     ],
     Concepts: [
+      { name: 'OOP', icon: faCubes },
+      { name: 'SOLID', icon: faLock },
       { name: 'Design Patterns', icon: faCogs },
-      { name: 'Unit Testing', icon: faFlask },
       { name: 'System Design', icon: faNetworkWired },
       { name: 'Microservices', icon: faCubes },
       { name: 'APIs', icon: faCodeBranch },
+      { name: 'CI/CD', icon: faTerminal },
       { name: 'Agile', icon: faLayerGroup },
+      { name: 'Testing', icon: faFlask },
     ],
   };
 
@@ -176,9 +234,21 @@ const Resume = () => {
   };
 
   const RESUME_URL = '/assets/PDFs/Ahmed_Nassar_Resume.pdf';
+  const RESUME_VIEW_URL =
+    'https://drive.google.com/file/d/1AZ9sVmv92Bqf_8hZIC49jYnkNMwwdTUv/view?usp=sharing';
+
+  const handleResumeView = () => {
+    trackEvent({
+      action: 'view_resume',
+      category: 'Resume',
+      label: 'Resume View',
+      value: 1,
+    });
+
+    window.open(RESUME_VIEW_URL, '_blank');
+  };
 
   const handleResumeDownload = () => {
-    // Track resume download event
     trackEvent({
       action: 'download_resume',
       category: 'Resume',
@@ -186,15 +256,6 @@ const Resume = () => {
       value: 1,
     });
 
-    // Open resume in a new tab
-    // const newTab = window.open(RESUME_URL, '_blank');
-    // if (!newTab) {
-    //   console.error(
-    //     'Failed to open a new tab. It might be blocked by the browser.',
-    //   );
-    // }
-
-    // Trigger resume download
     const link = document.createElement('a');
     link.href = RESUME_URL;
     link.download = 'Ahmed_Nassar_Resume.pdf';
@@ -212,31 +273,18 @@ const Resume = () => {
 
         <Row className="mb-5">
           <Col lg={12} data-aos="fade-up">
-            <div className="resume-card">
+            <div className="resume-card summary-card">
               <h3>
-                <FontAwesomeIcon icon={faGraduationCap} /> Education
+                <FontAwesomeIcon icon={faUserTie} /> Summary
               </h3>
-              <div className="education-item">
-                <h4>
-                  <a
-                    href={education.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {education.school}
-                  </a>
-                </h4>
-                <p className="degree">{education.degree}</p>
-                <div className="details">
-                  <p>
-                    <FontAwesomeIcon icon={faCalendar} /> {education.date}
-                  </p>
-                  <p>
-                    <FontAwesomeIcon icon={faLocationDot} />{' '}
-                    {education.location}
-                  </p>
-                </div>
-              </div>
+              <p className="summary-text">
+                Software Engineer with experience in Java enterprise systems and
+                Python/Django development. Recognized DSF Individual Member and
+                Django core contributor with 20+ pull requests to
+                production-scale open-source infrastructure. Skilled in building
+                scalable REST APIs and database-driven systems for
+                national-scale applications.
+              </p>
             </div>
           </Col>
         </Row>
@@ -265,6 +313,37 @@ const Resume = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </Col>
+        </Row>
+
+        <Row className="mb-5">
+          <Col lg={12} data-aos="fade-up">
+            <div className="resume-card">
+              <h3>
+                <FontAwesomeIcon icon={faGraduationCap} /> Education
+              </h3>
+              <div className="education-item">
+                <h4>
+                  <a
+                    href={education.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {education.school}
+                  </a>
+                </h4>
+                <p className="degree">{education.degree}</p>
+                <div className="details">
+                  <p>
+                    <FontAwesomeIcon icon={faCalendar} /> {education.date}
+                  </p>
+                  <p>
+                    <FontAwesomeIcon icon={faLocationDot} />{' '}
+                    {education.location}
+                  </p>
+                </div>
+              </div>
             </div>
           </Col>
         </Row>
@@ -312,10 +391,15 @@ const Resume = () => {
               </h3>
               {Object.entries(skills).map(([category, items]) => (
                 <div key={category} className="skills-category">
-                  <h4>{category.replace(/([A-Z])/g, ' $1').trim()}</h4>
-                  <div className="skills-list">
+                  <h4>{category}</h4>
+                  <div className="skills-grid">
                     {items.map((skill, index) => (
-                      <span key={index} className="skill-item">
+                      <span
+                        key={index}
+                        className="skill-item"
+                        data-aos="fade-up"
+                        data-aos-delay={index * 50}
+                      >
                         <FontAwesomeIcon icon={skill.icon} />
                         {skill.name}
                       </span>
@@ -334,9 +418,14 @@ const Resume = () => {
             data-aos="fade-up"
             data-aos-delay="300"
           >
-            <button onClick={handleResumeDownload} className="download-btn">
-              Download Resume
-            </button>
+            <div className="resume-actions">
+              <button onClick={handleResumeView} className="view-btn">
+                <FontAwesomeIcon icon={faEye} /> View Resume
+              </button>
+              <button onClick={handleResumeDownload} className="download-btn">
+                <FontAwesomeIcon icon={faDownload} /> Download Resume
+              </button>
+            </div>
           </Col>
         </Row>
       </Container>

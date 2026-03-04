@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import About from './components/About/About';
@@ -6,12 +6,14 @@ import Resume from './components/Resume/Resume';
 import Contact from './components/Contact/Contact';
 import Quotes from './components/Quotes/Quotes';
 import Footer from './components/Footer/Footer';
-import ParticlesBackground from './components/ParticlesBackground/ParticlesBackground';
+const ParticlesBackground = lazy(
+  () => import('./components/ParticlesBackground/ParticlesBackground'),
+);
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
 import ReactGA from 'react-ga4';
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 import './styles/main.scss';
 
 function App() {
@@ -49,8 +51,8 @@ function App() {
 
     // Simulate loading time
     const timer = setTimeout(() => {
-      setLoading(false); // After 1 second, set loading to false
-    }, 1000);
+      setLoading(false);
+    }, 300);
 
     return () => {
       clearTimeout(timer);
@@ -101,7 +103,9 @@ function App() {
 
   return (
     <>
-      <ParticlesBackground theme={theme} />
+      <Suspense fallback={null}>
+        <ParticlesBackground theme={theme} />
+      </Suspense>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Home />

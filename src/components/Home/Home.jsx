@@ -74,11 +74,15 @@ const Home = () => {
                 <TypeAnimation
                   sequence={[
                     'Software Engineer',
-                    2000,
-                    'Web Developer',
-                    2000,
-                    'Full Stack Developer',
-                    2000,
+                    1000,
+                    'Java Developer',
+                    1000,
+                    'Python Developer',
+                    1000,
+                    'DSF Member',
+                    1000,
+                    'Community Builder',
+                    1000,
                   ]}
                   wrapper="span"
                   speed={50}

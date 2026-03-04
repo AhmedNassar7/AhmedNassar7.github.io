@@ -193,31 +193,42 @@ const Contact = () => {
             <div className="contact-form-wrapper" data-aos="fade-up">
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-4">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>
+                    Name <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     value={formData.name}
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
+                    required
                     className="custom-input"
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-4">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>
+                    Email <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="email"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
+                    required
                     className="custom-input"
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-4">
-                  <Form.Label>Country</Form.Label>
+                  <Form.Label>
+                    Country{' '}
+                    <span style={{ opacity: 0.5, fontSize: '0.85rem' }}>
+                      (Optional)
+                    </span>
+                  </Form.Label>
                   <Select
                     value={formData.country}
                     onChange={(value) =>
@@ -232,7 +243,9 @@ const Contact = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-4">
-                  <Form.Label>Message</Form.Label>
+                  <Form.Label>
+                    Message <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={5}

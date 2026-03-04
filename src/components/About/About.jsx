@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faGraduationCap,
+  faBullseye,
   faRocket,
   faLightbulb,
   faPhone,
@@ -23,16 +23,16 @@ const About = () => {
 
   const personalInfo = [
     {
-      icon: faGraduationCap,
-      text: 'Senior Computer Science Student',
-    },
-    {
       icon: faRocket,
-      text: 'Passionate about Web Development',
+      text: 'Passionate about Software Engineering',
     },
     {
       icon: faLightbulb,
       text: 'Contribute to Open-Source Projects',
+    },
+    {
+      icon: faBullseye,
+      text: 'Focus on Quality over Quantity',
     },
   ];
 

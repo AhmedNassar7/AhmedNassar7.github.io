@@ -130,6 +130,9 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         registerType: 'autoUpdate', // Automatically updates the service worker
         injectRegister: 'auto', // Injects the service worker registration script automatically
+        devOptions: {
+          enabled: false, // Disable service worker in development to prevent reload loops
+        },
         manifest: {
           name: 'Ahmed Nassar',
           short_name: 'Nassar',
@@ -152,7 +155,7 @@ export default defineConfig(({ mode }) => {
           display: 'standalone',
           start_url: '/', // Ensures app starts at the root
         },
-        workboxOptions: {
+        workbox: {
           skipWaiting: true, // Skip waiting for the new service worker to activate
           clientsClaim: true, // Ensure service worker takes control of all pages immediately
           runtimeCaching: [
@@ -209,17 +212,8 @@ export default defineConfig(({ mode }) => {
     server: {
       host: process.env.HOST || 'localhost',
       port: parseInt(process.env.PORT) || 5173,
-      hmr: {
-        clientPort: 5173,
-      },
       watch: {
         ignored: ['**/node_modules/**', '**/.git/**'], // Exclude directories from watch
-      },
-      headers: {
-        'Cache-Control': 'public, max-age=31536000, immutable', // Cache static assets for long periods
-      },
-      historyApiFallback: {
-        rewrites: [{ from: /^\/.*$/, to: '/index.html' }], // Handle single-page app routing
       },
     },
     assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.gif'], // Optimize static assets
@@ -227,15 +221,22 @@ export default defineConfig(({ mode }) => {
       postcss: {
         plugins: [
           autoprefixer(), // Use imported autoprefixer
-          cssnano({
-            preset: 'default', // Use 'default'
-          }),
-        ],
+          !isDev &&
+            cssnano({
+              preset: 'default', // Use 'default'
+            }),
+        ].filter(Boolean),
       },
       preprocessorOptions: {
         scss: {
-          // No need to import main.scss here since it may already be imported elsewhere
-          additionalData: '', // Empty or remove this line if no global import needed
+          api: 'modern-compiler',
+          silenceDeprecations: [
+            'legacy-js-api',
+            'import',
+            'global-builtin',
+            'mixed-decls',
+            'color-functions',
+          ],
         },
       },
     },
