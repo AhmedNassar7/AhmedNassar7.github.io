@@ -32,7 +32,7 @@ const Quotes = () => {
     },
     { text: 'Experience is learning from mistakes.', author: 'Oscar Wilde' },
     {
-      text: 'The Web does not just connect machines, it connects people.',
+      text: "The Web doesn't just connect machines, it connects people.",
       author: 'Tim Berners-Lee',
     },
     {
