@@ -30,26 +30,22 @@ const Quotes = () => {
       text: 'The biggest risk is not taking any risk.',
       author: 'Mark Zuckerberg',
     },
-    {
-      text: 'Good code is easy for humans to understand.',
-      author: 'Martin Fowler',
-    },
     { text: 'Experience is learning from mistakes.', author: 'Oscar Wilde' },
-    {
-      text: 'Your most unhappy customers are your greatest source of learning.',
-      author: 'Bill Gates',
-    },
-    {
-      text: 'The best way to learn a language is by writing code in it.',
-      author: 'Dennis Ritchie',
-    },
     {
       text: 'The Web does not just connect machines, it connects people.',
       author: 'Tim Berners-Lee',
     },
     {
-      text: "It's fine to celebrate success, but it is more important to heed the lessons of failure.",
-      author: 'Bill Gates',
+      text: 'Talk is cheap. Show me the code.',
+      author: 'Linus Torvalds',
+    },
+    {
+      text: 'Testing leads to failure, and failure leads to understanding.',
+      author: 'Burt Rutan',
+    },
+    {
+      text: "It's not a bug; it's an undocumented feature.",
+      author: 'Anonymous',
     },
   ];
 
@@ -68,7 +64,7 @@ const Quotes = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(nextQuote, 3500);
+    const interval = setInterval(nextQuote, 5000);
     return () => clearInterval(interval);
   }, [nextQuote]);
 
