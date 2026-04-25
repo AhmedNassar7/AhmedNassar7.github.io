@@ -15,6 +15,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './Home.scss';
+import profileImage from '../../assets/images/profile.png';
 import { trackEvent } from '../../utils/analytics';
 
 const Home = () => {
@@ -57,7 +58,7 @@ const Home = () => {
           <Col md={6} className="text-center" data-aos="fade-right">
             <div className="profile-image-container">
               <img
-                src="/assets/images/profile.png"
+                src={profileImage}
                 alt="Ahmed Nassar"
                 className="profile-image"
                 loading="lazy"
