@@ -249,7 +249,7 @@ As a passionate developer, my vision is to create scalable, efficient, and innov
 If you're interested in collaborating, hiring, or seeking consulting services, please don't hesitate to get in touch with me. I’m available for freelance work, project consultation, collaboration, and new opportunities.
 
 <p align="center">
-    <a href="https://www.linkedin.com/in/ahmed-nassar/">
+    <a href="https://www.linkedin.com/in/nasssar/">
         <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
     </a>
     &nbsp;
