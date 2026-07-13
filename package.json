@@ -18,10 +18,7 @@
     "test:watch": "vitest",
     "start": "cross-env NODE_ENV=development vite",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "validate-env": "node validate-env.js",
-    "test-env": "node test-env.js",
-    "test-all": "npm run validate-env && npm run test-env"
+    "deploy": "gh-pages -d dist"
   },
   "lint-staged": {
     "*.{js,jsx}": [
