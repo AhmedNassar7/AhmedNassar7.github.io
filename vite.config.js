@@ -5,7 +5,7 @@ import { Logger, LogLevel } from './src/utils/logger';
 import react from '@vitejs/plugin-react';
 import sitemap from 'vite-plugin-sitemap';
 import compression from 'vite-plugin-compression';
-import viteImagemin from 'vite-plugin-imagemin';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -101,13 +101,19 @@ export default defineConfig(({ mode }) => {
         }),
       // Image optimization (only in production)
       !isDev &&
-        viteImagemin({
-          gifsicle: { optimizationLevel: 3 },
-          optipng: { optimizationLevel: 3 },
-          mozjpeg: { quality: 75 },
-          pngquant: { quality: [0.7, 0.9] },
-          svgo: { plugins: [{ name: 'removeViewBox', active: false }] },
-          exclude: [/favicon\.svg$/, /images\/profile\.png$/], // Exclude favicon from image optimization
+        ViteImageOptimizer({
+          png: { quality: 80 },
+          jpeg: { quality: 75 },
+          jpg: { quality: 75 },
+          svg: {
+            plugins: [
+              {
+                name: 'preset-default',
+                params: { overrides: { removeViewBox: false } },
+              },
+            ],
+          },
+          exclude: /favicon\.svg$|images\/profile\.png$/, // Exclude favicon from image optimization
         }),
       // Bundle visualization for production (optional)
       !isDev &&
@@ -158,6 +164,11 @@ export default defineConfig(({ mode }) => {
         workbox: {
           skipWaiting: true, // Skip waiting for the new service worker to activate
           clientsClaim: true, // Ensure service worker takes control of all pages immediately
+          // The SW scope covers the whole origin, which also hosts the
+          // separate /toolkit/ project. Without this, Workbox's default
+          // navigateFallback ('index.html') hijacks navigation to /toolkit/
+          // and serves this portfolio's shell instead of letting it load.
+          navigateFallbackDenylist: [/^\/toolkit/],
           runtimeCaching: [
             {
               urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif)$/, // Caching for image files

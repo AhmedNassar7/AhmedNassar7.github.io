@@ -57,6 +57,7 @@ const Footer = () => {
             <Link
               key={link}
               to={link.toLowerCase()}
+              href={`#${link.toLowerCase()}`}
               spy={true}
               smooth={true}
               offset={-70}

@@ -73,6 +73,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                   <Link
                     className="nav-link"
                     to={item.toLowerCase()}
+                    href={`#${item.toLowerCase()}`}
                     spy={true}
                     smooth={true}
                     offset={-70}

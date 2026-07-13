@@ -77,10 +77,18 @@ const Quotes = () => {
           <FontAwesomeIcon icon={faQuoteRight} className="quote-icon right" />
           <p className="quote-author">{quotes[currentQuote].author}</p>
           <div className="quote-nav-btns">
-            <button onClick={prevQuote} className="quote-nav-btn">
+            <button
+              onClick={prevQuote}
+              className="quote-nav-btn"
+              aria-label="Previous quote"
+            >
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-            <button onClick={nextQuote} className="quote-nav-btn">
+            <button
+              onClick={nextQuote}
+              className="quote-nav-btn"
+              aria-label="Next quote"
+            >
               <FontAwesomeIcon icon={faChevronRight} />
             </button>
           </div>

@@ -21,7 +21,7 @@
     flex-wrap: wrap;
 
     .quick-link {
-      color: var(--primary);
+      color: var(--primary-text);
       text-decoration: none;
       font-weight: 500;
       transition: all 0.3s ease;
@@ -55,7 +55,6 @@
     justify-content: center;
     gap: 3rem;
     font-size: 0.9rem;
-    opacity: 0.8;
     font-weight: 500;
     margin-top: -5px;
   }
@@ -71,12 +70,13 @@
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.2rem;
-    color: var(--primary);
+    color: var(--primary-text);
   }
 
   .date,
   .time {
     font-size: 1rem;
+    opacity: 0.8;
   }
 
   .social-links {

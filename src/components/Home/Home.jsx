@@ -125,11 +125,13 @@ const Home = () => {
               <div>
                 <Link
                   to="about"
+                  href="#about"
                   spy={true}
                   smooth={true}
                   offset={-70}
                   duration={500}
                   className="scroll-indicator"
+                  aria-label="Scroll to About section"
                 >
                   <FontAwesomeIcon
                     icon={faChevronDown}

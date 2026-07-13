@@ -13,6 +13,8 @@ $light: #ffffff;
   --secondary: #{$secondary};
   --dark: #{$dark};
   --light: #{$light};
+  // AA-contrast-safe variant of --primary for use as text color (WCAG 4.5:1+)
+  --primary-text: #555cd9;
 }
 
 body {
@@ -29,6 +31,7 @@ body {
   &.dark-theme {
     background-color: var(--dark);
     color: var(--light);
+    --primary-text: #9398ff;
   }
 
   &.light-theme {

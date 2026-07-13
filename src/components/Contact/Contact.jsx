@@ -192,7 +192,7 @@ const Contact = () => {
           <Col lg={8}>
             <div className="contact-form-wrapper" data-aos="fade-up">
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-4" controlId="contactName">
                   <Form.Label>
                     Name <span className="text-danger">*</span>
                   </Form.Label>
@@ -207,7 +207,7 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-4" controlId="contactEmail">
                   <Form.Label>
                     Email <span className="text-danger">*</span>
                   </Form.Label>
@@ -235,6 +235,7 @@ const Contact = () => {
                       setFormData({ ...formData, country: value })
                     }
                     options={countries}
+                    aria-label="Country"
                     formatOptionLabel={formatOptionLabel}
                     styles={customStyles}
                     className="country-select"
@@ -242,7 +243,7 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-4" controlId="contactMessage">
                   <Form.Label>
                     Message <span className="text-danger">*</span>
                   </Form.Label>

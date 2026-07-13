@@ -25,7 +25,9 @@ function App() {
     // Initialize Google Analytics
     if (!ReactGA.isInitialized) {
       try {
-        ReactGA.initialize('G-XGC9BKTSD1', { debug: true });
+        ReactGA.initialize('G-XGC9BKTSD1', {
+          debug: import.meta.env.MODE !== 'production',
+        });
         ReactGA.send('pageview');
       } catch (error) {
         console.error('Google Analytics initialization error:', error);

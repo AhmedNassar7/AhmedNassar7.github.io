@@ -363,6 +363,7 @@ const Resume = () => {
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`View ${project.name} on GitHub`}
                         onClick={() => trackProjectClick(project.name)}
                       >
                         <FontAwesomeIcon icon={faGithub} />
