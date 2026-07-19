@@ -98,6 +98,9 @@ const Footer = () => {
         <div className="copyright">
           © {currentYear} Ahmed Nassar – All Rights Reserved
         </div>
+        <div className="made-with-love">
+          Made with <span className="heart">❤️</span>
+        </div>
       </div>
     </footer>
   );

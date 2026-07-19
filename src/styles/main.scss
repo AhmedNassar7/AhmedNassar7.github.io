@@ -144,18 +144,8 @@ section {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  opacity: 0;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-
-  &.visible {
-    opacity: 1;
-  }
-
-  &:hover {
-    transform: translateY(-3px);
-  }
+  border: none;
+  z-index: 1000;
 }
 
 // Skills Animation
@@ -190,7 +180,7 @@ section {
   font-weight: bold;
   color: var(--primary); /* Uses primary color defined in root */
   animation: fadeIn 1s ease-out forwards; /* Smooth fade-in transition for entire spinner */
-  
+
   .dots {
     display: flex;
     gap: 10px; /* Space between dots */
@@ -230,7 +220,8 @@ section {
 
   /* Bounce animation for dots */
   @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
     }
     50% {

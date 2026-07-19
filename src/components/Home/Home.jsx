@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
+import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -51,6 +52,18 @@ const Home = () => {
     },
   ];
 
+  const socialContainerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.08, delayChildren: 0.3 },
+    },
+  };
+
+  const socialItemVariants = {
+    hidden: { opacity: 0, y: 15, scale: 0.8 },
+    visible: { opacity: 1, y: 0, scale: 1 },
+  };
+
   return (
     <section id="home" className="home-section">
       <Container>
@@ -92,15 +105,22 @@ const Home = () => {
                 />
               </div>
               <p className="tagline">Turning ideas into reality through code</p>
-              <div className="social-links">
+              <motion.div
+                className="social-links"
+                variants={socialContainerVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {socialLinks.map((link, index) => (
-                  <a
+                  <motion.a
                     key={index}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-icon"
                     aria-label={link.label}
+                    variants={socialItemVariants}
+                    whileTap={{ scale: 0.85 }}
                     onClick={() => {
                       try {
                         trackEvent({
@@ -119,9 +139,9 @@ const Home = () => {
                     }}
                   >
                     <FontAwesomeIcon icon={link.icon} />
-                  </a>
+                  </motion.a>
                 ))}
-              </div>
+              </motion.div>
               <div>
                 <Link
                   to="about"

@@ -56,6 +56,12 @@
   padding-top: 0px;
   align-items: center;
   margin-left: auto;
+  overflow: hidden;
+
+  .theme-icon {
+    display: flex;
+    align-items: center;
+  }
 
   @media (max-width: 991px) {
     font-size: 1.3rem;

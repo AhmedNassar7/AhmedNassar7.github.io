@@ -101,4 +101,26 @@
     opacity: 0.8;
     font-size: 0.9rem;
   }
+
+  .made-with-love {
+    text-align: center;
+    opacity: 0.7;
+    font-size: 0.85rem;
+    margin-top: -1rem;
+
+    .heart {
+      display: inline-block;
+      animation: heartbeat 1.4s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }

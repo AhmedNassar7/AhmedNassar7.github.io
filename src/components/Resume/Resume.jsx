@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { trackEvent } from '../../utils/analytics';
 import {
@@ -41,6 +42,8 @@ import {
   faLock,
   faTerminal,
   faArrowUpRightFromSquare,
+  faAward,
+  faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import './Resume.scss';
@@ -56,12 +59,14 @@ const Resume = () => {
     date: '2021 - 2025',
     location: 'Cairo, Egypt',
     url: 'https://mng.modern-academy.edu.eg/',
+    cgpa: '3.8 / 4.0',
   };
 
   const experiences = [
     {
       company: 'Beshara Group',
       role: 'Java Developer',
+      type: 'Full Time',
       date: 'Nov 2025 – Present',
       location: 'Cairo, Egypt',
       url: 'https://ebeshara.com/',
@@ -69,27 +74,31 @@ const Resume = () => {
     {
       company: 'Django Software Foundation',
       role: 'Open Source Contributor',
-      date: 'Jan 2025 – Present',
+      type: 'Volunteer',
+      date: 'Jan 2025 – Jan 2026',
       location: 'Remote',
       url: 'https://www.djangoproject.com',
     },
     {
       company: 'Mercor',
       role: 'Software Engineer',
+      type: 'Contract',
       date: 'Oct 2025 – Dec 2025',
       location: 'Remote',
       url: 'https://www.mercor.com',
     },
     {
       company: 'Nile University',
-      role: 'AI Researcher Intern',
+      role: 'AI Researcher',
+      type: 'Internship',
       date: 'Jul 2025 – Aug 2025',
       location: 'Cairo, Egypt',
       url: 'https://www.nu.edu.eg',
     },
     {
       company: 'Orange Digital Center',
-      role: 'Software Engineer Intern',
+      role: 'Software Engineer',
+      type: 'Internship',
       date: 'Sep 2024 – Oct 2024',
       location: 'Cairo, Egypt',
       url: 'https://www.orangedigitalcenters.com/country/EG/home',
@@ -97,13 +106,15 @@ const Resume = () => {
     {
       company: 'Information Technology Institute',
       role: 'Web Development using Python',
+      type: 'Training',
       date: 'Jul 2024 – Sep 2024',
       location: 'Cairo, Egypt',
       url: 'https://iti.gov.eg/home',
     },
     {
       company: 'Nokia',
-      role: 'Software Engineer Intern',
+      role: 'Software Engineer',
+      type: 'Internship',
       date: 'Aug 2023 – Oct 2023',
       location: 'Cairo, Egypt',
       url: 'https://www.nokia.com/',
@@ -148,41 +159,27 @@ const Resume = () => {
       description:
         'Automated hourly tracker for software engineering jobs, internships, and hackathons — no sign-up needed.',
     },
+  ];
+
+  const achievements = [
     {
-      name: 'Software Engineering',
+      title: 'Founder, Software Engineering Community',
       url: 'https://github.com/AhmedNassar7/Software-Engineering',
-      tech: [
-        'Markdown',
-        'GitHub Actions',
-        'Open Source',
-        'Community',
-        'Documentation',
+      secondaryUrl: 'https://discord.gg/N95QU2Ww3h',
+      secondaryLabel: 'Discord',
+      bullets: [
+        'Central hub for software engineering opportunities worldwide — internships, open-source, mock interviews, and hackathons.',
+        '500+ GitHub stars and 1,000+ Discord members supporting engineers globally.',
       ],
-      description:
-        'Community hub with 500+ GitHub stars and 1000+ Discord members for tech opportunities.',
     },
     {
-      name: 'Portfolio',
-      url: 'https://github.com/AhmedNassar7/AhmedNassar7.github.io',
-      liveUrl: 'https://ahmednassar7.github.io/',
-      tech: [
-        'React',
-        'JavaScript',
-        'Node.js',
-        'SCSS',
-        'Bootstrap',
-        'Firebase',
-        'GitHub Actions',
+      title: 'Round 2 Qualifier, Meta Hacker Cup',
+      secondaryUrl:
+        'https://web.facebook.com/codingcompetitions/hacker-cup/2025/certificate/209508058776009',
+      secondaryLabel: 'Certificate',
+      bullets: [
+        'Ranked in the top 5% in Round 1 and advanced to Round 2, finishing in the top 20% globally.',
       ],
-      description:
-        'Interactive portfolio with animated backgrounds, dark/light themes, and CI/CD deployment.',
-    },
-    {
-      name: 'Upwork Clone',
-      url: 'https://github.com/activecourses/upwork-clone-frontend',
-      tech: ['React', 'TypeScript', 'Material-UI'],
-      description:
-        'Frontend replicating core Upwork features with React, TypeScript, and Material-UI.',
     },
   ];
 
@@ -208,6 +205,7 @@ const Resume = () => {
       { name: 'SCSS', icon: faSass },
       { name: 'Firebase', icon: faFireAlt },
       { name: 'Redux', icon: faLayerGroup },
+      { name: 'Ajax', icon: faJs },
     ],
     Tools: [
       { name: 'Git', icon: faGit },
@@ -215,6 +213,8 @@ const Resume = () => {
       { name: 'Docker', icon: faDocker },
       { name: 'Kubernetes', icon: faCloud },
       { name: 'AWS', icon: faAws },
+      { name: 'Azure', icon: faMicrosoft },
+      { name: 'Kafka', icon: faNetworkWired },
       { name: 'Linux', icon: faLinux },
       { name: 'Postman', icon: faServer },
       { name: 'Jira', icon: faCogs },
@@ -239,6 +239,16 @@ const Resume = () => {
       { name: 'Agile', icon: faLayerGroup },
       { name: 'Testing', icon: faFlask },
     ],
+  };
+
+  const projectGridVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1 } },
+  };
+
+  const projectItemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
   };
 
   const trackProjectClick = (projectName) => {
@@ -295,12 +305,10 @@ const Resume = () => {
                 <FontAwesomeIcon icon={faUserTie} /> Summary
               </h3>
               <p className="summary-text">
-                Software Engineer with experience in Java enterprise systems and
-                Python/Django development. Recognized DSF Individual Member and
-                Django core contributor with 20+ pull requests to
-                production-scale open-source infrastructure. Skilled in building
-                scalable REST APIs and database-driven systems for
-                national-scale applications.
+                Software Engineer specializing in backend development and
+                open-source contributions. DSF Individual Member and Django core
+                contributor with 10 merged pull requests. Experienced in
+                building systems at global and national scale.
               </p>
             </div>
           </Col>
@@ -313,13 +321,58 @@ const Resume = () => {
                 <FontAwesomeIcon icon={faBriefcase} /> Experience
               </h3>
               {experiences.map((exp, index) => (
-                <div key={index} className="experience-item">
+                <motion.div
+                  key={index}
+                  className="experience-item"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                >
                   <h4>
                     <a href={exp.url} target="_blank" rel="noopener noreferrer">
                       {exp.company}
                     </a>
                   </h4>
-                  <p className="role">{exp.role}</p>
+                  <div className="role-row">
+                    <motion.p
+                      className="role"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 15,
+                      }}
+                    >
+                      {exp.role}
+                    </motion.p>
+                    {exp.type && (
+                      <motion.span
+                        className="role-type"
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 400,
+                          damping: 15,
+                          delay: index * 0.08 + 0.2,
+                        }}
+                        whileHover={{
+                          scale: 1.1,
+                          y: -2,
+                          transition: {
+                            type: 'spring',
+                            stiffness: 400,
+                            damping: 15,
+                            delay: 0,
+                          },
+                        }}
+                      >
+                        {exp.type}
+                      </motion.span>
+                    )}
+                  </div>
                   <div className="details">
                     <p>
                       <FontAwesomeIcon icon={faCalendar} /> {exp.date}
@@ -328,7 +381,7 @@ const Resume = () => {
                       <FontAwesomeIcon icon={faLocationDot} /> {exp.location}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </Col>
@@ -359,6 +412,10 @@ const Resume = () => {
                     <FontAwesomeIcon icon={faLocationDot} />{' '}
                     {education.location}
                   </p>
+                  <p>
+                    <FontAwesomeIcon icon={faChartLine} /> CGPA:{' '}
+                    {education.cgpa}
+                  </p>
                 </div>
               </div>
             </div>
@@ -371,9 +428,24 @@ const Resume = () => {
               <h3>
                 <FontAwesomeIcon icon={faGithub} /> Projects
               </h3>
-              <div className="projects-grid">
+              <motion.div
+                className="projects-grid"
+                variants={projectGridVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
                 {projects.map((project, index) => (
-                  <div key={index} className="project-item">
+                  <motion.div
+                    key={index}
+                    className="project-item"
+                    variants={projectItemVariants}
+                    whileHover={{
+                      y: -8,
+                      boxShadow: '0 12px 30px rgba(0, 0, 0, 0.15)',
+                    }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+                  >
                     <div className="project-header">
                       <h4>{project.name}</h4>
                       <div className="project-links">
@@ -409,7 +481,73 @@ const Resume = () => {
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </Col>
+        </Row>
+
+        <Row className="mb-5">
+          <Col lg={12} data-aos="fade-up" data-aos-delay="150">
+            <div className="resume-card">
+              <h3>
+                <FontAwesomeIcon icon={faAward} /> Achievements
+              </h3>
+              <div className="achievements-grid">
+                {achievements.map((achievement, index) => (
+                  <motion.div
+                    key={index}
+                    className="achievement-item"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    whileHover={{
+                      y: -8,
+                      boxShadow: '0 12px 30px rgba(0, 0, 0, 0.15)',
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 22,
+                      delay: index * 0.1,
+                    }}
+                  >
+                    <div className="achievement-header">
+                      <h4>{achievement.title}</h4>
+                      {(achievement.url || achievement.secondaryUrl) && (
+                        <div className="achievement-links">
+                          {achievement.url && (
+                            <a
+                              href={achievement.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`View ${achievement.title} on GitHub`}
+                            >
+                              <FontAwesomeIcon icon={faGithub} />
+                            </a>
+                          )}
+                          {achievement.secondaryUrl && (
+                            <a
+                              href={achievement.secondaryUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Open ${achievement.secondaryLabel} for ${achievement.title}`}
+                            >
+                              <FontAwesomeIcon
+                                icon={faArrowUpRightFromSquare}
+                              />
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    <ul className="achievement-bullets">
+                      {achievement.bullets.map((bullet, bulletIndex) => (
+                        <li key={bulletIndex}>{bullet}</li>
+                      ))}
+                    </ul>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -452,12 +590,22 @@ const Resume = () => {
             data-aos-delay="300"
           >
             <div className="resume-actions">
-              <button onClick={handleResumeView} className="view-btn">
+              <motion.button
+                onClick={handleResumeView}
+                className="view-btn"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <FontAwesomeIcon icon={faEye} /> View Resume
-              </button>
-              <button onClick={handleResumeDownload} className="download-btn">
+              </motion.button>
+              <motion.button
+                onClick={handleResumeDownload}
+                className="download-btn"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <FontAwesomeIcon icon={faDownload} /> Download Resume
-              </button>
+              </motion.button>
             </div>
           </Col>
         </Row>

@@ -1,6 +1,8 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
+import Stats from './components/Stats/Stats';
 import About from './components/About/About';
 import Resume from './components/Resume/Resume';
 import Contact from './components/Contact/Contact';
@@ -111,20 +113,30 @@ function App() {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Home />
+        <Stats />
         <About />
         <Resume />
         <Contact />
         <Quotes />
       </main>
       <Footer />
-      <button
-        className={`scroll-to-top ${showScrollTop ? 'visible' : ''}`}
-        onClick={scrollToTop}
-        aria-label="Scroll to top"
-        aria-live="polite"
-      >
-        <FontAwesomeIcon icon={faArrowUp} />
-      </button>
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            className="scroll-to-top"
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+            initial={{ opacity: 0, y: 20, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.8 }}
+            whileHover={{ scale: 1.12, y: -3 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <FontAwesomeIcon icon={faArrowUp} />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </>
   );
 }

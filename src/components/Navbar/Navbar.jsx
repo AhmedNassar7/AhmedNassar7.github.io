@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-scroll';
 import { Container, Nav, Navbar as BootstrapNavbar } from 'react-bootstrap';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
 import './Navbar.scss';
 
@@ -47,17 +48,39 @@ const Navbar = ({ theme, toggleTheme }) => {
             />
           </BootstrapNavbar.Brand>
           {/* Theme Toggle Button */}
-          <button
+          <motion.button
             className="theme-toggle-btn"
             onClick={toggleTheme}
             aria-label="Toggle theme"
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.85 }}
           >
-            {theme === 'dark' ? (
-              <Sun className="w-5 h-5" />
-            ) : (
-              <Moon className="w-5 h-5" />
-            )}
-          </button>
+            <AnimatePresence mode="wait" initial={false}>
+              {theme === 'dark' ? (
+                <motion.span
+                  key="sun"
+                  className="theme-icon"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Sun className="w-5 h-5" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="moon"
+                  className="theme-icon"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Moon className="w-5 h-5" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.button>
           {/* Custom Toggler */}
           <BootstrapNavbar.Toggle
             aria-controls="basic-navbar-nav"
