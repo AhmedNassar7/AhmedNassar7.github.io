@@ -40,6 +40,7 @@ import {
   faServer,
   faLock,
   faTerminal,
+  faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import './Resume.scss';
@@ -111,15 +112,59 @@ const Resume = () => {
 
   const projects = [
     {
-      name: 'Egypt Metro',
+      name: 'Egypt Metro Backend',
       url: 'https://github.com/Egypt-Metro/backend',
-      tech: ['Python', 'Django', 'PostgreSQL', 'JavaScript', 'Docker', 'DRF'],
+      tech: [
+        'Python',
+        'Django',
+        'DRF',
+        'PostgreSQL',
+        'JavaScript',
+        'HTML',
+        'CSS',
+      ],
       description:
-        'Scalable Django backend with 60+ RESTful APIs, online ticketing, QR codes, and real-time train tracking.',
+        'Scalable Django backend serving millions of users with 60+ RESTful APIs, real-time train tracking, and secure ticketing.',
+    },
+    {
+      name: 'PDF Toolkit',
+      url: 'https://github.com/AhmedNassar7/toolkit',
+      liveUrl: 'https://ahmednassar7.github.io/toolkit/',
+      tech: [
+        'React',
+        'TypeScript',
+        'Node.js',
+        'Docker',
+        'Tailwind',
+        'Supabase',
+      ],
+      description:
+        '22 client-side PDF tools — merge, split, compress, encrypt, convert — with zero server storage.',
+    },
+    {
+      name: 'Tracker',
+      url: 'https://github.com/AhmedNassar7/tracker',
+      tech: ['Python', 'GitHub Actions', 'Automation', 'Web Scraping'],
+      description:
+        'Automated hourly tracker for software engineering jobs, internships, and hackathons — no sign-up needed.',
+    },
+    {
+      name: 'Software Engineering',
+      url: 'https://github.com/AhmedNassar7/Software-Engineering',
+      tech: [
+        'Markdown',
+        'GitHub Actions',
+        'Open Source',
+        'Community',
+        'Documentation',
+      ],
+      description:
+        'Community hub with 500+ GitHub stars and 1000+ Discord members for tech opportunities.',
     },
     {
       name: 'Portfolio',
       url: 'https://github.com/AhmedNassar7/AhmedNassar7.github.io',
+      liveUrl: 'https://ahmednassar7.github.io/',
       tech: [
         'React',
         'JavaScript',
@@ -130,42 +175,14 @@ const Resume = () => {
         'GitHub Actions',
       ],
       description:
-        'Interactive portfolio with animated backgrounds, dark/light themes, Firebase integration, and CI/CD deployment.',
-    },
-    {
-      name: 'Software Engineering',
-      url: 'https://github.com/AhmedNassar7/Software-Engineering',
-      tech: [
-        'MAANG',
-        'Internships',
-        'Open Source',
-        'Hackathons',
-        'Events',
-        'Discord',
-      ],
-      description:
-        'Community hub with 480+ GitHub Stars and 1000+ Discord members for software engineering opportunities.',
-    },
-    {
-      name: 'Pizza Ordering System',
-      url: 'https://github.com/AhmedNassar7/Pizza-Ordering-System',
-      tech: ['Java', 'SQL', 'Java Swing', 'OOP'],
-      description:
-        "Pizza ordering system with Dijkstra's algorithm for optimal delivery routes and dynamic charge calculation.",
+        'Interactive portfolio with animated backgrounds, dark/light themes, and CI/CD deployment.',
     },
     {
       name: 'Upwork Clone',
       url: 'https://github.com/activecourses/upwork-clone-frontend',
-      tech: ['React', 'TypeScript', 'JavaScript'],
+      tech: ['React', 'TypeScript', 'Material-UI'],
       description:
-        'Frontend web application replicating core Upwork features with TypeScript and Material-UI.',
-    },
-    {
-      name: 'Chat Application',
-      url: 'https://github.com/AhmedNassar7/Chat-Application',
-      tech: ['Java', 'SQL', 'Java Swing', 'OOP'],
-      description:
-        'Multi-threaded TCP/IP chat app with real-time messaging, file transfer, and client-server architecture.',
+        'Frontend replicating core Upwork features with React, TypeScript, and Material-UI.',
     },
   ];
 
@@ -359,15 +376,30 @@ const Resume = () => {
                   <div key={index} className="project-item">
                     <div className="project-header">
                       <h4>{project.name}</h4>
-                      <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`View ${project.name} on GitHub`}
-                        onClick={() => trackProjectClick(project.name)}
-                      >
-                        <FontAwesomeIcon icon={faGithub} />
-                      </a>
+                      <div className="project-links">
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Open ${project.name} live demo`}
+                            onClick={() =>
+                              trackProjectClick(`${project.name} (live)`)
+                            }
+                          >
+                            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                          </a>
+                        )}
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View ${project.name} on GitHub`}
+                          onClick={() => trackProjectClick(project.name)}
+                        >
+                          <FontAwesomeIcon icon={faGithub} />
+                        </a>
+                      </div>
                     </div>
                     <p className="project-description">{project.description}</p>
                     <div className="tech-stack">

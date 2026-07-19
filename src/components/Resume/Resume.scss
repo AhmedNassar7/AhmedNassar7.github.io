@@ -120,6 +120,12 @@
           font-weight: 600;
         }
 
+        .project-links {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
         a {
           color: var(--primary);
           font-size: 1.2rem;
