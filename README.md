@@ -20,14 +20,16 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
     <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=flat&logo=react&logoColor=black" alt="React">
     <img src="https://img.shields.io/badge/SCSS-3-CC6699?style=flat&logo=sass&logoColor=white" alt="SCSS">
     <img src="https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=flat&logo=bootstrap&logoColor=white" alt="Bootstrap">
+    <img src="https://img.shields.io/badge/Framer_Motion-11.0-0055FF?style=flat&logo=framer&logoColor=white" alt="Framer Motion">
     <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=flat&logo=vite&logoColor=white" alt="Vite">
+    <img src="https://img.shields.io/badge/PWA-vite--plugin--pwa-5A0FC8?style=flat&logo=pwa&logoColor=white" alt="PWA">
     <img src="https://img.shields.io/badge/Firebase-11.0-FFCA28?style=flat&logo=firebase&logoColor=black" alt="Firebase">
     <img src="https://img.shields.io/badge/Font_Awesome-6-5288D2?style=flat&logo=font-awesome&logoColor=white" alt="Font Awesome">
     <img src="https://img.shields.io/badge/Prettier-3.0-F7B93E?style=flat&logo=prettier&logoColor=white" alt="Prettier">
     <img src="https://img.shields.io/badge/ESLint-9.0-4B32C3?style=flat&logo=eslint&logoColor=white" alt="ESLint">
     <img src="https://img.shields.io/badge/Google_Analytics-4.0-E37400?style=flat&logo=google-analytics&logoColor=white" alt="Google Analytics">
     <img src="https://img.shields.io/badge/Google_Search_Console-3.0-4285F4?style=flat&logo=google&logoColor=white" alt="Google Search Console">
-    <img src="https://img.shields.io/badge/Particles.js-3.0-00BFFF?style=flat&logo=javascript&logoColor=white" alt="Particles.js">
+    <img src="https://img.shields.io/badge/tsParticles-2.12-00BFFF?style=flat&logo=javascript&logoColor=white" alt="tsParticles">
     <img src="https://img.shields.io/badge/AOS-2.0-3C9B8B?style=flat&logo=aos&logoColor=white" alt="AOS">
     <img src="https://img.shields.io/badge/EmailJS-3.0-1B74E4?style=flat&logo=email&logoColor=white" alt="EmailJS">
 </p>
@@ -35,17 +37,19 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 ## ✨ Features
 
 - `Fully Responsive Design` – Adapts seamlessly across all devices and screen sizes.
-- `Interactive Background` – **Animated particles** to create a modern experience and immersive look.
-- `Dynamic Content` – Updates with **animated transitions** and **motion effects** as users scroll.
+- `Interactive Background` – **Animated tsParticles** background to create a modern, immersive look.
+- `Dynamic Content` – Updates with **Framer Motion** transitions and motion effects as users scroll.
 - `UI/UX Design` – Followed the best practices of **UI/UX design** for a user-friendly experience.
+- `Testimonials & Live GitHub Stats` – Recommender testimonials and animated, live-fetched GitHub stats (stars, repos, commits, PRs).
 - `Rotating Quotes` – Display of rotating programming quotes with **manual** and **auto-change** options.
 - `Custom Scrollbar` – Unique design for better aesthetics and usability.
 - `Scroll-to-Top Button` – **Smooth scrolling** and **navigation** back to the top.
 - `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
+- `PWA-Ready` – Installable, offline-capable via `vite-plugin-pwa` and a service worker.
 - `Google Search Console` – Optimized **performance**, **speed**, and search engine **visibility**, **ranking**, and **indexing**.
 - `Google Analytics` – Tracks **traffic**, **user behavior**, and **engagement** for data-driven decisions and improvements.
 - `Modular & Scalable Code` – Built with **SCSS** and **reusable components** for easy maintenance and future scalability.
-- `Performance Optimization` – Ensures **fast load times** and **smooth functionality** across all devices.
+- `Performance Optimization` – Fast load times via modular (tree-shaken) Bootstrap imports, code-splitting, and image/asset optimization.
 - `Cross-Browser Compatibility` – Tested and works seamlessly across all modern browsers.
 
 ## 📋 Features Breakdown
@@ -53,7 +57,7 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 ### 1. Navbar 🔽
 
 - `Logo` – Incorporates my custom logo.
-- `Smooth-Scrolling Links` – Quick links to sections (Home, About, Resume, Contact) with smooth scrolling.
+- `Smooth-Scrolling Links` – Quick links to sections (Home, About, Resume, Testimonials, Contact) with smooth scrolling.
 - `Theme Toggle` – Toggle button for switching between light and dark themes.
 - `Mobile-Friendly Menu` – Collapsible, mobile-responsive menu for easier navigation.
 - `Scroll Progress Bar` – Visual indicator at the top of the navbar will display the scroll position.
@@ -65,63 +69,78 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Social Media Links` – Links to LinkedIn, GitHub, and other social profiles.
 - `Scroll Arrow` – A downward arrow to help users navigate to the next section.
 
-### 3. About Section 📑
+### 3. GitHub Stats Section 📈
+
+- `Live Stats` – Stars, public repos, commits, and merged Django PRs fetched live from the GitHub API.
+- `Animated Counters` – Numbers count up into view using Framer Motion when scrolled into view.
+- `Graceful Fallback` – Falls back to last-known values if the live GitHub fetch fails.
+
+### 4. About Section 📑
 
 - `Personal Information` – A brief introduction and bio.
 - `Contact Information` – Information on how to get in touch.
 
-### 4. Resume Section 📝
+### 5. Resume Section 📝
 
+- `Summary` – A concise professional summary.
 - `Education` – Information about academic qualifications.
 - `Experience` – Professional experiences and job history.
 - `Projects` – Showcases of notable projects with descriptions and technologies used.
-- `Skills` – A list of technical skills and tools.
-- `Download Resume` – Button to download and open the resume in PDF format in a new tab.
+- `Achievements` – Awards, memberships, and other notable recognitions.
+- `Skills` – A categorized list of technical skills and tools.
+- `View / Download Resume` – Buttons to view or download the resume in PDF format.
 
-### 5. Contact Section 📬
+### 6. Testimonials Section 💬
+
+- `Recommendations` – Rotating carousel of testimonials from instructors, mentors, and colleagues.
+- `LinkedIn Verified` – Each testimonial links to the reviewer's LinkedIn profile.
+- `See All on LinkedIn` – CTA linking out to the full list of LinkedIn recommendations.
+
+### 7. Contact Section 📬
 
 - `Contact Form` – Collects user information including name, email, country, and message.
 - `Country Dropdown` – A dropdown with flags and search functionality for selecting countries.
 - `Firebase Integration` – Utilizes Firebase for storing and managing the collected messages in a secure database.
 - `EmailJS Integration` – Sends the collected messages directly to my email.
 
-### 6. Quotes Section 💬
+### 8. Quotes Section 💬
 
-- `Rotating Quotes` – Displays 5 rotating programming quotes that auto-update every 5 seconds.
+- `Rotating Quotes` – Displays 10 rotating programming quotes that auto-update every 5 seconds.
 - `Manual Quote Change` – Users can click to change the current quote.
 
-### 7. Footer Section 📌
+### 9. Footer Section 📌
 
 - `Quick Links` – Links to sections (Home, About, Resume, Contact).
 - `Social Media Links` – Icons linking to social media profiles.
 - `Copyright Notice` – “© Ahmed Nassar [Year] – All Rights Reserved.”
 
-### 8. Interactive Background 🌌
+### 10. Interactive Background 🌌
 
-- `Particles.JS` – Creates a visually engaging, interactive, and dynamic background with animated particles for a modern experience. Learn more about it [here](https://vincentgarreau.com/particles.js/).
+- `tsParticles` – Creates a visually engaging, interactive, and dynamic background with animated particles for a modern experience. Learn more about it [here](https://particles.js.org/).
 - `Customizable Effects` – Easily customizable particle effects to match the website's theme and aesthetics.
 - `Performance Optimized` – Ensures smooth performance without compromising the website's loading speed.
 - `Responsive Design` – Adapts seamlessly to different screen sizes and devices for a consistent user experience.
 
-### 9. Scroll-to-Top Button ⬆️
+### 11. Scroll-to-Top Button ⬆️
 
 - `Scroll-to-Top Button` – Appears when the user scrolls down, enabling **quick** and **smooth scrolling** and **navigation** back to the top.
 - `Customizable Design` – Easily customizable to match the website's theme and aesthetics.
 - `Visibility Control` – Automatically hides when the user is at the top of the page.
 
-### 10. Modular & Scalable Architecture 🧩
+### 12. Modular & Scalable Architecture 🧩
 
 - `Component-Based Architecture` – Built with a component-based architecture, allowing easy maintenance, scalability, and clean code for future updates.
 - `Reusable Components` – Components are designed to be reusable across different parts of the application.
 - `Separation of Concerns` – Clear separation between different functionalities, making the codebase easier to manage and extend.
+- `Optimized Dependencies` – Bootstrap is imported modularly (only the components actually used) to keep the CSS bundle lean.
 
-### 11. Dynamic & Interactive Experience ⚙️
+### 13. Dynamic & Interactive Experience ⚙️
 
-- `Animated Transitions` – Smooth motion effects using **AOS** and **CSS animations** for an engaging user experience.
+- `Animated Transitions` – Smooth motion effects using **Framer Motion**, **AOS**, and **CSS animations** for an engaging user experience.
 - `Interactive Elements` – Elements that respond to user interactions, enhancing engagement.
 - `Real-Time Updates` – Dynamic content updates without requiring a page refresh, providing a seamless experience.
 
-### 12. UI/UX Design Principles 🎨
+### 14. UI/UX Design Principles 🎨
 
 - `Consistency` – Uniform color schemes, typography, and spacing.
 - `Simplicity` – Clean and uncluttered interface.
@@ -132,7 +151,7 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Smooth Navigation` – Easy-to-use navigation.
 - `Performance Optimization` – Fast load times and smooth performance.
 
-### 13. Google Analytics 📊
+### 15. Google Analytics 📊
 
 - `Google Analytics` – Tracks website traffic, user behavior, and engagement for data-driven decisions.
 - `Real-Time Reporting` – Provides real-time data on user activity and interactions.
@@ -142,12 +161,18 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Behavior Flow` – Visualizes the path users take through the website.
 - `Event Tracking` – Monitors specific interactions such as clicks, downloads, and form submissions.
 
-### 14. Google Search Console 🔍
+### 16. Google Search Console 🔍
 
 - `Google Search Console` – Optimizes website **performance** and **speed** using **sitemap.xml** and best **SEO** practices to improve search visibility.
 - `SEO Techniques` – Implements strategies to boost search engine **rankings**.
 
-### 15. Deployment 🚀
+### 17. PWA Support 📱
+
+- `Installable` – Can be installed to a device's home screen via `vite-plugin-pwa`.
+- `Offline-Ready` – A generated service worker precaches assets for offline/repeat-visit access.
+- `Web App Manifest` – Custom icons and manifest for a native-like install experience.
+
+### 18. Deployment 🚀
 
 The website is deployed on **GitHub Pages** using **GitHub Actions**. The deployment process is automated with a workflow file located at `.github/workflows/deploy.yml`. Here are the details:
 
@@ -155,7 +180,7 @@ The website is deployed on **GitHub Pages** using **GitHub Actions**. The deploy
 - `Continuous Deployment` – Push changes to the `main` branch to trigger automatic deployment.
 - `GitHub Pages Settings` – Configure repository settings to serve the website from the `gh-pages` branch.
 - `Re-run Failed Deployments` – Easily re-run failed deployment jobs from the GitHub Actions tab.
-- `Live Demo` – Access the live portfolio at [https://your-username.github.io/your-repo-name](https://your-username.github.io/your-repo-name) by replacing `your-username` and `your-repo-name` with your GitHub username and repository name.
+- `Live Demo` – Access the live portfolio at [https://ahmednassar7.github.io/](https://ahmednassar7.github.io/).
 
 ## 🛠️ Installation
 
@@ -179,13 +204,31 @@ To run this project locally, follow these steps:
    npm install
    ```
 
-4. Run the development server:
+4. Create a `.env` file in the project root with your own credentials (the app will still run without them, but Firebase, EmailJS, and Analytics features will be disabled):
+
+   ```bash
+   VITE_FIREBASE_API_KEY=
+   VITE_FIREBASE_AUTH_DOMAIN=
+   VITE_FIREBASE_DATABASE_URL=
+   VITE_FIREBASE_PROJECT_ID=
+   VITE_FIREBASE_STORAGE_BUCKET=
+   VITE_FIREBASE_MESSAGING_SENDER_ID=
+   VITE_FIREBASE_APP_ID=
+   VITE_EMAILJS_SERVICE_ID=
+   VITE_EMAILJS_TEMPLATE_ID=
+   VITE_EMAILJS_USER_ID=
+   VITE_EMAILJS_TO_EMAIL=
+   VITE_GOOGLE_ANALYTICS_ID=
+   VITE_GOOGLE_SITE_VERIFICATION=
+   ```
+
+5. Run the development server:
 
    ```bash
    npm run dev
    ```
 
-5. Open your browser and visit `http://localhost:5173` to see the portfolio in action 🚀
+6. Open your browser and visit `http://localhost:5173` to see the portfolio in action 🚀
 
 ## 🤝 Acknowledgments
 
@@ -208,8 +251,14 @@ To run this project locally, follow these steps:
     <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">
         <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap">
     </a>
+    <a href="https://www.framer.com/motion/" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion">
+    </a>
     <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">
         <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+    </a>
+    <a href="https://vite-pwa-org.netlify.app/" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA">
     </a>
     <a href="https://firebase.google.com/" target="_blank" rel="noopener noreferrer">
         <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
@@ -230,7 +279,7 @@ To run this project locally, follow these steps:
         <img src="https://img.shields.io/badge/Google_Search_Console-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Search Console">
     </a>
     <a href="https://particles.js.org/" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/badge/Particles.js-00BFFF?style=for-the-badge&logo=javascript&logoColor=white" alt="Particles.js">
+        <img src="https://img.shields.io/badge/tsParticles-00BFFF?style=for-the-badge&logo=javascript&logoColor=white" alt="tsParticles">
     </a>
     <a href="https://michalsnik.github.io/aos/" target="_blank" rel="noopener noreferrer">
         <img src="https://img.shields.io/badge/AOS-3C9B8B?style=for-the-badge&logo=aos&logoColor=white" alt="AOS">
