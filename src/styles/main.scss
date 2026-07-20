@@ -4,8 +4,27 @@ $secondary: #535bf2;
 $dark: #242424;
 $light: #ffffff;
 
-// Import Bootstrap
-@import 'bootstrap/scss/bootstrap';
+// Import Bootstrap — modular imports (only the pieces the app actually uses:
+// Container, Row/Col, Nav, Navbar, Form, Alert) instead of the full bundle.
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/alert';
+
+@import 'bootstrap/scss/utilities/api';
 
 // Global Styles
 :root {
