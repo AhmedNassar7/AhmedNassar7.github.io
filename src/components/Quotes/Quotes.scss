@@ -1,6 +1,16 @@
 .quotes-section {
   padding: 80px 0;
 
+  .section-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: black;
+
+    .dark-theme & {
+      color: white;
+    }
+  }
+
   .quotes-container {
     position: relative;
     max-width: 800px;

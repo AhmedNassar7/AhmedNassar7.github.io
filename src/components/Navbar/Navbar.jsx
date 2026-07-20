@@ -91,22 +91,24 @@ const Navbar = ({ theme, toggleTheme }) => {
           </BootstrapNavbar.Toggle>
           <BootstrapNavbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
-              {['Home', 'About', 'Resume', 'Contact'].map((item) => (
-                <Nav.Item key={item}>
-                  <Link
-                    className="nav-link"
-                    to={item.toLowerCase()}
-                    href={`#${item.toLowerCase()}`}
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                    onClick={handleNavClick}
-                  >
-                    {item}
-                  </Link>
-                </Nav.Item>
-              ))}
+              {['Home', 'About', 'Resume', 'Testimonials', 'Contact'].map(
+                (item) => (
+                  <Nav.Item key={item}>
+                    <Link
+                      className="nav-link"
+                      to={item.toLowerCase()}
+                      href={`#${item.toLowerCase()}`}
+                      spy={true}
+                      smooth={true}
+                      offset={-70}
+                      duration={500}
+                      onClick={handleNavClick}
+                    >
+                      {item}
+                    </Link>
+                  </Nav.Item>
+                ),
+              )}
             </Nav>
           </BootstrapNavbar.Collapse>
         </Container>

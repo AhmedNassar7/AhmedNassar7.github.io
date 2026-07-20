@@ -4,6 +4,8 @@
   position: relative;
 
   .stat-card {
+    position: relative;
+    display: block;
     text-align: center;
     padding: 1.5rem 1rem;
     border-radius: 15px;
@@ -11,6 +13,26 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .stat-card-link {
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+
+    &:hover {
+      border-color: var(--primary);
+    }
+  }
+
+  .stat-link-icon {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--primary);
+    opacity: 0.6;
   }
 
   .stat-icon {

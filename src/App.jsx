@@ -5,6 +5,7 @@ import Home from './components/Home/Home';
 import Stats from './components/Stats/Stats';
 import About from './components/About/About';
 import Resume from './components/Resume/Resume';
+import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './components/Contact/Contact';
 import Quotes from './components/Quotes/Quotes';
 import Footer from './components/Footer/Footer';
@@ -116,6 +117,7 @@ function App() {
         <Stats />
         <About />
         <Resume />
+        <Testimonials />
         <Contact />
         <Quotes />
       </main>

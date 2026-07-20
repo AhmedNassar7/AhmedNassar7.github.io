@@ -70,6 +70,9 @@ const Quotes = () => {
 
   return (
     <Container className="quotes-section">
+      <h2 className="section-title text-center mb-5" data-aos="fade-up">
+        Quotes
+      </h2>
       <div className="quotes-container">
         <div className="quote-content">
           <FontAwesomeIcon icon={faQuoteLeft} className="quote-icon left" />

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { trackEvent } from '../../utils/analytics';
 import {
   faGithub,
+  faDiscord,
   faPython,
   faJava,
   faJs,
@@ -103,14 +104,14 @@ const Resume = () => {
       location: 'Cairo, Egypt',
       url: 'https://www.orangedigitalcenters.com/country/EG/home',
     },
-    {
-      company: 'Information Technology Institute',
-      role: 'Web Development using Python',
-      type: 'Training',
-      date: 'Jul 2024 – Sep 2024',
-      location: 'Cairo, Egypt',
-      url: 'https://iti.gov.eg/home',
-    },
+    // {
+    //   company: 'Information Technology Institute',
+    //   role: 'Web Development using Python',
+    //   type: 'Training',
+    //   date: 'Jul 2024 – Sep 2024',
+    //   location: 'Cairo, Egypt',
+    //   url: 'https://iti.gov.eg/home',
+    // },
     {
       company: 'Nokia',
       role: 'Software Engineer',
@@ -163,10 +164,20 @@ const Resume = () => {
 
   const achievements = [
     {
+      title: 'Individual Member, Django Software Foundation',
+      secondaryUrl:
+        'https://www.djangoproject.com/foundation/individual-members/',
+      secondaryLabel: 'DSF Members Page',
+      bullets: [
+        'Recognized as an Individual Member of the Django Software Foundation for contributions to Django core.',
+      ],
+    },
+    {
       title: 'Founder, Software Engineering Community',
       url: 'https://github.com/AhmedNassar7/Software-Engineering',
       secondaryUrl: 'https://discord.gg/N95QU2Ww3h',
       secondaryLabel: 'Discord',
+      secondaryIcon: faDiscord,
       bullets: [
         'Central hub for software engineering opportunities worldwide — internships, open-source, mock interviews, and hackathons.',
         '500+ GitHub stars and 1,000+ Discord members supporting engineers globally.',
@@ -218,7 +229,6 @@ const Resume = () => {
       { name: 'Linux', icon: faLinux },
       { name: 'Postman', icon: faServer },
       { name: 'Jira', icon: faCogs },
-      { name: 'Jenkins', icon: faCogs },
     ],
     Databases: [
       { name: 'PostgreSQL', icon: faDatabase },
@@ -320,69 +330,84 @@ const Resume = () => {
               <h3>
                 <FontAwesomeIcon icon={faBriefcase} /> Experience
               </h3>
-              {experiences.map((exp, index) => (
-                <motion.div
-                  key={index}
-                  className="experience-item"
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                >
-                  <h4>
-                    <a href={exp.url} target="_blank" rel="noopener noreferrer">
-                      {exp.company}
-                    </a>
-                  </h4>
-                  <div className="role-row">
-                    <motion.p
-                      className="role"
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 15,
-                      }}
-                    >
-                      {exp.role}
-                    </motion.p>
-                    {exp.type && (
-                      <motion.span
-                        className="role-type"
-                        initial={{ opacity: 0, scale: 0.7 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
+              <div className="experience-grid">
+                {experiences.map((exp, index) => (
+                  <motion.div
+                    key={index}
+                    className="experience-item"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    whileHover={{
+                      y: -8,
+                      boxShadow: '0 12px 30px rgba(0, 0, 0, 0.15)',
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 22,
+                      delay: index * 0.08,
+                    }}
+                  >
+                    <h4>
+                      <a
+                        href={exp.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {exp.company}
+                      </a>
+                    </h4>
+                    <div className="role-row">
+                      <motion.p
+                        className="role"
+                        whileHover={{ scale: 1.05, y: -2 }}
                         transition={{
                           type: 'spring',
                           stiffness: 400,
                           damping: 15,
-                          delay: index * 0.08 + 0.2,
                         }}
-                        whileHover={{
-                          scale: 1.1,
-                          y: -2,
-                          transition: {
+                      >
+                        {exp.role}
+                      </motion.p>
+                      {exp.type && (
+                        <motion.span
+                          className="role-type"
+                          initial={{ opacity: 0, scale: 0.7 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{
                             type: 'spring',
                             stiffness: 400,
                             damping: 15,
-                            delay: 0,
-                          },
-                        }}
-                      >
-                        {exp.type}
-                      </motion.span>
-                    )}
-                  </div>
-                  <div className="details">
-                    <p>
-                      <FontAwesomeIcon icon={faCalendar} /> {exp.date}
-                    </p>
-                    <p>
-                      <FontAwesomeIcon icon={faLocationDot} /> {exp.location}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                            delay: index * 0.08 + 0.2,
+                          }}
+                          whileHover={{
+                            scale: 1.1,
+                            y: -2,
+                            transition: {
+                              type: 'spring',
+                              stiffness: 400,
+                              damping: 15,
+                              delay: 0,
+                            },
+                          }}
+                        >
+                          {exp.type}
+                        </motion.span>
+                      )}
+                    </div>
+                    <div className="details">
+                      <p>
+                        <FontAwesomeIcon icon={faCalendar} /> {exp.date}
+                      </p>
+                      <p>
+                        <FontAwesomeIcon icon={faLocationDot} /> {exp.location}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </Col>
         </Row>
@@ -535,7 +560,10 @@ const Resume = () => {
                               aria-label={`Open ${achievement.secondaryLabel} for ${achievement.title}`}
                             >
                               <FontAwesomeIcon
-                                icon={faArrowUpRightFromSquare}
+                                icon={
+                                  achievement.secondaryIcon ||
+                                  faArrowUpRightFromSquare
+                                }
                               />
                             </a>
                           )}

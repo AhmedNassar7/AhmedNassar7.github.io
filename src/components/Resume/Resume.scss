@@ -47,7 +47,6 @@
   .education-item,
   .experience-item {
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.05);
     transition:
@@ -135,8 +134,18 @@
     }
   }
 
-  .education-item:hover {
-    transform: translateX(10px);
+  .education-item {
+    margin-bottom: 1.5rem;
+
+    &:hover {
+      transform: translateX(10px);
+    }
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
   }
 
   .projects-grid {
