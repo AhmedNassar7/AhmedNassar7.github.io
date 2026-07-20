@@ -135,7 +135,7 @@ export default defineConfig(({ mode }) => {
       // PWA Plugin
       VitePWA({
         registerType: 'autoUpdate', // Automatically updates the service worker
-        injectRegister: 'auto', // Injects the service worker registration script automatically
+        injectRegister: false, // We register manually in main.jsx so we can force periodic update checks
         devOptions: {
           enabled: false, // Disable service worker in development to prevent reload loops
         },
@@ -164,12 +164,38 @@ export default defineConfig(({ mode }) => {
         workbox: {
           skipWaiting: true, // Skip waiting for the new service worker to activate
           clientsClaim: true, // Ensure service worker takes control of all pages immediately
+          cleanupOutdatedCaches: true, // Drop caches left behind by previous SW versions
+          // Don't precache index.html: precached entries are served cache-first,
+          // which is exactly why old deploys kept showing up until a hard refresh.
+          // JS/CSS/images below are content-hashed, so caching *those* aggressively
+          // is safe — a changed file gets a brand-new URL, never a stale hit.
+          globIgnores: ['index.html'],
+          // vite-plugin-pwa defaults this to 'index.html', which registers a
+          // cache-first NavigationRoute ahead of our runtimeCaching rules below
+          // and would serve the stale precached shell. We handle navigations
+          // ourselves via the NetworkFirst rule instead.
+          navigateFallback: undefined,
           // The SW scope covers the whole origin, which also hosts the
           // separate /toolkit/ project. Without this, Workbox's default
           // navigateFallback ('index.html') hijacks navigation to /toolkit/
           // and serves this portfolio's shell instead of letting it load.
           navigateFallbackDenylist: [/^\/toolkit/],
           runtimeCaching: [
+            {
+              // Navigation requests (i.e. index.html) always go to the network
+              // first so a new deploy is picked up immediately; falls back to
+              // the cache only when offline.
+              urlPattern: ({ request }) => request.mode === 'navigate',
+              handler: 'NetworkFirst',
+              options: {
+                cacheName: 'html-cache',
+                networkTimeoutSeconds: 3,
+                expiration: {
+                  maxEntries: 5,
+                  maxAgeSeconds: 24 * 60 * 60,
+                },
+              },
+            },
             {
               urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif)$/, // Caching for image files
               handler: 'CacheFirst', // Use cached version if available
