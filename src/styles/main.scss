@@ -34,6 +34,20 @@ $light: #ffffff;
   --light: #{$light};
   // AA-contrast-safe variant of --primary for use as text color (WCAG 4.5:1+)
   --primary-text: #555cd9;
+  // Glass-card tokens for the frosted panels (About, Resume, Contact, Testimonials,
+  // Quotes, Stats). A white-tinted glass is invisible on the light theme's white
+  // page, so cards there lean on a soft shadow for depth instead of a dark fill.
+  --glass-bg: rgba(0, 0, 0, 0.012);
+  --glass-bg-strong: rgba(0, 0, 0, 0.03);
+  --glass-border: rgba(0, 0, 0, 0.07);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+body.dark-theme {
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: none;
 }
 
 html {
@@ -170,6 +184,7 @@ section {
   cursor: pointer;
   border: none;
   z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
 // Skills Animation

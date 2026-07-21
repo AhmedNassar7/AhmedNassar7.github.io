@@ -2,11 +2,12 @@
   padding: 100px 0;
 
   .contact-form-wrapper {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
   }
 
   .custom-input {
@@ -84,6 +85,7 @@
       .select__menu {
         background: white;
         color: #212529;
+        border-color: #ced4da;
       }
 
       .select__option {

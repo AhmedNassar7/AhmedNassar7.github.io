@@ -27,7 +27,7 @@ const Footer = () => {
     return () => clearInterval(timeInterval); // Cleanup the interval on unmount
   }, []);
 
-  const quickLinks = ['Home', 'About', 'Resume', 'Contact'];
+  const quickLinks = ['Home', 'About', 'Resume', 'Testimonials', 'Contact'];
   const socialLinks = [
     {
       icon: faLinkedin,

@@ -49,7 +49,7 @@ const ParticlesBackground = ({ theme }) => {
             color: theme === 'dark' ? '#ffffff' : '#000000',
             distance: 150,
             enable: true,
-            opacity: 0.5,
+            opacity: 0.25,
             width: 1,
           },
           move: {
@@ -70,7 +70,7 @@ const ParticlesBackground = ({ theme }) => {
             value: 50,
           },
           opacity: {
-            value: 0.5,
+            value: 0.3,
           },
           shape: {
             type: 'circle',

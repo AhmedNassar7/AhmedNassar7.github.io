@@ -16,9 +16,10 @@
   .about-card {
     padding: 2rem;
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
     height: 100%;
     transition:
       transform 0.3s ease,
@@ -44,12 +45,12 @@
     margin-bottom: 1.5rem;
     padding: 1rem;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
     transition: all 0.3s ease;
 
     &:hover {
       transform: translateX(10px);
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--glass-bg-strong);
 
       .info-icon {
         transform: scale(1.2);

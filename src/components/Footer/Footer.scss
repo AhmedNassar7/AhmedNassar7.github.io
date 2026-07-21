@@ -1,8 +1,8 @@
 .footer {
   padding: 2rem 0;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--glass-border);
 
   .footer-content {
     max-width: 1200px;

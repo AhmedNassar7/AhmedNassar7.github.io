@@ -234,8 +234,8 @@ const Contact = () => {
     }),
     control: (provided) => ({
       ...provided,
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-      borderColor: 'rgba(255, 255, 255, 0.1)',
+      backgroundColor: 'var(--glass-bg)',
+      borderColor: 'var(--glass-border)',
       '&:hover': {
         borderColor: 'var(--primary)',
       },
