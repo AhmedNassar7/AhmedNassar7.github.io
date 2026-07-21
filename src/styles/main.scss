@@ -36,8 +36,13 @@ $light: #ffffff;
   --primary-text: #555cd9;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
+  overflow-x: hidden;
   font-family:
     Inter,
     system-ui,

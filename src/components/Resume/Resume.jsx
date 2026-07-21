@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,14 +45,9 @@ import {
   faAward,
   faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
-import AOS from 'aos';
 import './Resume.scss';
 
 const Resume = () => {
-  useEffect(() => {
-    AOS.init({ duration: 1000, offset: 50 });
-  }, []);
-
   const education = {
     school: 'Modern Academy in Maadi',
     degree: 'Bachelor of Computer Science',

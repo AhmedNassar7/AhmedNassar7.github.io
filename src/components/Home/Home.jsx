@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
@@ -13,24 +12,11 @@ import {
   faFacebook,
 } from '@fortawesome/free-brands-svg-icons';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import './Home.scss';
 import profileImage from '../../assets/images/profile.png';
 import { trackEvent } from '../../utils/analytics';
 
 const Home = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000, // Animation duration
-      once: true, // Ensures animation happens only once
-      offset: 50, // Appear without scrolling
-    });
-    setTimeout(() => {
-      AOS.refresh();
-    }, 100);
-  }, []);
-
   const socialLinks = [
     {
       icon: faLinkedin,

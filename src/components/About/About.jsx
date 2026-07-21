@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,18 +8,9 @@ import {
   faEnvelope,
   faLocationDot,
 } from '@fortawesome/free-solid-svg-icons';
-import AOS from 'aos';
 import './About.scss';
 
 const About = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      offset: 50,
-    });
-  }, []);
-
   const personalInfo = [
     {
       icon: faRocket,

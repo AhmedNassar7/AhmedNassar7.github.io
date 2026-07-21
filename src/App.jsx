@@ -17,6 +17,8 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
 import ReactGA from 'react-ga4';
 import throttle from 'lodash/throttle';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './styles/main.scss';
 
 function App() {
@@ -64,6 +66,21 @@ function App() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    // Initialize AOS once the sections have actually mounted (they're gated
+    // behind `loading`). AOS is a global singleton — calling AOS.init() from
+    // multiple components re-scans and resets every [data-aos] element's
+    // state each time, stomping other components' in-progress or completed
+    // animations, so it must only happen once for the whole app.
+    if (!loading) {
+      AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 50,
+      });
+    }
+  }, [loading]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
