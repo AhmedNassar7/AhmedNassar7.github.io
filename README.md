@@ -1,6 +1,7 @@
 # Ahmed Nassar's Portfolio
 
 <!-- markdownlint-disable MD033 -->
+
 <div align="center">
     <img src="public/web-app-manifest-192x192.png" alt="Portfolio Logo" width="130" height="130" />
 </div>
@@ -172,7 +173,7 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Offline-Ready` – A generated service worker precaches assets for offline/repeat-visit access.
 - `Web App Manifest` – Custom icons and manifest for a native-like install experience.
 
-### 18. Deployment 🚀
+<!-- ### 18. Deployment 🚀
 
 The website is deployed on **GitHub Pages** using **GitHub Actions**. The deployment process is automated with a workflow file located at `.github/workflows/deploy.yml`. Here are the details:
 
@@ -191,19 +192,16 @@ To run this project locally, follow these steps:
    ```bash
    git clone https://github.com/AhmedNassar7/AhmedNassar7.github.io.git
    ```
-
 2. Navigate to the project directory:
 
    ```bash
    cd AhmedNassar7.github.io
    ```
-
 3. Install the dependencies:
 
    ```bash
    npm install
    ```
-
 4. Create a `.env` file in the project root with your own credentials (the app will still run without them, but Firebase, EmailJS, and Analytics features will be disabled):
 
    ```bash
@@ -221,14 +219,12 @@ To run this project locally, follow these steps:
    VITE_GOOGLE_ANALYTICS_ID=
    VITE_GOOGLE_SITE_VERIFICATION=
    ```
-
 5. Run the development server:
 
    ```bash
    npm run dev
    ```
-
-6. Open your browser and visit `http://localhost:5173` to see the portfolio in action 🚀
+6. Open your browser and visit `http://localhost:5173` to see the portfolio in action 🚀 -->
 
 ## 🤝 Acknowledgments
 
@@ -301,11 +297,11 @@ If you're interested in collaborating, hiring, or seeking consulting services, p
     <a href="https://www.linkedin.com/in/nasssar/">
         <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
     </a>
-    &nbsp;
+     
     <a href="https://github.com/AhmedNassar7">
         <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
     </a>
-    &nbsp;
+     
     <a href="mailto:a.moh.nassar00@gmail.com">
         <img src="https://img.shields.io/badge/Email-FF4B5C?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
     </a>
