@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { scroller } from 'react-scroll';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Stats from './components/Stats/Stats';
@@ -15,28 +16,42 @@ const ParticlesBackground = lazy(
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
+import { getConsent, setConsent } from './utils/consent';
+import CookieConsent from './components/CookieConsent/CookieConsent';
+import CommandPalette from './components/CommandPalette/CommandPalette';
+import Terminal from './components/Terminal/Terminal';
 import ReactGA from 'react-ga4';
 import throttle from 'lodash/throttle';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './styles/main.scss';
 
+const initAnalytics = () => {
+  if (ReactGA.isInitialized) return;
+  try {
+    ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID, {
+      debug: import.meta.env.MODE !== 'production',
+    });
+    ReactGA.send('pageview');
+  } catch (error) {
+    console.error('Google Analytics initialization error:', error);
+  }
+};
+
 function App() {
   const [theme, setTheme] = useState('light');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [cookieBannerVisible, setCookieBannerVisible] = useState(false);
 
   useEffect(() => {
-    // Initialize Google Analytics
-    if (!ReactGA.isInitialized) {
-      try {
-        ReactGA.initialize('G-XGC9BKTSD1', {
-          debug: import.meta.env.MODE !== 'production',
-        });
-        ReactGA.send('pageview');
-      } catch (error) {
-        console.error('Google Analytics initialization error:', error);
-      }
+    // Google Analytics only starts collecting data once the visitor has
+    // explicitly accepted the cookie consent banner (GDPR requirement).
+    const consent = getConsent();
+    if (consent === 'granted') {
+      initAnalytics();
+    } else if (consent === null) {
+      setCookieBannerVisible(true);
     }
 
     // Manage theme from localStorage
@@ -79,6 +94,15 @@ function App() {
         once: true,
         offset: 50,
       });
+
+      // Sections don't mount until the loading screen clears, so the
+      // browser's native fragment navigation (e.g. a shared /#resume link)
+      // fires before its target exists and silently does nothing. Finish
+      // that navigation manually once the real content is in the DOM.
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        scroller.scrollTo(hash, { offset: -70, duration: 0 });
+      }
     }
   }, [loading]);
 
@@ -94,6 +118,21 @@ function App() {
       label: `Switched to ${newTheme} mode`,
       value: 1,
     });
+  };
+
+  const handleAcceptCookies = () => {
+    setConsent('granted');
+    setCookieBannerVisible(false);
+    initAnalytics();
+  };
+
+  const handleDeclineCookies = () => {
+    setConsent('denied');
+    setCookieBannerVisible(false);
+  };
+
+  const handleOpenCookiePreferences = () => {
+    setCookieBannerVisible(true);
   };
 
   const scrollToTop = () => {
@@ -129,16 +168,23 @@ function App() {
         <ParticlesBackground theme={theme} />
       </Suspense>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <CommandPalette theme={theme} toggleTheme={toggleTheme} />
+      <Terminal theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Home />
-        <Stats />
+        <Stats theme={theme} />
         <About />
         <Resume />
         <Testimonials />
         <Contact />
         <Quotes />
       </main>
-      <Footer />
+      <Footer onOpenCookiePreferences={handleOpenCookiePreferences} />
+      <CookieConsent
+        visible={cookieBannerVisible}
+        onAccept={handleAcceptCookies}
+        onDecline={handleDeclineCookies}
+      />
       <AnimatePresence>
         {showScrollTop && (
           <motion.button

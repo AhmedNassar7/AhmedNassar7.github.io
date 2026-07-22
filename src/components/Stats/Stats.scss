@@ -3,6 +3,31 @@
   padding: 60px 0;
   position: relative;
 
+  .section-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    color: black;
+
+    .dark-theme & {
+      color: white;
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      // All current stat cards fit one even row at this width — CSS grid
+      // (rather than Bootstrap's 12-column system) so the count of cards
+      // never has to divide evenly into 12 to stay balanced.
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
   .stat-card {
     position: relative;
     display: block;
@@ -57,6 +82,99 @@
     font-size: 0.95rem;
     font-weight: 500;
     opacity: 0.85;
+  }
+
+  .heatmap-title {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.85;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .streak-line {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+    margin: 0 0 1.25rem;
+
+    svg {
+      color: var(--primary);
+      margin-right: 0.15rem;
+    }
+  }
+
+  .github-heatmap {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+    border-radius: 15px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    overflow-x: auto;
+
+    svg {
+      max-width: 100%;
+    }
+  }
+
+  .github-star-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .github-star-cta,
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 0.3s ease,
+      color 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  // All three CTAs (star / join / collaborate) are equally-weighted ways to
+  // engage — same neutral outline treatment for all of them, rather than one
+  // looking like the "real" action and the other two an afterthought.
+  .github-star-cta,
+  .cta-secondary {
+    border: 1px solid var(--glass-border);
+    color: inherit;
+    background: var(--glass-bg);
+    font: inherit;
+
+    &:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+  }
+
+  .github-star-cta {
+    .star-count {
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: var(--glass-bg-strong);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
   }
 }
 

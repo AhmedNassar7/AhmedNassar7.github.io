@@ -130,14 +130,14 @@ const Home = () => {
               </motion.div>
               <div>
                 <Link
-                  to="about"
-                  href="#about"
+                  to="stats"
+                  href="#stats"
                   spy={true}
                   smooth={true}
                   offset={-70}
                   duration={500}
                   className="scroll-indicator"
-                  aria-label="Scroll to About section"
+                  aria-label="Scroll to Stats section"
                 >
                   <FontAwesomeIcon
                     icon={faChevronDown}

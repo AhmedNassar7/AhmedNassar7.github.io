@@ -23,6 +23,10 @@ $light: #ffffff;
 @import 'bootstrap/scss/nav';
 @import 'bootstrap/scss/navbar';
 @import 'bootstrap/scss/alert';
+// Defines .fixed-top/.sticky-top used by <Navbar fixed="top">; without it the
+// class exists in the DOM with no rules and the navbar falls back to the
+// base .navbar { position: relative }, silently scrolling away with the page.
+@import 'bootstrap/scss/helpers';
 
 @import 'bootstrap/scss/utilities/api';
 
@@ -52,6 +56,15 @@ body.dark-theme {
 
 html {
   overflow-x: hidden;
+}
+
+// Compensates for the fixed navbar so any anchor/hash navigation (a typed
+// URL, browser back/forward, a shared #resume link) lands with the section
+// heading visible instead of hidden behind the bar — the same -70 offset
+// react-scroll's own Link/scroller calls already use.
+main > section[id],
+main > [id] {
+  scroll-margin-top: 70px;
 }
 
 body {

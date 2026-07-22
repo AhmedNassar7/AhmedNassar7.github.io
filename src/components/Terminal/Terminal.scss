@@ -1,0 +1,139 @@
+.terminal-trigger {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 900;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--glass-shadow);
+  cursor: pointer;
+  color: inherit;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  opacity: 0.75;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.terminal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10, 10, 20, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5vh 1rem;
+}
+
+.terminal-window {
+  width: min(680px, 94vw);
+  height: min(480px, 80vh);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1a1a24;
+  color: #d6e0f0;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.85rem;
+  background: #24242f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+
+    &.red {
+      background: #ff5f56;
+    }
+
+    &.yellow {
+      background: #ffbd2e;
+    }
+
+    &.green {
+      background: #27c93f;
+    }
+  }
+
+  .terminal-title {
+    margin-left: 0.75rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+}
+
+.terminal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  line-height: 1.5;
+}
+
+.terminal-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  &.input-line {
+    color: #8f9dff;
+  }
+
+  &.output-line {
+    color: #d6e0f0;
+    margin-bottom: 0.4rem;
+  }
+}
+
+.prompt {
+  color: #6bd88a;
+  font-weight: 700;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #d6e0f0;
+  font-family: inherit;
+  font-size: inherit;
+}

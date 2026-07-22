@@ -2,13 +2,23 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-scroll';
 import { Container, Nav, Navbar as BootstrapNavbar } from 'react-bootstrap';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
 import './Navbar.scss';
+
+const NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'stats', label: 'Stats' },
+  { id: 'about', label: 'About' },
+  { id: 'resume', label: 'Resume' },
+  { id: 'testimonials', label: 'Testimonials' },
+  { id: 'contact', label: 'Contact' },
+];
 
 const Navbar = ({ theme, toggleTheme }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,8 +32,13 @@ const Navbar = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = () => {
+  const handleNavClick = (id) => {
     setExpanded(false);
+    // Keep the address bar in sync with the section in view without
+    // polluting browser history with an entry per section (replaceState,
+    // not pushState/location.hash — both of the latter would also fight
+    // react-scroll's own smooth-scroll animation with a native jump).
+    window.history.replaceState(null, '', `#${id}`);
   };
 
   return (
@@ -39,12 +54,18 @@ const Navbar = ({ theme, toggleTheme }) => {
         expanded={expanded}
       >
         <Container>
-          <BootstrapNavbar.Brand href="#home">
-            <img
+          <BootstrapNavbar.Brand href="#home" className="brand-logo-link">
+            <motion.img
               src="/favicon.svg"
               alt="Logo"
               height="30"
-              className="d-inline-block align-top"
+              className="d-inline-block align-top brand-logo"
+              whileHover={{
+                scale: 1.1,
+                filter: 'drop-shadow(0 0 12px var(--primary))',
+              }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.94 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
             />
           </BootstrapNavbar.Brand>
           {/* Theme Toggle Button */}
@@ -91,24 +112,22 @@ const Navbar = ({ theme, toggleTheme }) => {
           </BootstrapNavbar.Toggle>
           <BootstrapNavbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
-              {['Home', 'About', 'Resume', 'Testimonials', 'Contact'].map(
-                (item) => (
-                  <Nav.Item key={item}>
-                    <Link
-                      className="nav-link"
-                      to={item.toLowerCase()}
-                      href={`#${item.toLowerCase()}`}
-                      spy={true}
-                      smooth={true}
-                      offset={-70}
-                      duration={500}
-                      onClick={handleNavClick}
-                    >
-                      {item}
-                    </Link>
-                  </Nav.Item>
-                ),
-              )}
+              {NAV_ITEMS.map((item) => (
+                <Nav.Item key={item.id}>
+                  <Link
+                    className="nav-link"
+                    to={item.id}
+                    href={`#${item.id}`}
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.label}
+                  </Link>
+                </Nav.Item>
+              ))}
             </Nav>
           </BootstrapNavbar.Collapse>
         </Container>

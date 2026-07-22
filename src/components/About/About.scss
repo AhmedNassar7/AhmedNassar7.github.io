@@ -13,6 +13,12 @@
     }
   }
 
+  .about-bio {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
   .about-card {
     padding: 2rem;
     border-radius: 15px;
@@ -68,6 +74,146 @@
     span {
       font-size: 1.1rem;
       font-weight: 500;
+    }
+  }
+
+  // Same visual treatment as the plain .info-item rows above, but as a real
+  // <button> (for correct semantics/keyboard support) instead of a <li>.
+  button.info-item {
+    width: 100%;
+    border: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .info-time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    flex: 1;
+  }
+
+  .info-time-primary {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .availability-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    &.online {
+      color: #2ecc71;
+
+      .availability-dot {
+        background: #2ecc71;
+        box-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+      }
+    }
+
+    &.offline {
+      color: #f0a020;
+
+      .availability-dot {
+        background: #f0a020;
+        box-shadow: 0 0 6px rgba(240, 160, 32, 0.6);
+      }
+    }
+  }
+
+  .availability-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .toggle-chevron {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    transition: transform 0.25s ease;
+
+    &.expanded {
+      transform: rotate(180deg);
+    }
+  }
+
+  .local-time-detail {
+    margin: -1rem 0 1.5rem;
+    padding: 0.75rem 1rem 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tz-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+
+    .tz-icon {
+      width: 1.2rem;
+      text-align: center;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+
+    .tz-label {
+      min-width: 80px;
+      line-height: 1.4;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    .tz-value {
+      font-weight: 500;
+      line-height: 1.4;
+      font-variant-numeric: tabular-nums;
+
+      &.online {
+        color: #2ecc71;
+      }
+
+      &.offline {
+        color: #f0a020;
+      }
+    }
+  }
+
+  .tz-status-dot {
+    width: 1.2rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.35rem;
+
+    &::before {
+      content: '';
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+    }
+
+    &.online::before {
+      background: #2ecc71;
+      box-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+    }
+
+    &.offline::before {
+      background: #f0a020;
+      box-shadow: 0 0 6px rgba(240, 160, 32, 0.6);
     }
   }
 }

@@ -174,10 +174,13 @@ const Testimonials = () => {
 
           <div className="testimonial-points">
             {testimonials.map((_, index) => (
-              <span
+              <button
                 key={index}
+                type="button"
                 onClick={() => setCurrent(index)}
                 className={`testimonial-point ${index === current ? 'active' : ''}`}
+                aria-label={`Go to testimonial ${index + 1}`}
+                aria-current={index === current}
               />
             ))}
           </div>

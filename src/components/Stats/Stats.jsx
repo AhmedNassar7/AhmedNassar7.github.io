@@ -2,22 +2,33 @@ import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion, useInView, animate } from 'framer-motion';
+import { scroller } from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCodePullRequest,
   faCodeBranch,
   faCodeCommit,
   faStar,
+  faFire,
+  faHandshake,
   faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
+import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+import GitHubHeatmap from './GitHubHeatmap';
+import { calculateStreaks } from '../../utils/streaks';
+import { trackEvent } from '../../utils/analytics';
 import './Stats.scss';
 
 const GITHUB_USERNAME = 'AhmedNassar7';
+const PORTFOLIO_REPO = `${GITHUB_USERNAME}.github.io`;
 const REPOS_TAB_URL = `https://github.com/${GITHUB_USERNAME}?tab=repositories`;
 const REPOS_BY_STARS_URL = `${REPOS_TAB_URL}&sort=stargazers`;
 const DJANGO_PRS_URL =
   'https://github.com/django/django/pulls?q=is%3Apr+author%3AAhmedNassar7';
 const COMMITS_SEARCH_URL = `https://github.com/search?q=author%3A${GITHUB_USERNAME}&type=commits`;
+const PORTFOLIO_REPO_URL = `https://github.com/${GITHUB_USERNAME}/${PORTFOLIO_REPO}`;
+const CONTRIBUTIONS_API_URL = `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`;
+const COMMUNITY_DISCORD_URL = 'https://discord.gg/N95QU2Ww3h';
 
 // Repo/star counts as of Jul 2026 — used only if the live GitHub fetch fails.
 const FALLBACK_GITHUB_STARS = 530;
@@ -61,9 +72,11 @@ AnimatedCounter.propTypes = {
   suffix: PropTypes.string,
 };
 
-const Stats = () => {
+const Stats = ({ theme }) => {
   const [githubStars, setGithubStars] = useState(null);
   const [publicRepos, setPublicRepos] = useState(null);
+  const [currentStreak, setCurrentStreak] = useState(null);
+  const [repoStars, setRepoStars] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -92,11 +105,54 @@ const Stats = () => {
       }
     };
 
+    // Streaks change daily, unlike stars/repos which move slowly, so there's
+    // no sane hardcoded fallback here — leave it as "—" (null) if the fetch
+    // fails rather than show a number that goes stale within a day.
+    const fetchStreaks = async () => {
+      try {
+        const res = await fetch(CONTRIBUTIONS_API_URL);
+        if (!res.ok) throw new Error('Contributions API request failed');
+        const data = await res.json();
+        const { current } = calculateStreaks(data.contributions);
+        if (!cancelled) setCurrentStreak(current);
+      } catch (error) {
+        console.error('Failed to fetch contribution streaks:', error);
+      }
+    };
+
+    const fetchPortfolioRepoStars = async () => {
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${GITHUB_USERNAME}/${PORTFOLIO_REPO}`,
+        );
+        if (!res.ok) throw new Error('Portfolio repo request failed');
+        const data = await res.json();
+        if (!cancelled) {
+          setRepoStars(data.stargazers_count);
+        }
+      } catch (error) {
+        console.error('Failed to fetch portfolio repo stars:', error);
+      }
+    };
+
     fetchGithubStats();
+    fetchStreaks();
+    fetchPortfolioRepoStars();
     return () => {
       cancelled = true;
     };
   }, []);
+
+  const handleCollaborateClick = () => {
+    scroller.scrollTo('contact', { offset: -70 });
+    window.history.replaceState(null, '', '#contact');
+    trackEvent({
+      action: 'click',
+      category: 'Get Involved CTA',
+      label: "Let's Collaborate",
+      value: 1,
+    });
+  };
 
   const stats = [
     {
@@ -133,10 +189,20 @@ const Stats = () => {
     },
   ];
 
+  const streakLine =
+    currentStreak !== null && currentStreak > 0 ? (
+      <>
+        <FontAwesomeIcon icon={faFire} /> {currentStreak}-day streak
+      </>
+    ) : null;
+
   return (
     <section id="stats" className="stats-section">
       <Container>
-        <Row className="justify-content-center">
+        <h2 className="section-title text-center mb-5" data-aos="fade-up">
+          Stats
+        </h2>
+        <div className="stats-grid">
           {stats.map((stat, index) => {
             const CardTag = stat.url ? motion.a : motion.div;
             const linkProps = stat.url
@@ -149,32 +215,103 @@ const Stats = () => {
               : {};
 
             return (
-              <Col key={index} xs={6} md={3} className="mb-4">
-                <CardTag
-                  className={`stat-card ${stat.url ? 'stat-card-link' : ''}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  {...linkProps}
-                >
-                  {stat.url && (
-                    <FontAwesomeIcon
-                      icon={faArrowUpRightFromSquare}
-                      className="stat-link-icon"
-                    />
-                  )}
-                  <FontAwesomeIcon icon={stat.icon} className="stat-icon" />
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                  <p className="stat-label">{stat.label}</p>
-                </CardTag>
-              </Col>
+              <CardTag
+                key={index}
+                className={`stat-card ${stat.url ? 'stat-card-link' : ''}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                {...linkProps}
+              >
+                {stat.url && (
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    className="stat-link-icon"
+                  />
+                )}
+                <FontAwesomeIcon icon={stat.icon} className="stat-icon" />
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                <p className="stat-label">{stat.label}</p>
+                {stat.subtitle && (
+                  <p className="stat-subtitle">{stat.subtitle}</p>
+                )}
+              </CardTag>
             );
           })}
+        </div>
+        <Row className="justify-content-center">
+          <Col xs={12} className="text-center github-star-block">
+            <div className="cta-cluster">
+              <motion.a
+                href={PORTFOLIO_REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="github-star-cta"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() =>
+                  trackEvent({
+                    action: 'click',
+                    category: 'GitHub Star CTA',
+                    label: 'Star portfolio repo',
+                    value: 1,
+                  })
+                }
+              >
+                <FontAwesomeIcon icon={faStar} />
+                Star Portfolio on GitHub
+                {repoStars !== null && (
+                  <span className="star-count">{repoStars}</span>
+                )}
+              </motion.a>
+              <motion.a
+                href={COMMUNITY_DISCORD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cta-secondary"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.96 }}
+                aria-label="Join Ahmed's Software Engineering community on Discord"
+                onClick={() =>
+                  trackEvent({
+                    action: 'click',
+                    category: 'Get Involved CTA',
+                    label: 'Join SWE Community',
+                    value: 1,
+                  })
+                }
+              >
+                <FontAwesomeIcon icon={faDiscord} />
+                Join SWE Community
+              </motion.a>
+              <motion.button
+                type="button"
+                className="cta-secondary"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={handleCollaborateClick}
+              >
+                <FontAwesomeIcon icon={faHandshake} />
+                Let&apos;s Collaborate
+              </motion.button>
+            </div>
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col xs={12} lg={10}>
+            <h3 className="heatmap-title">Contribution Activity</h3>
+            {streakLine && <p className="streak-line">{streakLine}</p>}
+            <GitHubHeatmap theme={theme} />
+          </Col>
         </Row>
       </Container>
     </section>
   );
+};
+
+Stats.propTypes = {
+  theme: PropTypes.string.isRequired,
 };
 
 export default Stats;

@@ -8,26 +8,22 @@ import {
   faInstagram,
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
+import { faCookieBite } from '@fortawesome/free-solid-svg-icons';
 import './Footer.scss';
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const Footer = () => {
+const FOOTER_NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'stats', label: 'Stats' },
+  { id: 'about', label: 'About' },
+  { id: 'resume', label: 'Resume' },
+  { id: 'testimonials', label: 'Testimonials' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const Footer = ({ onOpenCookiePreferences }) => {
   const currentYear = new Date().getFullYear();
-  const currentDate = new Date().toLocaleDateString();
 
-  const [currentTime, setCurrentTime] = useState(
-    new Date().toLocaleTimeString(),
-  );
-
-  useEffect(() => {
-    const timeInterval = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString());
-    }, 1000); // Update every second
-
-    return () => clearInterval(timeInterval); // Cleanup the interval on unmount
-  }, []);
-
-  const quickLinks = ['Home', 'About', 'Resume', 'Testimonials', 'Contact'];
   const socialLinks = [
     {
       icon: faLinkedin,
@@ -53,18 +49,21 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="quick-links">
-          {quickLinks.map((link) => (
+          {FOOTER_NAV_ITEMS.map((link) => (
             <Link
-              key={link}
-              to={link.toLowerCase()}
-              href={`#${link.toLowerCase()}`}
+              key={link.id}
+              to={link.id}
+              href={`#${link.id}`}
               spy={true}
               smooth={true}
               offset={-70}
               duration={500}
               className="quick-link"
+              onClick={() =>
+                window.history.replaceState(null, '', `#${link.id}`)
+              }
             >
-              {link}
+              {link.label}
             </Link>
           ))}
         </div>
@@ -84,26 +83,29 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="date-time">
-          <div className="date-container">
-            <span className="label">Date</span>
-            <span className="date">{currentDate}</span>
+        <div className="footer-meta">
+          <div className="copyright">
+            © {currentYear} Ahmed Nassar – All Rights Reserved
           </div>
-          <div className="time-container">
-            <span className="label">Time</span>
-            <span className="time">{currentTime}</span>
+          <button
+            type="button"
+            className="cookie-preferences-link"
+            onClick={onOpenCookiePreferences}
+          >
+            <FontAwesomeIcon icon={faCookieBite} />
+            Cookie Preferences
+          </button>
+          <div className="made-with-love">
+            Made with <span className="heart">❤️</span>
           </div>
-        </div>
-
-        <div className="copyright">
-          © {currentYear} Ahmed Nassar – All Rights Reserved
-        </div>
-        <div className="made-with-love">
-          Made with <span className="heart">❤️</span>
         </div>
       </div>
     </footer>
   );
+};
+
+Footer.propTypes = {
+  onOpenCookiePreferences: PropTypes.func.isRequired,
 };
 
 export default Footer;

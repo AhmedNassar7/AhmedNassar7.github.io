@@ -1,0 +1,127 @@
+.command-palette-trigger {
+  position: fixed;
+  bottom: 1.5rem;
+  // Sits next to .terminal-trigger (left: 1.5rem, 44px wide) rather than
+  // bottom-right, which is where the pre-existing .scroll-to-top button
+  // lives (main.scss) — sharing that corner caused the two to overlap.
+  left: 5.5rem;
+  z-index: 900;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--glass-shadow);
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.75;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .key {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.4rem;
+    border-radius: 5px;
+    background: rgba(128, 128, 128, 0.18);
+  }
+
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.command-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10, 10, 20, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 12vh;
+}
+
+.command-palette {
+  width: min(560px, 92vw);
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--light);
+  color: var(--dark);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--glass-border);
+
+  .dark-theme & {
+    background: #1e1e2f;
+    color: var(--light);
+  }
+}
+
+.command-palette-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid var(--glass-border);
+  background: transparent;
+  color: inherit;
+  outline: none;
+}
+
+.command-palette-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+.command-palette-empty {
+  padding: 1rem;
+  text-align: center;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
+.command-palette-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+
+  .command-icon {
+    width: 16px;
+    opacity: 0.75;
+    color: var(--primary-text);
+  }
+
+  &.active {
+    background: var(--primary);
+    color: white;
+
+    .command-icon {
+      color: white;
+      opacity: 1;
+    }
+  }
+}

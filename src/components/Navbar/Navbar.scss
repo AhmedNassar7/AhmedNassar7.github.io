@@ -46,6 +46,15 @@
   }
 }
 
+.brand-logo-link {
+  padding: 0;
+}
+
+.brand-logo {
+  cursor: pointer;
+  will-change: transform, filter;
+}
+
 .theme-toggle-btn {
   background: none;
   border: none;
@@ -76,9 +85,8 @@
   @media (min-width: 992px) {
     font-size: 1.5rem;
     position: fixed;
-    top: 1.2rem;
-    right: 5rem;
     top: 16px;
+    right: 5rem;
   }
 }
 

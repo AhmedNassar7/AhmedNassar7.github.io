@@ -69,7 +69,7 @@ const Quotes = () => {
   }, [nextQuote]);
 
   return (
-    <Container className="quotes-section">
+    <Container id="quotes" className="quotes-section">
       <h2 className="section-title text-center mb-5" data-aos="fade-up">
         Quotes
       </h2>
@@ -97,10 +97,13 @@ const Quotes = () => {
           </div>
           <div className="quote-points">
             {quotes.map((_, index) => (
-              <span
+              <button
                 key={index}
+                type="button"
                 onClick={() => selectQuote(index)}
                 className={`quote-point ${index === currentQuote ? 'active' : ''}`}
+                aria-label={`Go to quote ${index + 1}`}
+                aria-current={index === currentQuote}
               />
             ))}
           </div>
