@@ -12,6 +12,8 @@
 
 You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.github.io/)
 
+[![CI](https://github.com/AhmedNassar7/AhmedNassar7.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmedNassar7/AhmedNassar7.github.io/actions/workflows/ci.yml)
+
 ## 🛠️ Technologies Used
 
 <p align="center">
@@ -33,24 +35,31 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
     <img src="https://img.shields.io/badge/tsParticles-2.12-00BFFF?style=flat&logo=javascript&logoColor=white" alt="tsParticles">
     <img src="https://img.shields.io/badge/AOS-2.0-3C9B8B?style=flat&logo=aos&logoColor=white" alt="AOS">
     <img src="https://img.shields.io/badge/EmailJS-3.0-1B74E4?style=flat&logo=email&logoColor=white" alt="EmailJS">
+    <img src="https://img.shields.io/badge/Vitest-4.1-6E9F18?style=flat&logo=vitest&logoColor=white" alt="Vitest">
+    <img src="https://img.shields.io/badge/Testing_Library-16.3-E33332?style=flat&logo=testing-library&logoColor=white" alt="Testing Library">
+    <img src="https://img.shields.io/badge/GitHub_Actions-CI-2088FF?style=flat&logo=githubactions&logoColor=white" alt="GitHub Actions">
 </p>
 
 ## ✨ Features
 
 - `Fully Responsive Design` – Adapts seamlessly across all devices and screen sizes.
+- `Command Palette` – A **Ctrl/Cmd+K** launcher for jumping to any section, toggling the theme, or opening a profile link.
+- `Interactive Terminal` – A retro terminal Easter egg with real, typed commands (`whoami`, `projects`, `neofetch`, and more).
 - `Interactive Background` – **Animated tsParticles** background to create a modern, immersive look.
 - `Dynamic Content` – Updates with **Framer Motion** transitions and motion effects as users scroll.
 - `UI/UX Design` – Followed the best practices of **UI/UX design** for a user-friendly experience.
-- `Testimonials & Live GitHub Stats` – Recommender testimonials and animated, live-fetched GitHub stats (stars, repos, commits, PRs).
+- `Testimonials & Live GitHub Stats` – Recommender testimonials and animated, live-fetched GitHub stats (stars, repos, commits, PRs) plus a live contribution heatmap and streak counter.
 - `Rotating Quotes` – Display of rotating programming quotes with **manual** and **auto-change** options.
 - `Custom Scrollbar` – Unique design for better aesthetics and usability.
 - `Scroll-to-Top Button` – **Smooth scrolling** and **navigation** back to the top.
 - `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
+- `Cookie Consent` – A GDPR-friendly banner that gates Google Analytics behind explicit visitor consent.
 - `PWA-Ready` – Installable, offline-capable via `vite-plugin-pwa` and a service worker.
 - `Google Search Console` – Optimized **performance**, **speed**, and search engine **visibility**, **ranking**, and **indexing**.
 - `Google Analytics` – Tracks **traffic**, **user behavior**, and **engagement** for data-driven decisions and improvements.
 - `Modular & Scalable Code` – Built with **SCSS** and **reusable components** for easy maintenance and future scalability.
 - `Performance Optimization` – Fast load times via modular (tree-shaken) Bootstrap imports, code-splitting, and image/asset optimization.
+- `Automated Quality Gates` – **GitHub Actions CI** runs formatting, linting, a **Vitest** test suite, and a production build on every push and PR.
 - `Cross-Browser Compatibility` – Tested and works seamlessly across all modern browsers.
 
 ## 📋 Features Breakdown
@@ -63,25 +72,40 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Mobile-Friendly Menu` – Collapsible, mobile-responsive menu for easier navigation.
 - `Scroll Progress Bar` – Visual indicator at the top of the navbar will display the scroll position.
 
-### 2. Home Section 🏠
+### 2. Command Palette 🎛️
+
+- `Quick Launcher` – Press **Ctrl/Cmd + K**, or click the on-screen trigger, to open a searchable command palette.
+- `Instant Navigation` – Jump to any section, toggle the theme, download the resume, or open GitHub/LinkedIn/email — all without leaving the keyboard.
+- `Keyboard-First` – Arrow keys move the selection, `Enter` runs it, `Esc` closes the palette.
+
+### 3. Interactive Terminal 🖥️
+
+- `Easter Egg` – A fully interactive, retro-styled terminal reachable from its own trigger button.
+- `Real Commands` – Supports `help`, `whoami`, `about`, `experience`, `projects`, `skills`, `achievements`, `contact`, `resume`, `open <section>`, `theme <dark|light>`, `neofetch`, and more.
+- `Command History` – Arrow-key recall of previously run commands, just like a real shell.
+
+### 4. Home Section 🏠
 
 - `Profile Image` – Personal image displayed on the homepage.
 - `Typing Effect` – Dynamic typing string effect displaying.
 - `Social Media Links` – Links to LinkedIn, GitHub, and other social profiles.
 - `Scroll Arrow` – A downward arrow to help users navigate to the next section.
 
-### 3. GitHub Stats Section 📈
+### 5. GitHub Stats Section 📈
 
 - `Live Stats` – Stars, public repos, commits, and merged Django PRs fetched live from the GitHub API.
 - `Animated Counters` – Numbers count up into view using Framer Motion when scrolled into view.
 - `Graceful Fallback` – Falls back to last-known values if the live GitHub fetch fails.
+- `Contribution Heatmap` – A live GitHub contribution calendar with a running streak counter.
+- `Get Involved CTAs` – Star the portfolio repo, join the community Discord, or jump straight to the contact form.
 
-### 4. About Section 📑
+### 6. About Section 📑
 
 - `Personal Information` – A brief introduction and bio.
-- `Contact Information` – Information on how to get in touch.
+- `Contact Information` – Phone, email, and location at a glance.
+- `Live Availability Widget` – An expandable clock showing Ahmed's live Cairo time with an available/away indicator; expanding it compares that against the visitor's own detected time zone and states the difference in plain English.
 
-### 5. Resume Section 📝
+### 7. Resume Section 📝
 
 - `Summary` – A concise professional summary.
 - `Education` – Information about academic qualifications.
@@ -91,57 +115,58 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Skills` – A categorized list of technical skills and tools.
 - `View / Download Resume` – Buttons to view or download the resume in PDF format.
 
-### 6. Testimonials Section 💬
+### 8. Testimonials Section 💬
 
 - `Recommendations` – Rotating carousel of testimonials from instructors, mentors, and colleagues.
 - `LinkedIn Verified` – Each testimonial links to the reviewer's LinkedIn profile.
 - `See All on LinkedIn` – CTA linking out to the full list of LinkedIn recommendations.
 
-### 7. Contact Section 📬
+### 9. Contact Section 📬
 
 - `Contact Form` – Collects user information including name, email, country, and message.
 - `Country Dropdown` – A dropdown with flags and search functionality for selecting countries.
 - `Firebase Integration` – Utilizes Firebase for storing and managing the collected messages in a secure database.
 - `EmailJS Integration` – Sends the collected messages directly to my email.
 
-### 8. Quotes Section 💬
+### 10. Quotes Section 💬
 
 - `Rotating Quotes` – Displays 10 rotating programming quotes that auto-update every 5 seconds.
 - `Manual Quote Change` – Users can click to change the current quote.
 
-### 9. Footer Section 📌
+### 11. Footer Section 📌
 
 - `Quick Links` – Links to sections (Home, About, Resume, Contact).
 - `Social Media Links` – Icons linking to social media profiles.
+- `Cookie Preferences` – Reopens the cookie consent banner to change the choice at any time.
 - `Copyright Notice` – “© Ahmed Nassar [Year] – All Rights Reserved.”
 
-### 10. Interactive Background 🌌
+### 12. Interactive Background 🌌
 
 - `tsParticles` – Creates a visually engaging, interactive, and dynamic background with animated particles for a modern experience. Learn more about it [here](https://particles.js.org/).
 - `Customizable Effects` – Easily customizable particle effects to match the website's theme and aesthetics.
 - `Performance Optimized` – Ensures smooth performance without compromising the website's loading speed.
 - `Responsive Design` – Adapts seamlessly to different screen sizes and devices for a consistent user experience.
 
-### 11. Scroll-to-Top Button ⬆️
+### 13. Scroll-to-Top Button ⬆️
 
 - `Scroll-to-Top Button` – Appears when the user scrolls down, enabling **quick** and **smooth scrolling** and **navigation** back to the top.
 - `Customizable Design` – Easily customizable to match the website's theme and aesthetics.
 - `Visibility Control` – Automatically hides when the user is at the top of the page.
 
-### 12. Modular & Scalable Architecture 🧩
+### 14. Modular & Scalable Architecture 🧩
 
 - `Component-Based Architecture` – Built with a component-based architecture, allowing easy maintenance, scalability, and clean code for future updates.
 - `Reusable Components` – Components are designed to be reusable across different parts of the application.
 - `Separation of Concerns` – Clear separation between different functionalities, making the codebase easier to manage and extend.
 - `Optimized Dependencies` – Bootstrap is imported modularly (only the components actually used) to keep the CSS bundle lean.
 
-### 13. Dynamic & Interactive Experience ⚙️
+### 15. Dynamic & Interactive Experience ⚙️
 
 - `Animated Transitions` – Smooth motion effects using **Framer Motion**, **AOS**, and **CSS animations** for an engaging user experience.
 - `Interactive Elements` – Elements that respond to user interactions, enhancing engagement.
 - `Real-Time Updates` – Dynamic content updates without requiring a page refresh, providing a seamless experience.
 
-### 14. UI/UX Design Principles 🎨
+### 16. UI/UX Design Principles 🎨
 
 - `Consistency` – Uniform color schemes, typography, and spacing.
 - `Simplicity` – Clean and uncluttered interface.
@@ -152,7 +177,13 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Smooth Navigation` – Easy-to-use navigation.
 - `Performance Optimization` – Fast load times and smooth performance.
 
-### 15. Google Analytics 📊
+### 17. Cookie Consent & Privacy 🍪
+
+- `Consent Banner` – Visitors choose Accept/Decline before any analytics run.
+- `GDPR-Friendly` – Google Analytics only initializes once explicit consent is granted.
+- `Change Anytime` – The choice can be revisited at any time via the **Cookie Preferences** link in the footer.
+
+### 18. Google Analytics 📊
 
 - `Google Analytics` – Tracks website traffic, user behavior, and engagement for data-driven decisions.
 - `Real-Time Reporting` – Provides real-time data on user activity and interactions.
@@ -162,18 +193,24 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Behavior Flow` – Visualizes the path users take through the website.
 - `Event Tracking` – Monitors specific interactions such as clicks, downloads, and form submissions.
 
-### 16. Google Search Console 🔍
+### 19. Google Search Console 🔍
 
 - `Google Search Console` – Optimizes website **performance** and **speed** using **sitemap.xml** and best **SEO** practices to improve search visibility.
 - `SEO Techniques` – Implements strategies to boost search engine **rankings**.
 
-### 17. PWA Support 📱
+### 20. PWA Support 📱
 
 - `Installable` – Can be installed to a device's home screen via `vite-plugin-pwa`.
 - `Offline-Ready` – A generated service worker precaches assets for offline/repeat-visit access.
 - `Web App Manifest` – Custom icons and manifest for a native-like install experience.
 
-<!-- ### 18. Deployment 🚀
+### 21. Continuous Integration & Testing ✅
+
+- `GitHub Actions CI` – Every push and pull request to `main` runs formatting checks, linting, the test suite, and a production build.
+- `Automated Test Suite` – **Vitest** and **React Testing Library** cover key components and utilities.
+- `Pre-Commit Checks` – **Husky** and `lint-staged` auto-fix and format staged files before they're committed.
+
+<!-- ### 22. Deployment 🚀
 
 The website is deployed on **GitHub Pages** using **GitHub Actions**. The deployment process is automated with a workflow file located at `.github/workflows/deploy.yml`. Here are the details:
 
@@ -282,6 +319,15 @@ To run this project locally, follow these steps:
     </a>
     <a href="https://www.emailjs.com/" target="_blank" rel="noopener noreferrer">
         <img src="https://img.shields.io/badge/EmailJS-1B74E4?style=for-the-badge&logo=email&logoColor=white" alt="EmailJS">
+    </a>
+    <a href="https://vitest.dev/" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white" alt="Vitest">
+    </a>
+    <a href="https://testing-library.com/" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/Testing_Library-E33332?style=for-the-badge&logo=testing-library&logoColor=white" alt="Testing Library">
+    </a>
+    <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions">
     </a>
 </p>
 
