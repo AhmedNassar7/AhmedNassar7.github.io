@@ -152,18 +152,19 @@
   }
 
   // All three CTAs (star / join / collaborate) are equally-weighted ways to
-  // engage — same neutral outline treatment for all of them, rather than one
-  // looking like the "real" action and the other two an afterthought.
+  // engage — same primary-color outline treatment for all of them, rather
+  // than one looking like the "real" action and the other two an afterthought.
   .github-star-cta,
   .cta-secondary {
-    border: 1px solid var(--glass-border);
-    color: inherit;
-    background: var(--glass-bg);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
     font: inherit;
 
     &:hover {
-      border-color: var(--primary);
-      color: var(--primary);
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 6px 18px rgba(100, 108, 255, 0.3);
     }
   }
 
@@ -174,6 +175,13 @@
       background: var(--glass-bg-strong);
       font-weight: 700;
       font-size: 0.85rem;
+    }
+
+    &:hover {
+      .star-count {
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+      }
     }
   }
 }

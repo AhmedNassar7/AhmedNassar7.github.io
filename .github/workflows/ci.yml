@@ -27,6 +27,14 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      # Node 20 bundles npm 10, which mishandles platform-specific
+      # optionalDependencies in this lockfile (tries to install ones for
+      # other OS/CPU combos instead of skipping them, failing with
+      # EBADPLATFORM). npm 11 — used to generate the lockfile — reads them
+      # correctly, and it runs fine on Node 20.17+.
+      - name: Update npm
+        run: npm install -g npm@11.12.1
+
       - name: Install dependencies
         run: npm ci
 
