@@ -3,16 +3,22 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { scroller } from 'react-scroll';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
-import Stats from './components/Stats/Stats';
-import About from './components/About/About';
-import Resume from './components/Resume/Resume';
-import Testimonials from './components/Testimonials/Testimonials';
-import Contact from './components/Contact/Contact';
-import Quotes from './components/Quotes/Quotes';
-import Footer from './components/Footer/Footer';
+// Below-the-fold sections are code-split out of the initial bundle — they're
+// still fetched right away (see the prefetch effect below), just as separate
+// chunks the browser can load in parallel instead of parsing/executing them
+// all as part of the critical initial script.
 const ParticlesBackground = lazy(
   () => import('./components/ParticlesBackground/ParticlesBackground'),
 );
+const Stats = lazy(() => import('./components/Stats/Stats'));
+const About = lazy(() => import('./components/About/About'));
+const Resume = lazy(() => import('./components/Resume/Resume'));
+const Testimonials = lazy(
+  () => import('./components/Testimonials/Testimonials'),
+);
+const Contact = lazy(() => import('./components/Contact/Contact'));
+const Quotes = lazy(() => import('./components/Quotes/Quotes'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
@@ -81,6 +87,33 @@ function App() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    // The below-the-fold sections are code-split so the initial bundle stays
+    // small, but they're reached within the same scroll session rather than
+    // a real navigation — so fetch their chunks during idle time right away
+    // instead of waiting for each Suspense boundary to request them on
+    // render. That way the chunks are usually already cached by the time the
+    // user scrolls down, and Suspense's fallback rarely has to show at all.
+    if (loading) return undefined;
+
+    const prefetch = () => {
+      import('./components/Stats/Stats');
+      import('./components/About/About');
+      import('./components/Resume/Resume');
+      import('./components/Testimonials/Testimonials');
+      import('./components/Contact/Contact');
+      import('./components/Quotes/Quotes');
+      import('./components/Footer/Footer');
+    };
+
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(prefetch);
+      return () => window.cancelIdleCallback(id);
+    }
+    const timer = setTimeout(prefetch, 200);
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   useEffect(() => {
     // Initialize AOS once the sections have actually mounted (they're gated
@@ -162,14 +195,28 @@ function App() {
       <Terminal theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Home />
-        <Stats theme={theme} />
-        <About />
-        <Resume />
-        <Testimonials />
-        <Contact />
-        <Quotes />
+        <Suspense fallback={null}>
+          <Stats theme={theme} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <About />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Resume />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Testimonials />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Contact />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Quotes />
+        </Suspense>
       </main>
-      <Footer onOpenCookiePreferences={handleOpenCookiePreferences} />
+      <Suspense fallback={null}>
+        <Footer onOpenCookiePreferences={handleOpenCookiePreferences} />
+      </Suspense>
       <CookieConsent
         visible={cookieBannerVisible}
         onAccept={handleAcceptCookies}

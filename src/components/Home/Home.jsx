@@ -81,6 +81,8 @@ const Home = () => {
                 src={profileImage}
                 alt="Ahmed Nassar"
                 className="profile-image"
+                width="406"
+                height="301"
                 loading="lazy"
               />
               <div className="orbit-ball orbit-ball-1"></div>

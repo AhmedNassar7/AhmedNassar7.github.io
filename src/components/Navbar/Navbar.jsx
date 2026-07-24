@@ -58,6 +58,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             <motion.img
               src="/favicon.svg"
               alt="Logo"
+              width="29"
               height="30"
               className="d-inline-block align-top brand-logo"
               whileHover={{

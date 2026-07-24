@@ -78,6 +78,8 @@ const TestimonialAvatar = ({ photo, name }) => {
         src={photo}
         alt={name}
         className="testimonial-avatar-photo"
+        width="400"
+        height="400"
         onError={() => setImgFailed(true)}
       />
     );
