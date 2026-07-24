@@ -83,7 +83,7 @@ const Home = () => {
                 className="profile-image"
                 width="406"
                 height="301"
-                loading="lazy"
+                fetchPriority="high"
               />
               <div className="orbit-ball orbit-ball-1"></div>
               <div className="orbit-ball orbit-ball-2"></div>

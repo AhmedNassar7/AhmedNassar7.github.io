@@ -66,9 +66,11 @@
     }
 
     &.accept {
-      background: var(--primary);
+      // var(--primary) is only ~4.09:1 against white text (fails WCAG AA's
+      // 4.5:1 for normal-size text); --secondary passes at ~5.06:1.
+      background: var(--secondary);
       color: white;
-      border-color: var(--primary);
+      border-color: var(--secondary);
     }
   }
 

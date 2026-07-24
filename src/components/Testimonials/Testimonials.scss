@@ -142,25 +142,37 @@
     margin-top: 1rem;
 
     .testimonial-point {
-      width: 10px;
-      height: 10px;
+      // Button itself is a 24px tap target (WCAG 2.5.8 / Lighthouse minimum);
+      // the visible dot stays 10px via ::before so nothing looks different.
+      width: 24px;
+      height: 24px;
       padding: 0;
       border: none;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 50%;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+
+      &::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.3);
+        transition: background-color 0.3s ease;
+      }
 
       &:focus-visible {
         outline: 2px solid var(--primary);
         outline-offset: 2px;
       }
 
-      &.active {
+      &.active::before {
         background-color: var(--primary);
       }
 
-      &:hover {
+      &:hover::before {
         background-color: var(--secondary);
       }
     }
@@ -177,7 +189,7 @@
       padding: 0.75rem 1.5rem;
       border-radius: 30px;
       border: 2px solid var(--primary);
-      color: var(--primary);
+      color: var(--primary-text);
       font-weight: 500;
       font-size: 0.95rem;
       text-decoration: none;

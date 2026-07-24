@@ -113,7 +113,9 @@
   .submit-btn {
     width: 100%;
     padding: 1rem;
-    background: var(--primary);
+    // var(--primary) is only ~4.09:1 against white text (fails WCAG AA's
+    // 4.5:1 for normal-size text); --secondary passes at ~5.06:1.
+    background: var(--secondary);
     color: white;
     border: none;
     border-radius: 8px;
@@ -121,7 +123,7 @@
     transition: all 0.3s ease;
 
     &:hover {
-      background: var(--secondary);
+      filter: brightness(0.9);
       transform: translateY(-2px);
     }
 

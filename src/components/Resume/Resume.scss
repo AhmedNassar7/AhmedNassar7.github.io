@@ -385,7 +385,7 @@
   .view-btn {
     background: transparent;
     border: 2px solid var(--primary);
-    color: var(--primary);
+    color: var(--primary-text);
 
     &:hover {
       background: var(--primary);
@@ -394,10 +394,12 @@
   }
 
   .download-btn {
-    background: var(--primary);
+    // var(--primary) is only ~4.09:1 against white text (fails WCAG AA's
+    // 4.5:1 for normal-size text); --secondary passes at ~5.06:1.
+    background: var(--secondary);
 
     &:hover {
-      background: var(--secondary);
+      filter: brightness(0.9);
     }
   }
 }
