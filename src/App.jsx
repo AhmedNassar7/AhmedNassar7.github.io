@@ -93,6 +93,12 @@ function App() {
         duration: 1000,
         once: true,
         offset: 50,
+        // Respect the OS-level reduced-motion preference: AOS has no
+        // built-in awareness of it, so without this every scroll-reveal
+        // animation still runs (and still does its layout work) for
+        // visitors who've explicitly opted out of non-essential motion.
+        disable: () =>
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       });
 
       // Sections don't mount until the loading screen clears, so the

@@ -14,6 +14,7 @@ import {
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import './Home.scss';
 import profileImage from '../../assets/images/profile.png';
+import profileImageWebp from '../../assets/images/profile.webp';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 
@@ -77,14 +78,17 @@ const Home = () => {
         <Row className="align-items-center min-vh-100">
           <Col md={6} className="text-center" data-aos="fade-right">
             <div className="profile-image-container">
-              <img
-                src={profileImage}
-                alt="Ahmed Nassar"
-                className="profile-image"
-                width="406"
-                height="301"
-                fetchPriority="high"
-              />
+              <picture>
+                <source srcSet={profileImageWebp} type="image/webp" />
+                <img
+                  src={profileImage}
+                  alt="Ahmed Nassar"
+                  className="profile-image"
+                  width="406"
+                  height="301"
+                  fetchPriority="high"
+                />
+              </picture>
               <div className="orbit-ball orbit-ball-1"></div>
               <div className="orbit-ball orbit-ball-2"></div>
               {/* <div className="orbit-ball orbit-ball-3"></div> */}

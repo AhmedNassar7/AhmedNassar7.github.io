@@ -11,9 +11,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import mahmoudSakrPhoto from '../../assets/images/testimonials/mahmoud-sakr.jpg';
+import mahmoudSakrPhotoWebp from '../../assets/images/testimonials/mahmoud-sakr.webp';
 import hassanELDashPhoto from '../../assets/images/testimonials/hassan-eldash.jpg';
+import hassanELDashPhotoWebp from '../../assets/images/testimonials/hassan-eldash.webp';
 import mennaIbrahimPhoto from '../../assets/images/testimonials/menna-ibrahim.jpg';
+import mennaIbrahimPhotoWebp from '../../assets/images/testimonials/menna-ibrahim.webp';
 import mahmoudShalabyPhoto from '../../assets/images/testimonials/mahmoud-shalaby.jpg';
+import mahmoudShalabyPhotoWebp from '../../assets/images/testimonials/mahmoud-shalaby.webp';
 import './Testimonials.scss';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
@@ -31,6 +35,7 @@ const testimonials = [
       'He is a highly talented developer with a deep understanding of building scalable, secure, and efficient backend systems.',
     linkedinUrl: 'https://www.linkedin.com/in/mahmoodsakr/',
     photo: mahmoudSakrPhoto,
+    photoWebp: mahmoudSakrPhotoWebp,
   },
   {
     name: 'Hassan ELDash',
@@ -40,6 +45,7 @@ const testimonials = [
       "Ahmed has shown remarkable growth and expertise in the React development track. He excels in creating responsive, efficient web applications, showcasing strong skills in React, Redux, and modern web development practices. With his creativity and problem-solving mindset, I'm confident Ahmed will be a valuable asset to any team. Highly recommended!",
     linkedinUrl: 'https://www.linkedin.com/in/hassaneldash/',
     photo: hassanELDashPhoto,
+    photoWebp: hassanELDashPhotoWebp,
   },
   {
     name: 'Menna Ibrahim',
@@ -49,6 +55,7 @@ const testimonials = [
       'I had the pleasure of training Ahmed at the ITI Winter Training. He is a smart and ambitious engineer who is always eager to learn and strengthen his fundamentals. Ahmed is a fast learner, continuously seeking to improve himself and expand his skill set. He would be a valuable addition to any team.',
     linkedinUrl: 'https://www.linkedin.com/in/menna-ahmed-ibrahim/',
     photo: mennaIbrahimPhoto,
+    photoWebp: mennaIbrahimPhotoWebp,
   },
   {
     name: 'Mahmoud Shalaby',
@@ -58,6 +65,7 @@ const testimonials = [
       'Ahmed showed a very good example of commitment and dedication during the internship sessions and final presentation. Also, he is a very good team player.',
     linkedinUrl: 'https://www.linkedin.com/in/mahmoud-shalaby-88121266/',
     photo: mahmoudShalabyPhoto,
+    photoWebp: mahmoudShalabyPhotoWebp,
   },
 ];
 
@@ -69,19 +77,22 @@ const getInitials = (name) =>
     .slice(0, 2)
     .toUpperCase();
 
-const TestimonialAvatar = ({ photo, name }) => {
+const TestimonialAvatar = ({ photo, photoWebp, name }) => {
   const [imgFailed, setImgFailed] = useState(false);
 
   if (photo && !imgFailed) {
     return (
-      <img
-        src={photo}
-        alt={name}
-        className="testimonial-avatar-photo"
-        width="400"
-        height="400"
-        onError={() => setImgFailed(true)}
-      />
+      <picture>
+        {photoWebp && <source srcSet={photoWebp} type="image/webp" />}
+        <img
+          src={photo}
+          alt={name}
+          className="testimonial-avatar-photo"
+          width="400"
+          height="400"
+          onError={() => setImgFailed(true)}
+        />
+      </picture>
     );
   }
 
@@ -90,6 +101,7 @@ const TestimonialAvatar = ({ photo, name }) => {
 
 TestimonialAvatar.propTypes = {
   photo: PropTypes.string,
+  photoWebp: PropTypes.string,
   name: PropTypes.string.isRequired,
 };
 
@@ -139,6 +151,7 @@ const Testimonials = () => {
               <div className="testimonial-person">
                 <TestimonialAvatar
                   photo={testimonial.photo}
+                  photoWebp={testimonial.photoWebp}
                   name={testimonial.name}
                 />
                 <div className="testimonial-meta">
