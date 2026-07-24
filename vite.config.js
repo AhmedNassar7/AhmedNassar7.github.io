@@ -79,11 +79,14 @@ export default defineConfig(({ mode }) => {
         include: ['src/**/*.{js,jsx,ts,tsx}'],
         exclude: ['node_modules', 'dist'],
       }),
-      // Sitemap generation for SEO (only in production)
+      // Sitemap generation for SEO (only in production). This plugin scans
+      // dist/*.html and lists every file it finds, so the GitHub Pages SPA
+      // fallback (404.html) must be excluded explicitly — otherwise a
+      // noindex error page ends up in the sitemap as a priority-1.0 URL.
       !isDev &&
         sitemap({
           hostname: siteUrl,
-          routes: ['/'], // Add other routes here
+          exclude: ['/404'],
         }),
       // Gzip compression for production
       !isDev &&

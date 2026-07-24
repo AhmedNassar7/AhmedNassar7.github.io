@@ -11,6 +11,7 @@ import {
 import { faCookieBite } from '@fortawesome/free-solid-svg-icons';
 import './Footer.scss';
 import PropTypes from 'prop-types';
+import { trackEvent } from '../../utils/analytics';
 
 const FOOTER_NAV_ITEMS = [
   { id: 'home', label: 'Home' },
@@ -29,20 +30,38 @@ const Footer = ({ onOpenCookiePreferences }) => {
       icon: faLinkedin,
       url: 'https://www.linkedin.com/in/nasssar/',
       label: 'LinkedIn',
+      contentId: 'linkedin_profile',
     },
-    { icon: faGithub, url: 'https://github.com/AhmedNassar7', label: 'GitHub' },
-    { icon: faWhatsapp, url: 'https://wa.me/201110102554', label: 'WhatsApp' },
+    {
+      icon: faGithub,
+      url: 'https://github.com/AhmedNassar7',
+      label: 'GitHub',
+      contentId: 'github_profile',
+    },
+    {
+      icon: faWhatsapp,
+      url: 'https://wa.me/201110102554',
+      label: 'WhatsApp',
+      contentId: 'whatsapp_profile',
+    },
     {
       icon: faFacebook,
       url: 'https://fb.com/profile.php?id=100004270350132',
       label: 'Facebook',
+      contentId: 'facebook_profile',
     },
     {
       icon: faInstagram,
       url: 'https://www.instagram.com/ahmed_nassar__',
       label: 'Instagram',
+      contentId: 'instagram_profile',
     },
-    { icon: faTelegram, url: 'https://t.me/nassarrrr', label: 'Telegram' },
+    {
+      icon: faTelegram,
+      url: 'https://t.me/nassarrrr',
+      label: 'Telegram',
+      contentId: 'telegram_profile',
+    },
   ];
 
   return (
@@ -77,6 +96,12 @@ const Footer = ({ onOpenCookiePreferences }) => {
               rel="noopener noreferrer"
               className="social-icon"
               aria-label={link.label}
+              onClick={() =>
+                trackEvent('select_content', {
+                  content_type: 'social_profile',
+                  content_id: link.contentId,
+                })
+              }
             >
               <FontAwesomeIcon icon={link.icon} />
             </a>

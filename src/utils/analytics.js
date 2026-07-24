@@ -1,79 +1,44 @@
 import ReactGA from 'react-ga4';
 import { Logger, LogLevel } from './logger';
 
-// Instantiate the Logger
 const logger = new Logger(LogLevel.INFO);
 
 /**
- * Tracks an event using Google Analytics.
+ * Sends a GA4 event. Uses gtag.js directly when available (it's what
+ * ReactGA.initialize() loads onto window), falling back to ReactGA's own
+ * wrapper. Both are no-ops until the visitor accepts the cookie consent
+ * banner and initAnalytics() (src/App.jsx) has run, so this never fires
+ * before consent.
  *
- * @param {Object} params - The event parameters.
- * @param {string} params.action - The action of the event.
- * @param {string} params.category - The category of the event.
- * @param {string} params.label - The label of the event.
- * @param {number} params.value - The value of the event.
- * @param {boolean} params.debug - Whether to log debug information.
+ * @param {string} eventName - snake_case GA4 event name (e.g. "select_content").
+ *   Avoid GA4's own automatically-collected names (page_view is the one
+ *   exception — see useVirtualPageView — plus scroll, click, file_download,
+ *   form_start, form_submit, view_search_results, video_start/progress/complete)
+ *   for anything NOT meant to represent that same automatic signal: reusing
+ *   one of those names merges your custom hits into Enhanced Measurement's
+ *   own bucket for that name, double counting the interaction and making the
+ *   Events report meaningless for both signals at once.
+ * @param {Object} [params] - snake_case GA4 event parameters.
  */
-export const trackEvent = ({
-  action,
-  category,
-  label,
-  value = 1,
-  debug = false,
-}) => {
+export const trackEvent = (eventName, params = {}) => {
   try {
-    // Check if the environment is production (use the Vite environment variable)
     const isProduction = import.meta.env.MODE === 'production';
-    // Only enable debug in development
-    debug = debug && !isProduction;
-    // Log the event details to the console
-    // console.log('Event triggered:', action, category, label, value);
-    // // Log the debug mode to the console
-    // console.log('Debug is', debug);
-    // // Log the environment to the console
-    // console.log('Is production?', isProduction);
 
-    // If debug mode is enabled, log the event details
-    if (debug) {
-      logger.debug(
-        `Tracking Event: ${action} | ${category} | ${label} | ${value}`,
-      );
-    }
-
-    // Track event using GA4 if gtag.js is available
     if (typeof window.gtag === 'function') {
-      window.gtag('event', action, {
-        event_category: category,
-        event_label: label,
-        value,
-      });
-      if (debug) {
-        logger.debug(
-          `GA4 Event Tracked: ${action} | ${category} | ${label} | ${value}`,
-        );
-      }
-    }
-    // Fallback to ReactGA if gtag.js is unavailable
-    else if (ReactGA?.event) {
-      ReactGA.event({
-        category,
-        action,
-        label,
-        value,
-      });
-      if (debug) {
-        logger.debug(
-          `UA Event Tracked: ${action} | ${category} | ${label} | ${value}`,
-        );
-      }
-    }
-    // Warn if no analytics provider is initialized
-    else {
+      window.gtag('event', eventName, params);
+    } else if (ReactGA?.event) {
+      ReactGA.event(eventName, params);
+    } else {
       logger.warn(
-        `Analytics provider is not initialized: ${action}, ${category}, ${label}, ${value}`,
+        `Analytics provider is not initialized: ${eventName} ${JSON.stringify(params)}`,
       );
+      return;
+    }
+
+    if (!isProduction) {
+      logger.debug(`GA4 event tracked: ${eventName} ${JSON.stringify(params)}`);
     }
   } catch (error) {
-    logger.error(`Error tracking event: ${error.message}`);
+    logger.error(`Error tracking event "${eventName}": ${error.message}`);
   }
 };

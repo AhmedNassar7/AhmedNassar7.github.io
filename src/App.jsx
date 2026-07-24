@@ -112,12 +112,7 @@ function App() {
     localStorage.setItem('theme', newTheme);
     document.body.className = `${newTheme}-theme`;
 
-    trackEvent({
-      action: 'toggle_theme',
-      category: 'User Preferences',
-      label: `Switched to ${newTheme} mode`,
-      value: 1,
-    });
+    trackEvent('toggle_theme', { theme_mode: newTheme });
   };
 
   const handleAcceptCookies = () => {
@@ -142,12 +137,7 @@ function App() {
     });
 
     // Track scroll-to-top event
-    trackEvent({
-      action: 'scroll_to_top',
-      category: 'Navigation',
-      label: 'Scroll to Top',
-      value: 1,
-    });
+    trackEvent('scroll_to_top');
   };
 
   if (loading) {

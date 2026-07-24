@@ -208,12 +208,7 @@ const Terminal = ({ theme, toggleTheme }) => {
   const openTerminal = () => {
     triggerRef.current = document.activeElement;
     setOpen(true);
-    trackEvent({
-      action: 'open_terminal',
-      category: 'Easter Egg',
-      label: 'Terminal',
-      value: 1,
-    });
+    trackEvent('open_terminal');
   };
 
   useEffect(() => {
@@ -242,12 +237,7 @@ const Terminal = ({ theme, toggleTheme }) => {
     const [name, ...args] = trimmed.split(/\s+/);
     const handler = commandsRef.current[name.toLowerCase()];
 
-    trackEvent({
-      action: 'run_terminal_command',
-      category: 'Easter Egg',
-      label: name.toLowerCase(),
-      value: 1,
-    });
+    trackEvent('run_terminal_command', { command_name: name.toLowerCase() });
 
     setHistory((prev) => [...prev, { type: 'input', text: trimmed }]);
 

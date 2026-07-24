@@ -14,6 +14,7 @@ import {
   getHourDifference,
   getTimezoneCityName,
 } from '../../utils/timezone';
+import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 
 const AHMED_TIMEZONE = 'Africa/Cairo';
 const AHMED_WORKING_HOURS = { start: 9, end: 24 }; // 9 AM - 12 AM (midnight), Cairo time
@@ -34,6 +35,7 @@ const contactInfo = [
 ];
 
 const About = () => {
+  const sectionRef = useVirtualPageView('About', '/#about');
   const [now, setNow] = useState(new Date());
   const [timeExpanded, setTimeExpanded] = useState(false);
 
@@ -75,7 +77,7 @@ const About = () => {
     : 'Outside working hours';
 
   return (
-    <section id="about" className="about-section">
+    <section id="about" className="about-section" ref={sectionRef}>
       <Container>
         <h2 className="section-title text-center mb-5" data-aos="fade-up">
           About Me

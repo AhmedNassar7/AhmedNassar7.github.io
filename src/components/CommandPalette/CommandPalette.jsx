@@ -113,6 +113,7 @@ const CommandPalette = ({ theme, toggleTheme }) => {
         label: 'Email Ahmed',
         icon: faEnvelope,
         run: () => {
+          trackEvent('generate_lead', { lead_source: 'email_link' });
           window.location.href = 'mailto:a.moh.nassar00@gmail.com';
         },
       },
@@ -136,22 +137,12 @@ const CommandPalette = ({ theme, toggleTheme }) => {
   const openPalette = useCallback(() => {
     triggerRef.current = document.activeElement;
     setOpen(true);
-    trackEvent({
-      action: 'open_command_palette',
-      category: 'Navigation',
-      label: 'Command Palette',
-      value: 1,
-    });
+    trackEvent('open_command_palette');
   }, []);
 
   const runCommand = useCallback(
     (cmd) => {
-      trackEvent({
-        action: 'run_command',
-        category: 'Command Palette',
-        label: cmd.id,
-        value: 1,
-      });
+      trackEvent('run_command', { command_id: cmd.id });
       cmd.run();
       closePalette();
     },

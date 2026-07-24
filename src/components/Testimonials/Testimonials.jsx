@@ -15,6 +15,9 @@ import hassanELDashPhoto from '../../assets/images/testimonials/hassan-eldash.jp
 import mennaIbrahimPhoto from '../../assets/images/testimonials/menna-ibrahim.jpg';
 import mahmoudShalabyPhoto from '../../assets/images/testimonials/mahmoud-shalaby.jpg';
 import './Testimonials.scss';
+import { trackEvent } from '../../utils/analytics';
+import { useVirtualPageView } from '../../hooks/useVirtualPageView';
+import { slugify } from '../../utils/slugify';
 
 const LINKEDIN_RECOMMENDATIONS_URL =
   'https://www.linkedin.com/in/nasssar/details/recommendations/';
@@ -89,6 +92,7 @@ TestimonialAvatar.propTypes = {
 };
 
 const Testimonials = () => {
+  const sectionRef = useVirtualPageView('Testimonials', '/#testimonials');
   const [current, setCurrent] = useState(0);
 
   const next = useCallback(() => {
@@ -107,7 +111,11 @@ const Testimonials = () => {
   const testimonial = testimonials[current];
 
   return (
-    <section id="testimonials" className="testimonials-section">
+    <section
+      id="testimonials"
+      className="testimonials-section"
+      ref={sectionRef}
+    >
       <Container>
         <h2 className="section-title text-center mb-5" data-aos="fade-up">
           Testimonials
@@ -141,6 +149,12 @@ const Testimonials = () => {
                         rel="noopener noreferrer"
                         aria-label={`${testimonial.name} on LinkedIn`}
                         className="linkedin-link"
+                        onClick={() =>
+                          trackEvent('select_content', {
+                            content_type: 'testimonial_author',
+                            content_id: slugify(testimonial.name),
+                          })
+                        }
                       >
                         <FontAwesomeIcon icon={faLinkedin} />
                       </a>
@@ -194,6 +208,9 @@ const Testimonials = () => {
             className="linkedin-cta"
             whileHover={{ y: -3 }}
             whileTap={{ scale: 0.96 }}
+            onClick={() =>
+              trackEvent('cta_click', { cta_id: 'view_recommendations' })
+            }
           >
             <FontAwesomeIcon icon={faLinkedin} />
             See all recommendations on LinkedIn

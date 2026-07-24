@@ -15,26 +15,47 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import './Home.scss';
 import profileImage from '../../assets/images/profile.png';
 import { trackEvent } from '../../utils/analytics';
+import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 
 const Home = () => {
+  const sectionRef = useVirtualPageView('Home', '/#home');
+
   const socialLinks = [
     {
       icon: faLinkedin,
       url: 'https://www.linkedin.com/in/nasssar/',
       label: 'LinkedIn',
+      contentId: 'linkedin_profile',
     },
-    { icon: faGithub, url: 'https://github.com/AhmedNassar7', label: 'GitHub' },
-    { icon: faWhatsapp, url: 'https://wa.me/201110102554', label: 'WhatsApp' },
-    { icon: faTelegram, url: 'https://t.me/nassarrrr', label: 'Telegram' },
+    {
+      icon: faGithub,
+      url: 'https://github.com/AhmedNassar7',
+      label: 'GitHub',
+      contentId: 'github_profile',
+    },
+    {
+      icon: faWhatsapp,
+      url: 'https://wa.me/201110102554',
+      label: 'WhatsApp',
+      contentId: 'whatsapp_profile',
+    },
+    {
+      icon: faTelegram,
+      url: 'https://t.me/nassarrrr',
+      label: 'Telegram',
+      contentId: 'telegram_profile',
+    },
     {
       icon: faInstagram,
       url: 'https://www.instagram.com/ahmed_nassar__',
       label: 'Instagram',
+      contentId: 'instagram_profile',
     },
     {
       icon: faFacebook,
       url: 'https://fb.com/profile.php?id=100004270350132',
       label: 'Facebook',
+      contentId: 'facebook_profile',
     },
   ];
 
@@ -51,7 +72,7 @@ const Home = () => {
   };
 
   return (
-    <section id="home" className="home-section">
+    <section id="home" className="home-section" ref={sectionRef}>
       <Container>
         <Row className="align-items-center min-vh-100">
           <Col md={6} className="text-center" data-aos="fade-right">
@@ -107,22 +128,12 @@ const Home = () => {
                     aria-label={link.label}
                     variants={socialItemVariants}
                     whileTap={{ scale: 0.85 }}
-                    onClick={() => {
-                      try {
-                        trackEvent({
-                          action: 'click_social_media',
-                          category: 'Social Media',
-                          label: link.label,
-                          url: link.url,
-                          value: 1,
-                        });
-                      } catch (error) {
-                        console.error(
-                          'Tracking social media link click home failed:',
-                          error,
-                        );
-                      }
-                    }}
+                    onClick={() =>
+                      trackEvent('select_content', {
+                        content_type: 'social_profile',
+                        content_id: link.contentId,
+                      })
+                    }
                   >
                     <FontAwesomeIcon icon={link.icon} />
                   </motion.a>

@@ -17,6 +17,7 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import GitHubHeatmap from './GitHubHeatmap';
 import { calculateStreaks } from '../../utils/streaks';
 import { trackEvent } from '../../utils/analytics';
+import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import './Stats.scss';
 
 const GITHUB_USERNAME = 'AhmedNassar7';
@@ -73,6 +74,7 @@ AnimatedCounter.propTypes = {
 };
 
 const Stats = ({ theme }) => {
+  const sectionRef = useVirtualPageView('GitHub Stats', '/#stats');
   const [githubStars, setGithubStars] = useState(null);
   const [publicRepos, setPublicRepos] = useState(null);
   const [currentStreak, setCurrentStreak] = useState(null);
@@ -146,12 +148,7 @@ const Stats = ({ theme }) => {
   const handleCollaborateClick = () => {
     scroller.scrollTo('contact', { offset: -70 });
     window.history.replaceState(null, '', '#contact');
-    trackEvent({
-      action: 'click',
-      category: 'Get Involved CTA',
-      label: "Let's Collaborate",
-      value: 1,
-    });
+    trackEvent('cta_click', { cta_id: 'collaborate' });
   };
 
   const stats = [
@@ -197,7 +194,7 @@ const Stats = ({ theme }) => {
     ) : null;
 
   return (
-    <section id="stats" className="stats-section">
+    <section id="stats" className="stats-section" ref={sectionRef}>
       <Container>
         <h2 className="section-title text-center mb-5" data-aos="fade-up">
           Stats
@@ -250,14 +247,7 @@ const Stats = ({ theme }) => {
                 className="github-star-cta"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.96 }}
-                onClick={() =>
-                  trackEvent({
-                    action: 'click',
-                    category: 'GitHub Star CTA',
-                    label: 'Star portfolio repo',
-                    value: 1,
-                  })
-                }
+                onClick={() => trackEvent('cta_click', { cta_id: 'star_repo' })}
               >
                 <FontAwesomeIcon icon={faStar} />
                 Star Portfolio on GitHub
@@ -274,12 +264,7 @@ const Stats = ({ theme }) => {
                 whileTap={{ scale: 0.96 }}
                 aria-label="Join Ahmed's Software Engineering community on Discord"
                 onClick={() =>
-                  trackEvent({
-                    action: 'click',
-                    category: 'Get Involved CTA',
-                    label: 'Join SWE Community',
-                    value: 1,
-                  })
+                  trackEvent('cta_click', { cta_id: 'join_community' })
                 }
               >
                 <FontAwesomeIcon icon={faDiscord} />

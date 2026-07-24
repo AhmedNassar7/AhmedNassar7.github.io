@@ -5,12 +5,14 @@ import ReactCountryFlag from 'react-country-flag';
 import emailjs from 'emailjs-com';
 import { addMessage } from '../../firebase';
 import { trackEvent } from './../../utils/analytics';
+import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import { Logger, LogLevel } from '../../utils/logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceFrown } from '@fortawesome/free-regular-svg-icons';
 import './Contact.scss';
 
 const Contact = () => {
+  const sectionRef = useVirtualPageView('Contact', '/#contact');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -266,14 +268,6 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      // Track form submission event
-      trackEvent({
-        action: 'form_submit',
-        category: 'Contact',
-        label: formData.name || 'Anonymous',
-        value: 1,
-      });
-
       // Send message via EmailJS
       try {
         // EmailJS config from environment variables
@@ -318,6 +312,10 @@ const Contact = () => {
       // Reset form state on success
       setStatus('success');
       setFormData({ name: '', email: '', country: null, message: '' });
+
+      // Only a genuinely delivered message counts as a generated lead —
+      // tracking this on submit-attempt would count failed sends too.
+      trackEvent('generate_lead', { lead_source: 'contact_form' });
     } catch (error) {
       logger.error(`Form submission error: ${error}`);
       setStatus('error');
@@ -325,7 +323,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="contact-section" ref={sectionRef}>
       <Container>
         <h2 className="section-title text-center mb-5" data-aos="fade-up">
           Contact Me

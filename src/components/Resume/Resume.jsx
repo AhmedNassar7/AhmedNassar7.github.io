@@ -2,7 +2,14 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { trackEvent } from '../../utils/analytics';
-import { RESUME_VIEW_URL, downloadResume } from '../../utils/resume';
+import { useVirtualPageView } from '../../hooks/useVirtualPageView';
+import { slugify } from '../../utils/slugify';
+import {
+  RESUME_URL,
+  RESUME_VIEW_URL,
+  RESUME_FILE_NAME,
+  downloadResume,
+} from '../../utils/resume';
 import {
   education,
   experiences,
@@ -26,6 +33,8 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import './Resume.scss';
 
 const Resume = () => {
+  const sectionRef = useVirtualPageView('Resume', '/#resume');
+
   const projectGridVariants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.1 } },
@@ -36,39 +45,40 @@ const Resume = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const trackProjectClick = (projectName) => {
-    trackEvent({
-      action: 'click',
-      category: 'Project Link',
-      label: projectName,
-      value: 1,
+  const trackProjectClick = (projectName, linkType) => {
+    trackEvent('select_content', {
+      content_type: 'project',
+      content_id: `${slugify(projectName)}_${linkType}`,
     });
   };
 
   const handleResumeView = () => {
-    trackEvent({
-      action: 'view_resume',
-      category: 'Resume',
-      label: 'Resume View',
-      value: 1,
+    trackEvent('select_content', {
+      content_type: 'resume',
+      content_id: 'resume_view',
     });
 
     window.open(RESUME_VIEW_URL, '_blank');
   };
 
   const handleResumeDownload = () => {
-    trackEvent({
-      action: 'download_resume',
-      category: 'Resume',
-      label: 'Resume Download',
-      value: 1,
+    // Matches GA4's own "file_download" recommended-event schema so this
+    // reads correctly in the standard reports. Enhanced Measurement's
+    // automatic file-download detection must stay OFF for this data stream
+    // (Admin > Data Streams > Enhanced measurement) or the same click gets
+    // counted twice under the same event name.
+    trackEvent('file_download', {
+      file_name: RESUME_FILE_NAME,
+      file_extension: 'pdf',
+      link_url: RESUME_URL,
+      link_text: 'Download Resume',
     });
 
     downloadResume();
   };
 
   return (
-    <section id="resume" className="resume-section">
+    <section id="resume" className="resume-section" ref={sectionRef}>
       <Container>
         <h2 className="section-title text-center mb-5" data-aos="fade-up">
           Resume
@@ -231,7 +241,7 @@ const Resume = () => {
                             rel="noopener noreferrer"
                             aria-label={`Open ${project.name} live demo`}
                             onClick={() =>
-                              trackProjectClick(`${project.name} (live)`)
+                              trackProjectClick(project.name, 'demo')
                             }
                           >
                             <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
@@ -242,7 +252,9 @@ const Resume = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`View ${project.name} on GitHub`}
-                          onClick={() => trackProjectClick(project.name)}
+                          onClick={() =>
+                            trackProjectClick(project.name, 'repo')
+                          }
                         >
                           <FontAwesomeIcon icon={faGithub} />
                         </a>
@@ -298,6 +310,12 @@ const Resume = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={`View ${achievement.title} on GitHub`}
+                              onClick={() =>
+                                trackEvent('select_content', {
+                                  content_type: 'achievement_link',
+                                  content_id: `${slugify(achievement.title)}_primary`,
+                                })
+                              }
                             >
                               <FontAwesomeIcon icon={faGithub} />
                             </a>
@@ -308,6 +326,12 @@ const Resume = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={`Open ${achievement.secondaryLabel} for ${achievement.title}`}
+                              onClick={() =>
+                                trackEvent('select_content', {
+                                  content_type: 'achievement_link',
+                                  content_id: `${slugify(achievement.title)}_secondary`,
+                                })
+                              }
                             >
                               <FontAwesomeIcon
                                 icon={
