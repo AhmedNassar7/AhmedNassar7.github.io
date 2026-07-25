@@ -436,8 +436,7 @@ const Contact = () => {
                 </button>
                 {status === 'success' && (
                   <Alert variant="success" className="mt-4" role="status">
-                    Thanks for reaching out! Your message has been sent —
-                    I&apos;ll get back to you soon.
+                    Message sent successfully
                     <FontAwesomeIcon
                       icon={faFaceSmile}
                       style={{ marginLeft: '10px' }}
