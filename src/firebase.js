@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set } from 'firebase/database';
+import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { Logger, LogLevel } from './utils/logger';
 
 // Instantiate the Logger
@@ -54,6 +54,16 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Realtime Database
 const db = getDatabase(app);
+
+// The Realtime Database SDK opens its WebSocket/long-polling connection
+// lazily, on first read/write — which otherwise means the contact form's
+// submit is what pays for the full connection handshake, making it feel
+// slow even when nothing is wrong. Subscribing to the special
+// ".info/connected" path is Firebase's own documented way to open that
+// connection immediately at page load instead, well ahead of anyone
+// reaching the form. It's always readable regardless of the database's
+// security rules, so this is safe on any project configuration.
+onValue(ref(db, '.info/connected'), () => {});
 
 /**
  * Helper to get the current date and time in the desired format.
