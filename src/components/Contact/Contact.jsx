@@ -9,6 +9,7 @@ import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import { Logger, LogLevel } from '../../utils/logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceFrown } from '@fortawesome/free-regular-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import './Contact.scss';
 
 const Contact = () => {
@@ -278,65 +279,66 @@ const Contact = () => {
     e.preventDefault();
     setStatus('sending');
 
-    try {
-      // Send message via EmailJS
-      try {
-        // EmailJS config from environment variables
-        const emailResponse = await withTimeout(
-          emailjs.send(
-            import.meta.env.VITE_EMAILJS_SERVICE_ID,
-            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-            {
-              from_name: formData.name || 'Anonymous',
-              from_email: formData.email || 'No Email Provided',
-              country: formData.country?.label || 'N/A',
-              message: formData.message,
-              to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
-            },
-            import.meta.env.VITE_EMAILJS_USER_ID,
-          ),
-          15000,
-          'EmailJS request timed out',
-        );
-        logger.info(`EmailJS Response: ${emailResponse}`);
-      } catch (emailError) {
-        logger.error(
-          `EmailJS Error: ${emailError?.status} ${emailError?.text}`,
-        );
-        setStatus('error');
-        return; // Exit if EmailJS fails
-      }
-
-      // Save form data to Firebase
-      try {
-        await withTimeout(
-          addMessage({
-            name: formData.name || 'Anonymous',
-            email: formData.email || 'No Email Provided',
+    // EmailJS (notifies Ahmed) and Firebase (backs up a copy) don't depend
+    // on each other's result, so run them concurrently instead of one after
+    // the other — roughly halves the wait for the common case where both
+    // succeed. allSettled (not all) so a fast failure on one side doesn't
+    // cut the other off before it's had a chance to complete.
+    const [emailResult, firebaseResult] = await Promise.allSettled([
+      withTimeout(
+        emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          {
+            from_name: formData.name || 'Anonymous',
+            from_email: formData.email || 'No Email Provided',
             country: formData.country?.label || 'N/A',
             message: formData.message,
-          }),
-          15000,
-          'Firebase request timed out',
-        );
-        logger.info('Message saved to Firebase');
-      } catch (firebaseError) {
-        logger.error(
-          `Firebase Error: ${firebaseError.message || firebaseError}`,
-        );
-        setStatus('error');
-        return; // Exit if Firebase fails
-      }
+            to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
+          },
+          import.meta.env.VITE_EMAILJS_USER_ID,
+        ),
+        15000,
+        'EmailJS request timed out',
+      ),
+      withTimeout(
+        addMessage({
+          name: formData.name || 'Anonymous',
+          email: formData.email || 'No Email Provided',
+          country: formData.country?.label || 'N/A',
+          message: formData.message,
+        }),
+        15000,
+        'Firebase request timed out',
+      ),
+    ]);
 
-      // Reset form state on success
+    if (emailResult.status === 'rejected') {
+      const emailError = emailResult.reason;
+      logger.error(`EmailJS Error: ${emailError?.status} ${emailError?.text}`);
+    } else {
+      logger.info(`EmailJS Response: ${emailResult.value}`);
+    }
+
+    if (firebaseResult.status === 'rejected') {
+      logger.error(
+        `Firebase Error: ${firebaseResult.reason?.message || firebaseResult.reason}`,
+      );
+    } else {
+      logger.info('Message saved to Firebase');
+    }
+
+    if (
+      emailResult.status === 'fulfilled' &&
+      firebaseResult.status === 'fulfilled'
+    ) {
       setStatus('success');
       setFormData({ name: '', email: '', country: null, message: '' });
 
       // Only a genuinely delivered message counts as a generated lead —
       // tracking this on submit-attempt would count failed sends too.
       trackEvent('generate_lead', { lead_source: 'contact_form' });
-    } catch (error) {
-      logger.error(`Form submission error: ${error}`);
+    } else {
       setStatus('error');
     }
   };
@@ -424,11 +426,18 @@ const Contact = () => {
                   className="submit-btn"
                   disabled={status === 'sending'}
                 >
-                  {status === 'sending' ? 'Sending...' : 'Send Message'}
+                  {status === 'sending' ? (
+                    <>
+                      <FontAwesomeIcon icon={faSpinner} spin /> Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
                 </button>
                 {status === 'success' && (
-                  <Alert variant="success" className="mt-4">
-                    Message sent successfully
+                  <Alert variant="success" className="mt-4" role="status">
+                    Thanks for reaching out! Your message has been sent —
+                    I&apos;ll get back to you soon.
                     <FontAwesomeIcon
                       icon={faFaceSmile}
                       style={{ marginLeft: '10px' }}
@@ -437,7 +446,8 @@ const Contact = () => {
                 )}
                 {status === 'error' && (
                   <Alert variant="danger" className="mt-4">
-                    Failed to send message. Please try again
+                    Something went wrong sending your message. Please try again,
+                    or email me directly at a.moh.nassar00@gmail.com.
                     <FontAwesomeIcon
                       icon={faFaceFrown}
                       style={{ marginLeft: '10px' }}
