@@ -32,6 +32,24 @@
     strong {
       color: var(--primary-text);
     }
+
+    .cookie-preferences-inline-link {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      font-weight: 600;
+      color: var(--primary-text);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover,
+      &:focus-visible {
+        text-decoration-thickness: 2px;
+      }
+    }
   }
 
   .cookie-consent-actions {

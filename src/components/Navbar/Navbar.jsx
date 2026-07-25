@@ -61,6 +61,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               width="29"
               height="30"
               className="d-inline-block align-top brand-logo"
+              animate={{ scale: 1, filter: 'drop-shadow(0 0 0px transparent)' }}
               whileHover={{
                 scale: 1.1,
                 filter: 'drop-shadow(0 0 12px var(--primary))',

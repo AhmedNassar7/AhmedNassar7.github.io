@@ -114,6 +114,7 @@ const Footer = ({ onOpenCookiePreferences }) => {
           </div>
           <button
             type="button"
+            id="footer-cookie-preferences"
             className="cookie-preferences-link"
             onClick={onOpenCookiePreferences}
           >
