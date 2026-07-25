@@ -257,6 +257,17 @@ const Contact = () => {
 
   const logger = new Logger(LogLevel.DEBUG);
 
+  // A hung network request (blocked by CSP, a dropped connection, etc.)
+  // would otherwise leave the submit button stuck on "Sending..." forever,
+  // with no way for the visitor to recover short of reloading the page.
+  const withTimeout = (promise, ms, timeoutMessage) =>
+    Promise.race([
+      promise,
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error(timeoutMessage)), ms),
+      ),
+    ]);
+
   /**
    * Handles the form submission.
    * Tracks the form submission event, sends the message via EmailJS,
@@ -271,17 +282,21 @@ const Contact = () => {
       // Send message via EmailJS
       try {
         // EmailJS config from environment variables
-        const emailResponse = await emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          {
-            from_name: formData.name || 'Anonymous',
-            from_email: formData.email || 'No Email Provided',
-            country: formData.country?.label || 'N/A',
-            message: formData.message,
-            to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
-          },
-          import.meta.env.VITE_EMAILJS_USER_ID,
+        const emailResponse = await withTimeout(
+          emailjs.send(
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+            {
+              from_name: formData.name || 'Anonymous',
+              from_email: formData.email || 'No Email Provided',
+              country: formData.country?.label || 'N/A',
+              message: formData.message,
+              to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
+            },
+            import.meta.env.VITE_EMAILJS_USER_ID,
+          ),
+          15000,
+          'EmailJS request timed out',
         );
         logger.info(`EmailJS Response: ${emailResponse}`);
       } catch (emailError) {
@@ -294,12 +309,16 @@ const Contact = () => {
 
       // Save form data to Firebase
       try {
-        await addMessage({
-          name: formData.name || 'Anonymous',
-          email: formData.email || 'No Email Provided',
-          country: formData.country?.label || 'N/A',
-          message: formData.message,
-        });
+        await withTimeout(
+          addMessage({
+            name: formData.name || 'Anonymous',
+            email: formData.email || 'No Email Provided',
+            country: formData.country?.label || 'N/A',
+            message: formData.message,
+          }),
+          15000,
+          'Firebase request timed out',
+        );
         logger.info('Message saved to Firebase');
       } catch (firebaseError) {
         logger.error(

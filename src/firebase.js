@@ -94,6 +94,11 @@ export const addMessage = async (messageData) => {
     logger.error(
       `Error saving message to Firebase: ${error.message}. Stack: ${error.stack}`,
     );
+    // Callers (Contact.jsx) await this and branch on success/failure to
+    // update the submit button and show an error alert — swallowing the
+    // error here instead of rethrowing made every Firebase failure look
+    // like a success to the user.
+    throw error;
   }
 };
 
