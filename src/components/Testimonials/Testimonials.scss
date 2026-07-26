@@ -86,20 +86,7 @@
   }
 
   .testimonial-name {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
     font-weight: 600;
-
-    .linkedin-link {
-      color: var(--primary);
-      font-size: 0.95rem;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: var(--secondary);
-      }
-    }
   }
 
   .testimonial-role {

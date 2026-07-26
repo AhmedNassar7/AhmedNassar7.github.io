@@ -1,9 +1,12 @@
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import { slugify } from '../../utils/slugify';
+import { getInitials } from '../../utils/initials';
 import {
   RESUME_URL,
   RESUME_VIEW_URL,
@@ -16,6 +19,7 @@ import {
   projects,
   achievements,
   skills,
+  techIcons,
 } from '../../data/resumeData';
 import {
   faGraduationCap,
@@ -31,6 +35,55 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import './Resume.scss';
+
+// Auto-discovers any logo dropped in assets/images/logos, keyed by the
+// slugified company/school name (e.g. "Beshara Group" -> beshara_group.png).
+// Orgs without a matching file just fall back to an initials badge, so this
+// never breaks the build while logos are being sourced.
+const logoModules = import.meta.glob(
+  '../../assets/images/logos/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true, import: 'default' },
+);
+const logosByKey = Object.fromEntries(
+  Object.entries(logoModules).map(([path, url]) => [
+    path
+      .split('/')
+      .pop()
+      .replace(/\.[^.]+$/, ''),
+    url,
+  ]),
+);
+
+const OrgLogo = ({ name }) => {
+  const [failed, setFailed] = useState(false);
+  const src = logosByKey[slugify(name)];
+
+  if (src && !failed) {
+    return (
+      <img
+        src={src}
+        alt=""
+        aria-hidden="true"
+        className="org-logo-photo"
+        width="48"
+        height="48"
+        loading="lazy"
+        decoding="async"
+        onError={() => setFailed(true)}
+      />
+    );
+  }
+
+  return (
+    <div className="org-logo-fallback" aria-hidden="true">
+      {getInitials(name)}
+    </div>
+  );
+};
+
+OrgLogo.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 const Resume = () => {
   const sectionRef = useVirtualPageView('Resume', '/#resume');
@@ -109,15 +162,18 @@ const Resume = () => {
                       delay: index * 0.08,
                     }}
                   >
-                    <h4>
-                      <a
-                        href={exp.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {exp.company}
-                      </a>
-                    </h4>
+                    <div className="entity-header">
+                      <OrgLogo name={exp.company} />
+                      <h4>
+                        <a
+                          href={exp.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {exp.company}
+                        </a>
+                      </h4>
+                    </div>
                     <div className="role-row">
                       <motion.p
                         className="role"
@@ -179,15 +235,18 @@ const Resume = () => {
                 <FontAwesomeIcon icon={faGraduationCap} /> Education
               </h3>
               <div className="education-item">
-                <h4>
-                  <a
-                    href={education.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {education.school}
-                  </a>
-                </h4>
+                <div className="entity-header">
+                  <OrgLogo name={education.school} />
+                  <h4>
+                    <a
+                      href={education.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {education.school}
+                    </a>
+                  </h4>
+                </div>
                 <p className="degree">{education.degree}</p>
                 <div className="details">
                   <p>
@@ -264,6 +323,9 @@ const Resume = () => {
                     <div className="tech-stack">
                       {project.tech.map((tech, techIndex) => (
                         <span key={techIndex} className="tech-tag">
+                          {techIcons[tech] && (
+                            <FontAwesomeIcon icon={techIcons[tech]} />
+                          )}
                           {tech}
                         </span>
                       ))}

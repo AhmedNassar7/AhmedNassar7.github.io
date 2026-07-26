@@ -30,6 +30,8 @@ import {
   faServer,
   faLock,
   faTerminal,
+  faGears,
+  faSpider,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const education = {
@@ -212,4 +214,20 @@ export const skills = {
     { name: 'Agile', icon: faLayerGroup },
     { name: 'Testing', icon: faFlask },
   ],
+};
+
+// Reuses the icons already defined above for Skills, plus a few fallbacks
+// for project tech that doesn't appear in that list, so the tech-stack tags
+// in Projects don't have to duplicate icon choices already made once.
+export const techIcons = {
+  ...Object.fromEntries(
+    Object.values(skills)
+      .flat()
+      .map((skill) => [skill.name, skill.icon]),
+  ),
+  Tailwind: faCss3,
+  Supabase: faDatabase,
+  'GitHub Actions': faGithub,
+  Automation: faGears,
+  'Web Scraping': faSpider,
 };

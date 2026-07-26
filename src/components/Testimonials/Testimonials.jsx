@@ -21,7 +21,7 @@ import mahmoudShalabyPhotoWebp from '../../assets/images/testimonials/mahmoud-sh
 import './Testimonials.scss';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
-import { slugify } from '../../utils/slugify';
+import { getInitials } from '../../utils/initials';
 
 const LINKEDIN_RECOMMENDATIONS_URL =
   'https://www.linkedin.com/in/nasssar/details/recommendations/';
@@ -33,7 +33,6 @@ const testimonials = [
     relationship: "Ahmed's Instructor (Python Track) at ITI",
     quote:
       'He is a highly talented developer with a deep understanding of building scalable, secure, and efficient backend systems.',
-    linkedinUrl: 'https://www.linkedin.com/in/mahmoodsakr/',
     photo: mahmoudSakrPhoto,
     photoWebp: mahmoudSakrPhotoWebp,
   },
@@ -43,7 +42,6 @@ const testimonials = [
     relationship: "Ahmed's Instructor (React Track) at ITI",
     quote:
       "Ahmed has shown remarkable growth and expertise in the React development track. He excels in creating responsive, efficient web applications, showcasing strong skills in React, Redux, and modern web development practices. With his creativity and problem-solving mindset, I'm confident Ahmed will be a valuable asset to any team. Highly recommended!",
-    linkedinUrl: 'https://www.linkedin.com/in/hassaneldash/',
     photo: hassanELDashPhoto,
     photoWebp: hassanELDashPhotoWebp,
   },
@@ -53,7 +51,6 @@ const testimonials = [
     relationship: "Ahmed's Instructor (Web Fundamentals Track) at ITI",
     quote:
       'I had the pleasure of training Ahmed at the ITI Winter Training. He is a smart and ambitious engineer who is always eager to learn and strengthen his fundamentals. Ahmed is a fast learner, continuously seeking to improve himself and expand his skill set. He would be a valuable addition to any team.',
-    linkedinUrl: 'https://www.linkedin.com/in/menna-ahmed-ibrahim/',
     photo: mennaIbrahimPhoto,
     photoWebp: mennaIbrahimPhotoWebp,
   },
@@ -63,19 +60,10 @@ const testimonials = [
     relationship: "Ahmed's Mentor at Nokia",
     quote:
       'Ahmed showed a very good example of commitment and dedication during the internship sessions and final presentation. Also, he is a very good team player.',
-    linkedinUrl: 'https://www.linkedin.com/in/mahmoud-shalaby-88121266/',
     photo: mahmoudShalabyPhoto,
     photoWebp: mahmoudShalabyPhotoWebp,
   },
 ];
-
-const getInitials = (name) =>
-  name
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
 
 const TestimonialAvatar = ({ photo, photoWebp, name }) => {
   const [imgFailed, setImgFailed] = useState(false);
@@ -155,26 +143,7 @@ const Testimonials = () => {
                   name={testimonial.name}
                 />
                 <div className="testimonial-meta">
-                  <div className="testimonial-name">
-                    {testimonial.name}
-                    {testimonial.linkedinUrl && (
-                      <a
-                        href={testimonial.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${testimonial.name} on LinkedIn`}
-                        className="linkedin-link"
-                        onClick={() =>
-                          trackEvent('select_content', {
-                            content_type: 'testimonial_author',
-                            content_id: slugify(testimonial.name),
-                          })
-                        }
-                      >
-                        <FontAwesomeIcon icon={faLinkedin} />
-                      </a>
-                    )}
-                  </div>
+                  <div className="testimonial-name">{testimonial.name}</div>
                   <div className="testimonial-role">{testimonial.role}</div>
                   <div className="testimonial-relationship">
                     {testimonial.relationship}

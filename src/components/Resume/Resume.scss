@@ -63,6 +63,16 @@
       }
     }
 
+    .entity-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+
+      h4 {
+        margin-bottom: 0;
+      }
+    }
+
     .degree {
       color: var(--primary);
       font-weight: 500;
@@ -124,6 +134,34 @@
         margin: 0;
       }
     }
+  }
+
+  .org-logo-photo,
+  .org-logo-fallback {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .org-logo-photo {
+    // A flat white tile keeps arbitrary brand marks (dark, light, or
+    // transparent) legible in both themes, matching the "logo bar" pattern
+    // used across the rest of the industry.
+    background: #fff;
+    border: 1px solid var(--glass-border);
+    object-fit: contain;
+    padding: 7px;
+  }
+
+  .org-logo-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 700;
+    font-size: 0.95rem;
   }
 
   .education-item {
@@ -196,6 +234,9 @@
         gap: 0.5rem;
 
         .tech-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
           padding: 0.35rem 0.85rem;
           border-radius: 15px;
           background: transparent;
@@ -212,6 +253,10 @@
             transform 0.3s ease,
             box-shadow 0.3s ease,
             border-color 0.3s ease;
+
+          svg {
+            font-size: 0.9rem;
+          }
 
           // Slide-fill background on hover
           &::before {
