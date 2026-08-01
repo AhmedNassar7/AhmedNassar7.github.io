@@ -98,15 +98,7 @@ export const projects = [
   {
     name: 'Egypt Metro Backend',
     url: 'https://github.com/Egypt-Metro/backend',
-    tech: [
-      'Python',
-      'Django',
-      'DRF',
-      'PostgreSQL',
-      'JavaScript',
-      'HTML',
-      'CSS',
-    ],
+    tech: ['Python', 'Django', 'PostgreSQL', 'JavaScript', 'HTML', 'CSS'],
     description:
       'Scalable Django backend serving millions of users with 60+ RESTful APIs, real-time train tracking, and secure ticketing.',
   },
@@ -173,7 +165,6 @@ export const skills = {
   ],
   Frameworks: [
     { name: 'Django', icon: faPython },
-    { name: 'DRF', icon: faPython },
     { name: 'Spring Boot', icon: faJava },
     { name: 'React', icon: faReact },
     { name: 'Node.js', icon: faNodeJs },

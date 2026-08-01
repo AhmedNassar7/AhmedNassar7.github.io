@@ -61,10 +61,23 @@ const Navbar = ({ theme, toggleTheme }) => {
               width="29"
               height="30"
               className="d-inline-block align-top brand-logo"
-              animate={{ scale: 1, filter: 'drop-shadow(0 0 0px transparent)' }}
+              animate={{
+                scale: 1,
+                // The SVG's paths are near-black; on the dark theme's dark
+                // navbar they'd otherwise vanish. The SVG's own
+                // prefers-color-scheme flip only follows the OS theme, not
+                // this site's manual toggle, so invert it here instead.
+                filter:
+                  theme === 'dark'
+                    ? 'invert(1) brightness(1.8) drop-shadow(0 0 0px transparent)'
+                    : 'drop-shadow(0 0 0px transparent)',
+              }}
               whileHover={{
                 scale: 1.1,
-                filter: 'drop-shadow(0 0 12px var(--primary))',
+                filter:
+                  theme === 'dark'
+                    ? 'invert(1) brightness(1.8) drop-shadow(0 0 12px var(--primary))'
+                    : 'drop-shadow(0 0 12px var(--primary))',
               }}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.94 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}

@@ -28,6 +28,10 @@
 
   .quote-content {
     flex: 1;
+    // Flex items default to min-width: auto, which lets a long, unbroken
+    // quote hold its intrinsic (unwrapped) width and overflow the card
+    // instead of shrinking — the "shifted right" look on narrow screens.
+    min-width: 0;
     text-align: center;
     position: relative;
     padding: 2rem;
