@@ -16,8 +16,6 @@ const ParticlesBackground = lazy(
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
-import { getConsent, setConsent } from './utils/consent';
-import CookieConsent from './components/CookieConsent/CookieConsent';
 import CommandPalette from './components/CommandPalette/CommandPalette';
 import Terminal from './components/Terminal/Terminal';
 import ReactGA from 'react-ga4';
@@ -42,17 +40,9 @@ function App() {
   const [theme, setTheme] = useState('light');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [cookieBannerVisible, setCookieBannerVisible] = useState(false);
 
   useEffect(() => {
-    // Google Analytics only starts collecting data once the visitor has
-    // explicitly accepted the cookie consent banner (GDPR requirement).
-    const consent = getConsent();
-    if (consent === 'granted') {
-      initAnalytics();
-    } else if (consent === null) {
-      setCookieBannerVisible(true);
-    }
+    initAnalytics();
 
     // Manage theme from localStorage
     try {
@@ -121,21 +111,6 @@ function App() {
     trackEvent('toggle_theme', { theme_mode: newTheme });
   };
 
-  const handleAcceptCookies = () => {
-    setConsent('granted');
-    setCookieBannerVisible(false);
-    initAnalytics();
-  };
-
-  const handleDeclineCookies = () => {
-    setConsent('denied');
-    setCookieBannerVisible(false);
-  };
-
-  const handleOpenCookiePreferences = () => {
-    setCookieBannerVisible(true);
-  };
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -175,12 +150,7 @@ function App() {
         <Contact />
         <Quotes />
       </main>
-      <Footer onOpenCookiePreferences={handleOpenCookiePreferences} />
-      <CookieConsent
-        visible={cookieBannerVisible}
-        onAccept={handleAcceptCookies}
-        onDecline={handleDeclineCookies}
-      />
+      <Footer />
       <AnimatePresence>
         {showScrollTop && (
           <motion.button

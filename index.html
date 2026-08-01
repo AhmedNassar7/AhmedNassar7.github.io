@@ -139,9 +139,8 @@
 
     <!--
       Google Analytics is intentionally NOT bootstrapped here. It's loaded
-      from src/App.jsx via ReactGA.initialize() only after the visitor
-      accepts the cookie consent banner (see src/utils/consent.js), so no
-      tracking script or request fires before consent is given.
+      from src/App.jsx via ReactGA.initialize() on mount instead, since it
+      needs import.meta.env.VITE_GOOGLE_ANALYTICS_ID at runtime.
     -->
 
     <!-- Schema Markup for WebPage -->

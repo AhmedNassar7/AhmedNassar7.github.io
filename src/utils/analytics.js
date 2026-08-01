@@ -6,9 +6,8 @@ const logger = new Logger(LogLevel.INFO);
 /**
  * Sends a GA4 event. Uses gtag.js directly when available (it's what
  * ReactGA.initialize() loads onto window), falling back to ReactGA's own
- * wrapper. Both are no-ops until the visitor accepts the cookie consent
- * banner and initAnalytics() (src/App.jsx) has run, so this never fires
- * before consent.
+ * wrapper. Both are no-ops until initAnalytics() (src/App.jsx) has run on
+ * mount.
  *
  * @param {string} eventName - snake_case GA4 event name (e.g. "select_content").
  *   Avoid GA4's own automatically-collected names (page_view is the one

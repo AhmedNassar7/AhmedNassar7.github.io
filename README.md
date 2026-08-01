@@ -53,7 +53,6 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Custom Scrollbar` – Unique design for better aesthetics and usability.
 - `Scroll-to-Top Button` – **Smooth scrolling** and **navigation** back to the top.
 - `Contact Form` – Integrated with **Firebase** and **EmailJS** to handle user inquiries.
-- `Cookie Consent` – A GDPR-friendly banner that gates Google Analytics behind explicit visitor consent.
 - `PWA-Ready` – Installable, offline-capable via `vite-plugin-pwa` and a service worker.
 - `Google Search Console` – Optimized **performance**, **speed**, and search engine **visibility**, **ranking**, and **indexing**.
 - `Google Analytics` – Tracks **traffic**, **user behavior**, and **engagement** for data-driven decisions and improvements.
@@ -137,7 +136,6 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 
 - `Quick Links` – Links to sections (Home, About, Resume, Contact).
 - `Social Media Links` – Icons linking to social media profiles.
-- `Cookie Preferences` – Reopens the cookie consent banner to change the choice at any time.
 - `Copyright Notice` – “© Ahmed Nassar [Year] – All Rights Reserved.”
 
 ### 12. Interactive Background 🌌
@@ -176,12 +174,6 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Visual Hierarchy` – Organized content for easy navigation.
 - `Smooth Navigation` – Easy-to-use navigation.
 - `Performance Optimization` – Fast load times and smooth performance.
-
-### 17. Cookie Consent & Privacy 🍪
-
-- `Consent Banner` – Visitors choose Accept/Decline before any analytics run.
-- `GDPR-Friendly` – Google Analytics only initializes once explicit consent is granted.
-- `Change Anytime` – The choice can be revisited at any time via the **Cookie Preferences** link in the footer.
 
 ### 18. Google Analytics 📊
 

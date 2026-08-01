@@ -8,9 +8,7 @@ import {
   faInstagram,
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
-import { faCookieBite } from '@fortawesome/free-solid-svg-icons';
 import './Footer.scss';
-import PropTypes from 'prop-types';
 import { trackEvent } from '../../utils/analytics';
 
 const FOOTER_NAV_ITEMS = [
@@ -22,7 +20,7 @@ const FOOTER_NAV_ITEMS = [
   { id: 'contact', label: 'Contact' },
 ];
 
-const Footer = ({ onOpenCookiePreferences }) => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -112,15 +110,6 @@ const Footer = ({ onOpenCookiePreferences }) => {
           <div className="copyright">
             © {currentYear} Ahmed Nassar – All Rights Reserved
           </div>
-          <button
-            type="button"
-            id="footer-cookie-preferences"
-            className="cookie-preferences-link"
-            onClick={onOpenCookiePreferences}
-          >
-            <FontAwesomeIcon icon={faCookieBite} />
-            Cookie Preferences
-          </button>
           <div className="made-with-love">
             Made with <span className="heart">❤️</span>
           </div>
@@ -128,10 +117,6 @@ const Footer = ({ onOpenCookiePreferences }) => {
       </div>
     </footer>
   );
-};
-
-Footer.propTypes = {
-  onOpenCookiePreferences: PropTypes.func.isRequired,
 };
 
 export default Footer;
