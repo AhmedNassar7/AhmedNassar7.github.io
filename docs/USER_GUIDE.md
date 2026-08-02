@@ -1,102 +1,95 @@
 # User Guide
 
-A visitor-facing walkthrough of everything the portfolio can do — for anyone browsing [ahmednassar7.github.io](https://ahmednassar7.github.io/), not for developers. (If you're looking to run or modify the code, see [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) instead.)
+A walkthrough for visitors of [ahmednassar7.github.io](https://ahmednassar7.github.io/). For developers: [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md).
 
 ## Getting Around
 
-The site is a single scrollable page, not a multi-page app — every section lives on one URL. Three ways to move around:
+One scrollable page, one URL. Three ways to move:
 
-1. **Click a link in the navbar** — `Home`, `Stats`, `About`, `Resume`, `Testimonials`, `Contact` all smooth-scroll to their section, and the current section is highlighted as you scroll past it.
-2. **Use the command palette** (`Ctrl/Cmd + K`) — see below.
-3. **Use the terminal's `open <section>` command** — see below.
+1. **Navbar links** — `Home`, `Stats`, `About`, `Resume`, `Testimonials`, `Contact` smooth-scroll; the current section highlights as you pass it.
+2. **Command palette** — `Ctrl/Cmd + K`.
+3. **Terminal** — `open <section>`.
 
-A thin progress bar at the top of the navbar fills in as you scroll down the page. A **scroll-to-top button** appears in the bottom-right corner once you've scrolled past the hero.
+A progress bar fills the navbar as you scroll. A **scroll-to-top button** appears once you're past the hero.
 
 ## Command Palette 🎛️
 
-Press **`Ctrl + K`** (Windows/Linux) or **`Cmd + K`** (macOS) anywhere on the page — or click the small `Ctrl K` trigger pinned to the bottom-left corner — to open a searchable command list.
+`Ctrl + K` (Windows/Linux) or `Cmd + K` (macOS) — or click the `Ctrl K` trigger, bottom-left.
 
-| Action                                                              | What it does                                              |
-| ------------------------------------------------------------------- | --------------------------------------------------------- |
-| Go to Home / About / Resume / GitHub Stats / Testimonials / Contact | Jumps straight to that section                            |
-| Switch to Dark/Light Theme                                          | Toggles the site theme (same as the navbar moon/sun icon) |
-| Download Resume (PDF)                                               | Downloads `Ahmed_Nassar_Resume.pdf` directly              |
-| Open GitHub Profile / Open LinkedIn Profile                         | Opens the profile in a new tab                            |
-| Email Ahmed                                                         | Opens your mail client addressed to Ahmed                 |
+| Action                                                              | Does                                |
+| ------------------------------------------------------------------- | ----------------------------------- |
+| Go to Home / About / Resume / GitHub Stats / Testimonials / Contact | Jumps to that section               |
+| Switch to Dark/Light Theme                                          | Toggles the theme                   |
+| Download Resume (PDF)                                               | Downloads `Ahmed_Nassar_Resume.pdf` |
+| Open GitHub Profile / Open LinkedIn Profile                         | Opens in a new tab                  |
+| Email Ahmed                                                         | Opens your mail client              |
 
-**Keyboard controls once it's open:**
-
-- Type to filter the list.
-- `↑` / `↓` to move the selection.
-- `Enter` to run the highlighted command.
-- `Esc` to close without doing anything.
+**Keys**: type to filter · `↑`/`↓` to move · `Enter` to run · `Esc` to close.
 
 ## Interactive Terminal 🖥️
 
-Click the terminal icon (bottom-left, next to the command palette trigger) to open a retro, fully-typed terminal Easter egg. Type `help` inside it to see the full list, or try any of these:
+Click the terminal icon (bottom-left). Type `help` for the list:
 
-| Command               | What it does                                                                  |
-| --------------------- | ----------------------------------------------------------------------------- |
-| `help`                | Lists every available command                                                 |
-| `whoami`              | Who Ahmed is, one line                                                        |
-| `about`               | Short bio                                                                     |
-| `experience`          | Work history, pulled from the same data as the Resume section                 |
-| `projects`            | Featured projects with tech stack and links                                   |
-| `skills`              | Technical skills by category                                                  |
-| `achievements`        | Notable wins and recognitions                                                 |
-| `contact`             | Email, LinkedIn, and GitHub, as plain text                                    |
-| `resume`              | Downloads the resume PDF                                                      |
-| `github` / `linkedin` | Opens the corresponding profile in a new tab                                  |
-| `open <section>`      | Jumps to a section — `about`, `resume`, `stats`, `testimonials`, or `contact` |
-| `theme <dark\|light>` | Switches the site theme                                                       |
-| `neofetch`            | A `neofetch`-style system-info card, but it's about Ahmed                     |
-| `clear`               | Clears the terminal screen                                                    |
-| `exit`                | Closes the terminal                                                           |
+| Command               | Does                                                              |
+| --------------------- | ----------------------------------------------------------------- |
+| `help`                | Lists commands                                                    |
+| `whoami`              | Who Ahmed is                                                      |
+| `about`               | Short bio                                                         |
+| `experience`          | Work history                                                      |
+| `projects`            | Featured projects                                                 |
+| `skills`              | Tech stack                                                        |
+| `achievements`        | Notable wins                                                      |
+| `contact`             | Email, LinkedIn, GitHub                                           |
+| `resume`              | Downloads the resume PDF                                          |
+| `github` / `linkedin` | Opens the profile                                                 |
+| `open <section>`      | Jumps to `about`, `resume`, `stats`, `testimonials`, or `contact` |
+| `theme <dark\|light>` | Switches theme                                                    |
+| `neofetch`            | System-info card, but Ahmed                                       |
+| `clear`               | Clears the screen                                                 |
+| `exit`                | Closes the terminal                                               |
 
-Like a real shell, `↑` / `↓` recall previously run commands.
+`↑`/`↓` recall previous commands.
 
 ## Theme Toggle 🌙☀️
 
-The moon/sun icon in the top-right of the navbar switches between light and dark themes. Your choice is remembered (via `localStorage`) for your next visit — you don't have to set it again.
+Moon/sun icon, top-right. Choice is remembered via `localStorage`.
 
 ## GitHub Stats 📈
 
-The **Stats** section shows live numbers pulled directly from the GitHub API when you load the page: total stars across public repos, public repo count, merged open-source PRs, and total commits, plus a full **contribution heatmap** with a running streak counter. If GitHub's API is briefly unavailable, the section quietly falls back to last-known values instead of showing an error.
+Live stars, repos, merged PRs, commits, and a contribution heatmap with streak counter — fetched on load, falling back to last-known values if the API is unavailable.
 
-From here you can also **star the portfolio repo**, **join the community Discord**, or jump to the contact form — all via the CTA buttons under the stat cards.
+CTAs: star the repo, join the Discord, or jump to Contact.
 
-## Live Availability (About Section) 🕐
+## Live Availability (About) 🕐
 
-The **About** section includes a small clock showing Ahmed's current time in Cairo, with an "Available now" / "Away" indicator. Click/expand it and it will also detect your own device's time zone and explain the offset between the two in plain English (e.g. "That's 3 hours behind you").
+Ahmed's current Cairo time with an available/away indicator. Expand it to compare against your own time zone.
 
 ## Resume 📝
 
-The **Resume** section covers education, work experience, featured projects, achievements, and a categorized skills list. Use the **View / Download** buttons to open or save `Ahmed_Nassar_Resume.pdf`.
+Education, experience, projects, achievements, skills. View/download `Ahmed_Nassar_Resume.pdf`.
 
 ## Testimonials 💬
 
-A rotating carousel of recommendations from instructors, mentors, and colleagues. Every testimonial links out to the reviewer's LinkedIn profile so you can verify it's real; "See all recommendations on LinkedIn" links to the full list.
+Rotating recommendations, each linked to the reviewer's LinkedIn. "See all" links to the full list.
 
 ## Contact Form 📬
 
-The **Contact** section collects your name, email, an optional country (searchable dropdown with flags), and a message. On submit, your message is emailed to Ahmed and saved to a database — the two happen independently, so if one is briefly unavailable the other can still succeed.
+Name, email, optional country, message. Sent via email and saved to a database — independently, so one failing doesn't block the other.
 
 ## Installing as an App (PWA) 📱
 
-This site is an installable Progressive Web App:
+- **Desktop (Chrome/Edge)** — install icon in the address bar, or browser menu → "Install".
+- **Mobile (Android/Chrome)** — menu → "Add to Home screen".
+- **iOS (Safari)** — Share → "Add to Home Screen".
 
-- **Desktop (Chrome/Edge)** — look for an install icon in the address bar, or open the browser menu → "Install [site name]".
-- **Mobile (Android/Chrome)** — browser menu → "Add to Home screen" / "Install app".
-- **iOS (Safari)** — Share button → "Add to Home Screen".
+Installed content stays available offline via a cached service worker.
 
-Once installed, previously visited content is available even with a flaky connection, since a service worker precaches the site's assets.
+## Accessibility
 
-## Accessibility Notes
-
-- Every interactive element (pagination dots, command palette results, terminal controls) is keyboard-reachable and carries an accessible label — this is enforced by lint rules (`jsx-a11y`), not just convention.
-- The site respects your OS-level **"reduce motion"** setting: if you have that enabled, scroll-triggered animations are disabled rather than forced on you.
-- Both light and dark themes are designed for readable contrast; if you rely on a screen reader or high-contrast mode, the theme toggle and command palette are the fastest way to get to any section without relying on scroll position.
+- Every interactive element is keyboard-reachable with an accessible label — enforced by lint (`jsx-a11y`).
+- Respects OS-level **reduce motion** — disables scroll animations if set.
+- Light/dark themes both meet readable contrast.
 
 ## Rotating Quotes 💬
 
-Near the bottom of the page, a rotating set of ten programming quotes auto-advances every 5 seconds. Click a quote to advance it manually at your own pace instead.
+Ten programming quotes, auto-advance every 5s, or click to change manually.

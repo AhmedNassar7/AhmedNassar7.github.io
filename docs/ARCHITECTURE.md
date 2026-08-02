@@ -1,17 +1,17 @@
 # Architecture
 
-This document describes how the portfolio is put together: the runtime component tree, how data flows through the two integrations that do real work (the contact form and the live GitHub stats), and how a commit turns into a deployed site.
+How the portfolio is built: the component tree, the two real data flows (contact form, GitHub stats), and the deploy pipeline.
 
-For setup instructions and day-to-day development commands, see [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md). For a feature walkthrough from a visitor's perspective, see [USER_GUIDE.md](./USER_GUIDE.md).
+Setup: [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md). Visitor-facing features: [USER_GUIDE.md](./USER_GUIDE.md).
 
 ## 1. Overview
 
-This is a **static single-page application**: a React tree rendered client-side, built by Vite, and deployed as static files to GitHub Pages. There is no application server or API of its own — the only two backends involved are third-party services the app talks to directly from the browser:
+A **static single-page app**: React, built by Vite, deployed to GitHub Pages. No app server. Two third-party backends, called directly from the browser:
 
 - **Firebase Realtime Database** — stores contact-form submissions.
-- **EmailJS** — emails Ahmed a copy of each submission, also called directly from the browser (no backend relay).
+- **EmailJS** — emails Ahmed a copy of each submission.
 
-Everything else (GitHub stats, contribution heatmap, particles background, terminal, command palette) is either a public read-only API call or purely client-side state.
+Everything else (GitHub stats, heatmap, particles, terminal, command palette) is a public API call or client-side state.
 
 ```mermaid
 flowchart LR
@@ -30,7 +30,7 @@ flowchart LR
 
 ## 2. Component Tree
 
-`src/main.jsx` mounts `App`, which composes every section as a sibling under `<main>`. Sections are plain scroll targets (`<section id="...">`), not routes — navigation is scrolling, driven by `react-scroll`.
+`main.jsx` mounts `App`, which renders every section as a sibling under `<main>`. Sections are scroll targets (`<section id="...">`), not routes — navigation is scrolling via `react-scroll`.
 
 ```mermaid
 flowchart TD
@@ -58,16 +58,16 @@ flowchart TD
     App -. theme state .-> Particles
 ```
 
-Key structural decisions:
+Key decisions:
 
-- **No routing library for navigation.** `react-router-dom` is a dependency, but the site itself is one scrollable page — section links use `react-scroll`'s `scroller.scrollTo`, and the URL hash is updated manually (`window.history.replaceState`) so links stay shareable without a router remounting anything.
-- **`theme` lives in `App.jsx`** as local state, persisted to `localStorage`, and passed down as a prop to the handful of components that need to render differently per theme (`Navbar`, `CommandPalette`, `Terminal`, `ParticlesBackground`, `Stats`). There's no context provider or global store — the prop-drilling depth is shallow enough (one level) that it isn't worth the indirection.
-- **`ParticlesBackground` is the only lazy-loaded component** (`React.lazy` + `Suspense`), since `tsparticles` is one of the larger dependencies and isn't needed for first paint.
-- **Resume content is data-driven.** `src/data/resumeData.js` exports `education`, `experiences`, `projects`, `achievements`, and `skills`; both `Resume.jsx` and the terminal's `experience`/`projects`/`skills`/`achievements` commands read from the same source, so the two surfaces can't drift out of sync.
+- **No router for navigation.** `react-router-dom` is a dependency, but the site is one scrollable page — `react-scroll` handles jumps; the URL hash updates manually (`window.history.replaceState`).
+- **`theme` lives in `App.jsx`** as local state, persisted to `localStorage`, passed as a prop to the few components that need it. No context/store — one level of drilling isn't worth the indirection.
+- **`ParticlesBackground` is the only lazy-loaded component** — `tsparticles` is large and not needed for first paint.
+- **Resume content is data-driven.** `src/data/resumeData.js` is the single source; both `Resume.jsx` and the terminal's commands read from it.
 
 ## 3. Data Flow: Contact Form
 
-`Contact.jsx` fires the EmailJS send and the Firebase write **in parallel**, not sequentially, so a slow/failed EmailJS call can't block the Firebase backup (or vice versa):
+`Contact.jsx` sends EmailJS and writes to Firebase **in parallel**, so one slow/failed call can't block the other:
 
 ```mermaid
 sequenceDiagram
@@ -88,15 +88,13 @@ sequenceDiagram
     C-->>U: success toast if either succeeded, else error state
 ```
 
-Notes:
-
-- Both calls are wrapped in a timeout and combined with `Promise.allSettled`, so one hung request can't leave the form stuck on "Sending…" forever.
-- `src/firebase.js` checks that every required `VITE_FIREBASE_*` variable is present before calling `initializeApp`/`getDatabase`. If any are missing, it logs an error and skips Firebase init entirely rather than throwing — `addMessage()` then rejects with a clear error instead of touching an uninitialized database, and the rest of the app (including the rest of the Contact form) still renders normally. See [DEVELOPER_GUIDE.md § Environment Variables](./DEVELOPER_GUIDE.md#environment-variables) for the full behavior.
-- `src/firebase.js` also opens the Realtime Database's socket connection at page load (subscribing to the special `.info/connected` path) instead of waiting for the first form submission, so the connection handshake isn't on the critical path when a visitor actually hits "Send".
+- Both calls have a timeout and run through `Promise.allSettled`, so one hung request can't stick the form on "Sending…".
+- `src/firebase.js` checks all `VITE_FIREBASE_*` vars before calling `initializeApp`/`getDatabase`. If any are missing, it logs and skips init; `addMessage()` rejects instead of crashing. See [DEVELOPER_GUIDE.md § Environment Variables](./DEVELOPER_GUIDE.md#environment-variables).
+- `src/firebase.js` opens the Realtime Database socket at page load (via `.info/connected`), not on first submit, so the connection handshake isn't on the critical path.
 
 ## 4. Data Flow: Live GitHub Stats
 
-`Stats.jsx` fetches three independent things on mount and renders whatever resolves, falling back to last-known static numbers if a call fails (no loading spinner blocking the section):
+`Stats.jsx` fetches three things independently on mount, falling back to last-known values if a call fails:
 
 ```mermaid
 flowchart LR
@@ -117,11 +115,11 @@ flowchart LR
     P -. fetch fails .-> Fallback
 ```
 
-`src/utils/streaks.js` contains the pure streak-calculation logic (kept separate from the fetching/rendering component so it's unit-testable in isolation — see `streaks.test.js`).
+`src/utils/streaks.js` holds the streak logic, kept separate for unit testing (`streaks.test.js`).
 
 ## 5. Build & Deployment Pipeline
 
-Two separate GitHub Actions workflows cover CI and deployment; they run independently on every push to `main`.
+Two GitHub Actions workflows, independent of each other, on every push to `main`:
 
 ```mermaid
 flowchart TD
@@ -149,24 +147,24 @@ flowchart TD
     B8 --> Live[ahmednassar7.github.io]
 ```
 
-- **`ci.yml`** is the quality gate: it never publishes anything, it just has to pass. It's what PRs are checked against.
-- **`deploy.yml`** is independent of CI passing — it builds and publishes on every push to `main`. In practice you want `ci.yml` green before merging, since a broken build published to `deploy.yml` would take the live site down.
-- Both workflows need the same set of repository secrets (`FIREBASE_*`, `VITE_EMAILJS_*`, `VITE_GOOGLE_*`) configured under **Settings → Secrets and variables → Actions** — see [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md#environment-variables) for the full list.
-- A manual alternative to `deploy.yml` exists via `npm run deploy` (the [`gh-pages`](https://www.npmjs.com/package/gh-pages) package), which builds locally and force-pushes `dist/` to the `gh-pages` branch directly from your machine.
+- **`ci.yml`** is the quality gate — never publishes, just has to pass. What PRs are checked against.
+- **`deploy.yml`** runs regardless of CI — keep CI green before merging, or a broken build takes the live site down.
+- Both need the same repository secrets (`FIREBASE_*`, `VITE_EMAILJS_*`, `VITE_GOOGLE_*`) — see [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md#environment-variables).
+- Manual alternative: `npm run deploy` ([`gh-pages`](https://www.npmjs.com/package/gh-pages) package), builds locally and pushes to `gh-pages` directly.
 
 ## 6. Build-Time Optimizations (`vite.config.js`)
 
-The production build (not the dev server) runs a longer plugin pipeline than most Vite apps, since this is a public, SEO-sensitive, installable site:
+The production build runs a longer plugin pipeline than a typical Vite app:
 
-| Plugin                           | Purpose                                                                                               |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `vite-plugin-sitemap`            | Generates `sitemap.xml` for search engines.                                                           |
-| `vite-plugin-compression` (×2)   | Emits pre-compressed `.gz` and `.br` variants of build output.                                        |
-| `vite-plugin-image-optimizer`    | Optimizes/minifies raster images and SVGs at build time.                                              |
-| `vite-plugin-html`               | Injects build-time HTML transforms (e.g. env-driven meta tags).                                       |
-| `vite-plugin-pwa`                | Generates the service worker + Web App Manifest for installability/offline use.                       |
-| `rollup-plugin-visualizer`       | Opens a bundle-size treemap after each build (`open: true`) — useful when chasing bundle bloat.       |
-| Manual chunking (`manualChunks`) | Splits vendor code into cacheable chunks instead of one monolithic bundle.                            |
-| Modular Bootstrap imports        | Only the specific Bootstrap components actually used are imported, instead of the full CSS/JS bundle. |
+| Plugin                         | Purpose                                            |
+| ------------------------------ | -------------------------------------------------- |
+| `vite-plugin-sitemap`          | Generates `sitemap.xml`.                           |
+| `vite-plugin-compression` (×2) | Pre-compressed `.gz` and `.br` build output.       |
+| `vite-plugin-image-optimizer`  | Optimizes images/SVGs at build time.               |
+| `vite-plugin-html`             | Build-time HTML transforms (env-driven meta tags). |
+| `vite-plugin-pwa`              | Service worker + manifest.                         |
+| `rollup-plugin-visualizer`     | Bundle-size treemap after each build.              |
+| Manual chunking                | Splits vendor code into cacheable chunks.          |
+| Modular Bootstrap imports      | Only the components actually used.                 |
 
-`vitest.config.js` is deliberately a **separate, minimal config** — it only registers the React plugin and the `@` → `src` alias, so none of the production-only plugins above (image optimization, PWA, compression) run while executing the test suite.
+`vitest.config.js` is a **separate, minimal config** — React plugin and `@` alias only, so tests skip the production-only plugins above.

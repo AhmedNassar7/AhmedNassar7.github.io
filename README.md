@@ -10,13 +10,6 @@
 
 <div align="center">
 
-[![CI](https://github.com/AhmedNassar7/AhmedNassar7.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmedNassar7/AhmedNassar7.github.io/actions/workflows/ci.yml)
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=flat&logo=googlechrome&logoColor=white)](https://ahmednassar7.github.io/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Node](https://img.shields.io/badge/node-%E2%89%A520.17-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-
-</div>
-
 ## 📖 Table of Contents
 
 - [Demo](#-demo)
@@ -62,11 +55,11 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
   <tr>
     <td align="center">
       <img src="docs/screenshots/stats.jpg" alt="GitHub stats section with live contribution heatmap" width="100%" />
-      <br /><sub>GitHub Stats — live counters &amp; contribution heatmap</sub>
+      <br /><sub>GitHub Stats — live counters & contribution heatmap</sub>
     </td>
     <td align="center">
       <img src="docs/screenshots/about.jpg" alt="About section with live availability widget" width="100%" />
-      <br /><sub>About — bio &amp; live availability widget</sub>
+      <br /><sub>About — bio & live availability widget</sub>
     </td>
   </tr>
   <tr>
@@ -330,19 +323,14 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) 🚀
 
-Two things worth knowing before you do that:
-
-- Requires **Node.js ≥ 20.17** and **npm ≥ 11** — see [why](./docs/DEVELOPER_GUIDE.md#prerequisites).
-- No `.env` file is required just to get the site rendering — every environment variable is optional for local dev, and a missing one only disables its own feature (e.g. no `.env` means the contact form can't save/send, but the rest of the site works). See [Environment Variables](./docs/DEVELOPER_GUIDE.md#environment-variables) for the full list.
-
 ## 📚 Documentation
 
-| Document                                                 | What's in it                                                                                                                        |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Document                                                      | What's in it                                                                                                                         |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)**       | System overview, component tree, contact-form data flow, and CI/deploy pipeline — all as diagrams.                                  |
-| **[docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)** | Local setup, every npm script, environment variables, project conventions, and how to add a new section or test.                    |
+| **[docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)** | Local setup, every npm script, environment variables, project conventions, and how to add a new section or test.                     |
 | **[docs/USER_GUIDE.md](./docs/USER_GUIDE.md)**           | A visitor-facing walkthrough of every feature — command palette, terminal commands, theme toggle, PWA install, accessibility notes. |
-| **[CONTRIBUTING.md](./CONTRIBUTING.md)**                 | How to propose changes: branching, commit style, and the checks your PR needs to pass.                                              |
+| **[CONTRIBUTING.md](./CONTRIBUTING.md)**                 | How to propose changes: branching, commit style, and the checks your PR needs to pass.                                               |
 
 ## ✅ Testing & Quality Gates
 
@@ -433,13 +421,9 @@ If you're interested in collaborating, hiring, or seeking consulting services, p
         <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
     </a>
 
-    <a href="https://github.com/AhmedNassar7">
-        <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-    </a>
+    <a href="https://github.com/AhmedNassar7">            </a>
 
-    <a href="mailto:a.moh.nassar00@gmail.com">
-        <img src="https://img.shields.io/badge/Email-FF4B5C?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
-    </a>
+    <a href="mailto:a.moh.nassar00@gmail.com">            </a>
 
 </p>
 
