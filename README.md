@@ -21,11 +21,6 @@
 - [Getting Started](#-getting-started)
 - [Documentation](#-documentation)
 - [Testing \& Quality Gates](#-testing--quality-gates)
-- [Deployment](#-deployment)
-- [Acknowledgments](#-acknowledgments)
-- [Goals and Vision](#-goals-and-vision)
-- [Contact for Freelance or Consulting](#-contact-for-freelance-or-consulting)
-- [License](#️-license)
 
 ## 🌐 Demo
 
@@ -325,12 +320,12 @@ Open [http://localhost:5173](http://localhost:5173) 🚀
 
 ## 📚 Documentation
 
-| Document                                                      | What's in it                                                                                                                         |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Document                                                 | What's in it                                                                                                                        |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)**       | System overview, component tree, contact-form data flow, and CI/deploy pipeline — all as diagrams.                                  |
-| **[docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)** | Local setup, every npm script, environment variables, project conventions, and how to add a new section or test.                     |
+| **[docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)** | Local setup, every npm script, environment variables, project conventions, and how to add a new section or test.                    |
 | **[docs/USER_GUIDE.md](./docs/USER_GUIDE.md)**           | A visitor-facing walkthrough of every feature — command palette, terminal commands, theme toggle, PWA install, accessibility notes. |
-| **[CONTRIBUTING.md](./CONTRIBUTING.md)**                 | How to propose changes: branching, commit style, and the checks your PR needs to pass.                                               |
+| **[CONTRIBUTING.md](./CONTRIBUTING.md)**                 | How to propose changes: branching, commit style, and the checks your PR needs to pass.                                              |
 
 ## ✅ Testing & Quality Gates
 
