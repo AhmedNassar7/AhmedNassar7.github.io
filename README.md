@@ -8,11 +8,98 @@
 
 🌟 Welcome to my **Personal Website**! Explore a world of creativity, innovation, and expertise through this **visually captivating**, **dynamic**, and **interactive** platform. Designed with cutting-edge technologies, this **fully responsive** website delivers a **seamless** and **engaging** user experience on any device. Dive in to discover my **skills**, **projects**, and **experiences**, all brought to life in a modern and immersive way 🚀
 
-## 🌐 Demo
-
-You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.github.io/)
+<div align="center">
 
 [![CI](https://github.com/AhmedNassar7/AhmedNassar7.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmedNassar7/AhmedNassar7.github.io/actions/workflows/ci.yml)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=flat&logo=googlechrome&logoColor=white)](https://ahmednassar7.github.io/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Node](https://img.shields.io/badge/node-%E2%89%A520.17-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+
+</div>
+
+## 📖 Table of Contents
+
+- [Demo](#-demo)
+- [Screenshots](#-screenshots)
+- [Technologies Used](#️-technologies-used)
+- [Features](#-features)
+- [Features Breakdown](#-features-breakdown)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Documentation](#-documentation)
+- [Testing \& Quality Gates](#-testing--quality-gates)
+- [Deployment](#-deployment)
+- [Acknowledgments](#-acknowledgments)
+- [Goals and Vision](#-goals-and-vision)
+- [Contact for Freelance or Consulting](#-contact-for-freelance-or-consulting)
+- [License](#️-license)
+
+## 🌐 Demo
+
+You can view the live portfolio here: **[ahmednassar7.github.io](https://ahmednassar7.github.io/)**
+
+Quick things worth trying on the live site:
+
+- Press **Ctrl/Cmd + K** to open the [command palette](#-command-palette-🎛️).
+- Click the terminal icon in the corner for a fully interactive Easter-egg [terminal](#-interactive-terminal-🖥️) (`help` for a command list).
+- Toggle the moon/sun icon in the navbar to switch between light and dark themes.
+
+## 📸 Screenshots
+
+All screenshots below are real captures of the live app (desktop @ 1440px, mobile @ 390px), taken with a headless Chromium run against `npm run dev`.
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/hero-light.jpg" alt="Home section, light theme" width="100%" />
+      <br /><sub>Home — light theme</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/hero-dark.jpg" alt="Home section, dark theme" width="100%" />
+      <br /><sub>Home — dark theme</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/stats.jpg" alt="GitHub stats section with live contribution heatmap" width="100%" />
+      <br /><sub>GitHub Stats — live counters &amp; contribution heatmap</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/about.jpg" alt="About section with live availability widget" width="100%" />
+      <br /><sub>About — bio &amp; live availability widget</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/resume.jpg" alt="Resume section with experience timeline" width="100%" />
+      <br /><sub>Resume — experience, education, projects</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/testimonials.jpg" alt="Testimonials carousel" width="100%" />
+      <br /><sub>Testimonials — LinkedIn-verified recommendations</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/command-palette.jpg" alt="Command palette open, showing quick actions" width="100%" />
+      <br /><sub>Command Palette — <code>Ctrl/Cmd + K</code></sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/terminal.jpg" alt="Interactive terminal Easter egg" width="100%" />
+      <br /><sub>Interactive Terminal Easter egg</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/contact.jpg" alt="Contact form" width="100%" />
+      <br /><sub>Contact — Firebase + EmailJS powered form</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/mobile-home.jpg" alt="Home section on a mobile viewport" width="45%" />
+      <br /><sub>Mobile viewport (390px)</sub>
+    </td>
+  </tr>
+</table>
 
 ## 🛠️ Technologies Used
 
@@ -136,7 +223,7 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 
 - `Quick Links` – Links to sections (Home, About, Resume, Contact).
 - `Social Media Links` – Icons linking to social media profiles.
-- `Copyright Notice` – “© Ahmed Nassar [Year] – All Rights Reserved.”
+- `Copyright Notice` – "© Ahmed Nassar [Year] – All Rights Reserved."
 
 ### 12. Interactive Background 🌌
 
@@ -175,7 +262,7 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Smooth Navigation` – Easy-to-use navigation.
 - `Performance Optimization` – Fast load times and smooth performance.
 
-### 18. Google Analytics 📊
+### 17. Google Analytics 📊
 
 - `Google Analytics` – Tracks website traffic, user behavior, and engagement for data-driven decisions.
 - `Real-Time Reporting` – Provides real-time data on user activity and interactions.
@@ -185,75 +272,85 @@ You can view the live portfolio here: [Live Portfolio](https://ahmednassar7.gith
 - `Behavior Flow` – Visualizes the path users take through the website.
 - `Event Tracking` – Monitors specific interactions such as clicks, downloads, and form submissions.
 
-### 19. Google Search Console 🔍
+### 18. Google Search Console 🔍
 
 - `Google Search Console` – Optimizes website **performance** and **speed** using **sitemap.xml** and best **SEO** practices to improve search visibility.
 - `SEO Techniques` – Implements strategies to boost search engine **rankings**.
 
-### 20. PWA Support 📱
+### 19. PWA Support 📱
 
 - `Installable` – Can be installed to a device's home screen via `vite-plugin-pwa`.
 - `Offline-Ready` – A generated service worker precaches assets for offline/repeat-visit access.
 - `Web App Manifest` – Custom icons and manifest for a native-like install experience.
 
-### 21. Continuous Integration & Testing ✅
+### 20. Continuous Integration & Testing ✅
 
 - `GitHub Actions CI` – Every push and pull request to `main` runs formatting checks, linting, the test suite, and a production build.
 - `Automated Test Suite` – **Vitest** and **React Testing Library** cover key components and utilities.
 - `Pre-Commit Checks` – **Husky** and `lint-staged` auto-fix and format staged files before they're committed.
 
-<!-- ### 22. Deployment 🚀
+## 📁 Project Structure
 
-The website is deployed on **GitHub Pages** using **GitHub Actions**. The deployment process is automated with a workflow file located at `.github/workflows/deploy.yml`. Here are the details:
+```text
+AhmedNassar7.github.io/
+├── docs/ — Extended documentation (this file links out to it)
+│   ├── ARCHITECTURE.md — Component tree, data flow & build/deploy diagrams
+│   ├── DEVELOPER_GUIDE.md — Setup, scripts, conventions, testing
+│   ├── USER_GUIDE.md — Visitor-facing feature walkthrough
+│   └── screenshots/ — Images used in this README
+├── public/ — Static assets copied as-is (favicons, PDFs, manifest)
+├── src/
+│   ├── assets/ — Images bundled & optimized by Vite
+│   ├── components/ — One folder per feature (JSX + SCSS + tests colocated)
+│   ├── data/ — resumeData.js, single source of truth for resume content
+│   ├── hooks/ — Shared React hooks
+│   ├── styles/ — Global SCSS entry point (main.scss)
+│   ├── test/ — Vitest setup (jest-dom matchers, etc.)
+│   ├── utils/ — Framework-agnostic helpers (analytics, logger, timezone…)
+│   ├── App.jsx — Top-level layout & section composition
+│   ├── firebase.js — Firebase app/RTDB initialization
+│   └── main.jsx — React entry point
+├── .github/workflows/ — ci.yml (lint/test/build) & deploy.yml (GitHub Pages)
+├── vite.config.js — PWA, sitemap, compression, image optimization, chunking
+└── vitest.config.js — Isolated test config (keeps prod build plugins out of tests)
+```
 
-- `GitHub Actions` – Automates the deployment process to GitHub Pages.
-- `Continuous Deployment` – Push changes to the `main` branch to trigger automatic deployment.
-- `GitHub Pages Settings` – Configure repository settings to serve the website from the `gh-pages` branch.
-- `Re-run Failed Deployments` – Easily re-run failed deployment jobs from the GitHub Actions tab.
-- `Live Demo` – Access the live portfolio at [https://ahmednassar7.github.io/](https://ahmednassar7.github.io/).
+See **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** for diagrams of how these pieces fit together.
 
-## 🛠️ Installation
+## 🚀 Getting Started
 
-To run this project locally, follow these steps:
+This is a quick start to get the site running locally. For prerequisites, the full environment variable reference, every npm script, coding conventions, testing, and deployment — see **[docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)**, the single source of truth for all of that.
 
-1. Clone the repository:
+```bash
+git clone https://github.com/AhmedNassar7/AhmedNassar7.github.io.git
+cd AhmedNassar7.github.io
+npm install
+npm run dev
+```
 
-   ```bash
-   git clone https://github.com/AhmedNassar7/AhmedNassar7.github.io.git
-   ```
-2. Navigate to the project directory:
+Open [http://localhost:5173](http://localhost:5173) 🚀
 
-   ```bash
-   cd AhmedNassar7.github.io
-   ```
-3. Install the dependencies:
+Two things worth knowing before you do that:
 
-   ```bash
-   npm install
-   ```
-4. Create a `.env` file in the project root with your own credentials (the app will still run without them, but Firebase, EmailJS, and Analytics features will be disabled):
+- Requires **Node.js ≥ 20.17** and **npm ≥ 11** — see [why](./docs/DEVELOPER_GUIDE.md#prerequisites).
+- No `.env` file is required just to get the site rendering — every environment variable is optional for local dev, and a missing one only disables its own feature (e.g. no `.env` means the contact form can't save/send, but the rest of the site works). See [Environment Variables](./docs/DEVELOPER_GUIDE.md#environment-variables) for the full list.
 
-   ```bash
-   VITE_FIREBASE_API_KEY=
-   VITE_FIREBASE_AUTH_DOMAIN=
-   VITE_FIREBASE_DATABASE_URL=
-   VITE_FIREBASE_PROJECT_ID=
-   VITE_FIREBASE_STORAGE_BUCKET=
-   VITE_FIREBASE_MESSAGING_SENDER_ID=
-   VITE_FIREBASE_APP_ID=
-   VITE_EMAILJS_SERVICE_ID=
-   VITE_EMAILJS_TEMPLATE_ID=
-   VITE_EMAILJS_USER_ID=
-   VITE_EMAILJS_TO_EMAIL=
-   VITE_GOOGLE_ANALYTICS_ID=
-   VITE_GOOGLE_SITE_VERIFICATION=
-   ```
-5. Run the development server:
+## 📚 Documentation
 
-   ```bash
-   npm run dev
-   ```
-6. Open your browser and visit `http://localhost:5173` to see the portfolio in action 🚀 -->
+| Document                                                 | What's in it                                                                                                                        |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)**       | System overview, component tree, contact-form data flow, and CI/deploy pipeline — all as diagrams.                                  |
+| **[docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)** | Local setup, every npm script, environment variables, project conventions, and how to add a new section or test.                    |
+| **[docs/USER_GUIDE.md](./docs/USER_GUIDE.md)**           | A visitor-facing walkthrough of every feature — command palette, terminal commands, theme toggle, PWA install, accessibility notes. |
+| **[CONTRIBUTING.md](./CONTRIBUTING.md)**                 | How to propose changes: branching, commit style, and the checks your PR needs to pass.                                              |
+
+## ✅ Testing & Quality Gates
+
+Every push and pull request to `main` runs formatting checks, linting, the full **Vitest** suite, and a production build via [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) — badge at the top of this file tracks that status. For how to run each of these checks locally before you push, see **[docs/DEVELOPER_GUIDE.md § Testing](./docs/DEVELOPER_GUIDE.md#testing)**.
+
+## 🚀 Deployment
+
+Live at **[ahmednassar7.github.io](https://ahmednassar7.github.io/)**, auto-deployed to GitHub Pages on every push to `main`. For the manual deploy path and required secrets, see **[docs/DEVELOPER_GUIDE.md § Deployment](./docs/DEVELOPER_GUIDE.md#deployment)**.
 
 ## 🤝 Acknowledgments
 
@@ -329,20 +426,21 @@ As a passionate developer, my vision is to create scalable, efficient, and innov
 
 ## 🌍 Contact for Freelance or Consulting
 
-If you're interested in collaborating, hiring, or seeking consulting services, please don't hesitate to get in touch with me. I’m available for freelance work, project consultation, collaboration, and new opportunities.
+If you're interested in collaborating, hiring, or seeking consulting services, please don't hesitate to get in touch with me. I'm available for freelance work, project consultation, collaboration, and new opportunities.
 
 <p align="center">
     <a href="https://www.linkedin.com/in/nasssar/">
         <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
     </a>
-     
+
     <a href="https://github.com/AhmedNassar7">
         <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
     </a>
-     
+
     <a href="mailto:a.moh.nassar00@gmail.com">
         <img src="https://img.shields.io/badge/Email-FF4B5C?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
     </a>
+
 </p>
 
 ## ⚖️ License

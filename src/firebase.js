@@ -20,12 +20,22 @@ const missingVariables = requiredEnvVariables.filter(
   (variable) => !import.meta.env[variable],
 );
 
-if (missingVariables.length > 0) {
+// A missing/incomplete Firebase config used to make this module throw at
+// import time. Contact.jsx imports addMessage unconditionally and nothing
+// in the tree catches a module-init throw, so that took down the entire
+// app (blank white page) over what should only disable one form's backup
+// storage. Degrade instead: log it, skip Firebase init, and let addMessage
+// reject — Contact.jsx already handles a rejected addMessage via
+// Promise.allSettled (see its handleSubmit), so no caller changes needed.
+const isFirebaseConfigured = missingVariables.length === 0;
+
+if (!isFirebaseConfigured) {
   missingVariables.forEach((variable) => {
     logger.error(`Environment variable ${variable} is missing.`);
   });
-  throw new Error(
-    `Missing required environment variables: ${missingVariables.join(', ')}`,
+  logger.error(
+    `Firebase is not configured (missing: ${missingVariables.join(', ')}). ` +
+      'Contact form submissions will not be saved to the database.',
   );
 } else {
   logger.info('All required Firebase environment variables are present.');
@@ -49,11 +59,10 @@ if (import.meta.env.MODE === 'production') {
   logger.debug('Debugging mode active');
 }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Realtime Database
-const db = getDatabase(app);
+// Initialize Firebase — only when fully configured, so an incomplete env
+// never hands a half-valid config to the SDK.
+const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
+const db = app ? getDatabase(app) : null;
 
 // The Realtime Database SDK opens its WebSocket/long-polling connection
 // lazily, on first read/write — which otherwise means the contact form's
@@ -63,7 +72,9 @@ const db = getDatabase(app);
 // connection immediately at page load instead, well ahead of anyone
 // reaching the form. It's always readable regardless of the database's
 // security rules, so this is safe on any project configuration.
-onValue(ref(db, '.info/connected'), () => {});
+if (db) {
+  onValue(ref(db, '.info/connected'), () => {});
+}
 
 /**
  * Helper to get the current date and time in the desired format.
@@ -89,6 +100,13 @@ const getFormattedTimestamp = () => {
  * @param {Object} messageData - The message data to save.
  */
 export const addMessage = async (messageData) => {
+  if (!db) {
+    throw new Error(
+      'Firebase is not configured — missing environment variables: ' +
+        `${missingVariables.join(', ')}.`,
+    );
+  }
+
   try {
     // Use timestamp as the key for the message
     const timestampKey = Date.now().toString();
