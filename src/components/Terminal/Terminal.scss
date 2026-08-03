@@ -137,3 +137,104 @@
   font-family: inherit;
   font-size: inherit;
 }
+
+.nf-panel {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 2px 0 6px;
+  flex-wrap: wrap;
+}
+
+.nf-logo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.nf-logo-row {
+  display: flex;
+  gap: 3px;
+}
+
+.nf-px {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: transparent;
+  display: inline-block;
+
+  &.on {
+    background: var(--primary, #646cff);
+  }
+}
+
+.nf-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nf-info-row {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.nf-header {
+  font-weight: 700;
+}
+
+.nf-header-name {
+  color: var(--primary, #646cff);
+  font-weight: 700;
+}
+
+.nf-hr {
+  height: 0;
+  margin: 4px 0;
+  border-top: 1px dashed rgba(214, 224, 240, 0.25);
+  width: 220px;
+  max-width: 100%;
+}
+
+.nf-label {
+  color: var(--primary, #646cff);
+  font-weight: 700;
+}
+
+.nf-value {
+  color: #d6e0f0;
+}
+
+.nf-green {
+  color: #6bd88a;
+}
+
+.nf-time {
+  color: #e3b341;
+}
+
+.nf-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 5px;
+  border: 1px solid rgba(214, 224, 240, 0.4);
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 700;
+  color: #d6e0f0;
+}
+
+.nf-swatches {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.nf-swatch {
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+}

@@ -102,10 +102,6 @@ const Home = () => {
                   sequence={[
                     'Software Engineer',
                     1000,
-                    'Java Developer',
-                    1000,
-                    'Python Developer',
-                    1000,
                     'DSF Member',
                     1000,
                     'Community Builder',

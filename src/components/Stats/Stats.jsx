@@ -38,7 +38,7 @@ const FALLBACK_PUBLIC_REPOS = 45;
 // GitHub's commit-search API has a browser-CORS bug, so this can't be fetched
 // live from the client. Rounded down from the real count; update manually
 // when it drifts noticeably.
-const TOTAL_COMMITS = 2000;
+const TOTAL_COMMITS = 2400;
 
 // Rounds a live count down to the nearest 5 so displayed numbers stay clean
 // and consistent without ever overstating the real value.
@@ -169,8 +169,10 @@ const Stats = ({ theme }) => {
       ariaLabel: 'View all public repositories on GitHub',
     },
     {
+      // Verified via GitHub's search API against django/django as of Aug
+      // 2026 (24 total, 10 merged) — update manually when it drifts.
       icon: faCodePullRequest,
-      value: 20,
+      value: 24,
       suffix: '+',
       label: 'Open-Source PRs',
       url: DJANGO_PRS_URL,

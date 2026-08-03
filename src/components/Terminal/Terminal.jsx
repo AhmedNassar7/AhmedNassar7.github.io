@@ -10,7 +10,12 @@ import {
 } from '../../data/resumeData';
 import { downloadResume } from '../../utils/resume';
 import { trackEvent } from '../../utils/analytics';
+import { getTimezoneAbbreviation } from '../../utils/timezone';
 import './Terminal.scss';
+
+// Same zone the About section's live-availability widget uses — keep the
+// terminal's "time" line consistent with the rest of the site.
+const AHMED_TIMEZONE = 'Africa/Cairo';
 
 const PROMPT = 'guest@ahmed-nassar:~$';
 
@@ -24,34 +29,126 @@ const SECTION_ALIASES = {
   contact: 'contact',
 };
 
-// A geometric monogram echoing the navbar logo — the info column facts
-// mirror the real, verified data used across the rest of the site (see
-// src/data/resumeData.js: DSF Individual Member, Django contributions),
-// not placeholder text.
-const NEOFETCH_ART = [
-  '',
-  '     ╱▔▔╲',
-  '    ╱ AN ╲',
-  '    ╲    ╱',
-  '     ╲▁▁╱',
-  '',
-  '',
-  '',
+// Pixel-grid "A N" monogram, rendered as real DOM cells (not monospace
+// characters). Two earlier attempts used ASCII/Unicode characters for the
+// logo — one drifted out of alignment because the block glyph wasn't
+// rendered at a truly fixed width in this font, and a fix for that turned
+// out too sparse to read as letters. Fixed-size div cells sidestep font
+// rendering entirely: this looks identical regardless of OS/browser/font.
+// Every fact in the info column is real, verified data pulled from the same
+// source as the rest of the site (see src/data/resumeData.js and
+// Stats.jsx), not placeholder text.
+const A_PIXELS = [
+  [0, 1, 1, 1, 0],
+  [1, 0, 0, 0, 1],
+  [1, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 1],
+  [1, 0, 0, 0, 1],
+  [1, 0, 0, 0, 1],
+  [1, 0, 0, 0, 1],
+];
+const N_PIXELS = [
+  [1, 0, 0, 0, 1],
+  [1, 1, 0, 0, 1],
+  [1, 1, 0, 0, 1],
+  [1, 0, 1, 0, 1],
+  [1, 0, 1, 0, 1],
+  [1, 0, 0, 1, 1],
+  [1, 0, 0, 1, 1],
+  [1, 0, 0, 0, 1],
+];
+const LOGO_PIXEL_ROWS = A_PIXELS.map((aRow, i) => [...aRow, 0, ...N_PIXELS[i]]);
+
+const NeofetchLogo = () => (
+  <div className="nf-logo-grid">
+    {LOGO_PIXEL_ROWS.map((row, r) => (
+      <div className="nf-logo-row" key={r}>
+        {row.map((on, c) => (
+          <span key={c} className={on ? 'nf-px on' : 'nf-px'} />
+        ))}
+      </div>
+    ))}
+  </div>
+);
+
+// Ticks every second on its own — a real live clock rather than a snapshot
+// frozen at the moment the command ran.
+const NeofetchClock = () => {
+  const [now, setNow] = useState(new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const time = now.toLocaleTimeString('en-US', {
+    timeZone: AHMED_TIMEZONE,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+  const tzAbbr = getTimezoneAbbreviation(now, AHMED_TIMEZONE);
+  return (
+    <span className="nf-time">
+      {time} ({tzAbbr}, UTC+2)
+    </span>
+  );
+};
+
+// Real neofetch is normally this concise — a single info block, not a
+// scrolling wall of sections. Every value here matches the same source of
+// truth as the rest of the site (src/data/resumeData.js), not placeholder
+// text.
+const buildNeofetchRows = () => [
+  { label: 'OS', value: 'Egypt Linux', badge: 'EG' },
+  { label: 'Role', value: 'Software Engineer' },
+  { label: 'Focus', value: 'Backend & Open Source' },
+  { label: 'Languages', value: 'Java · Python · C++ · C# · JS/TS' },
+  { label: 'Uptime', value: 'since 2021' },
+  { label: 'Location', value: 'Cairo, Egypt' },
+  { label: 'Time', live: 'clock' },
+  { label: 'Status', value: '● Open to Work', valueClass: 'nf-green' },
 ];
 
-const NEOFETCH_INFO = [
-  'ahmed@portfolio',
-  '-----------------',
-  'OS: Egypt Linux',
-  'Role: Software Engineer',
-  'Focus: Backend & Open Source',
-  'Languages: Java, Python, C++, C#, JS/TS',
-  'Org: Django Software Foundation (Individual Member)',
-  'Uptime: since 2021',
+const SWATCH_COLORS = [
+  '#ff5f57',
+  '#febc2e',
+  '#28c840',
+  '#646cff',
+  '#ff79c6',
+  '#ffa657',
+  '#e6edf3',
 ];
 
-const NEOFETCH = NEOFETCH_ART.map(
-  (line, i) => `${line.padEnd(20)} ${NEOFETCH_INFO[i] || ''}`,
+const NeofetchPanel = () => (
+  <div className="nf-panel">
+    <NeofetchLogo />
+    <div className="nf-info-col">
+      <div className="nf-header">
+        <span className="nf-header-name">ahmed</span>
+        <span className="nf-value">@</span>
+        <span className="nf-header-name">portfolio</span>
+      </div>
+      <div className="nf-hr" />
+      {buildNeofetchRows().map((row) => (
+        <div className="nf-info-row" key={row.label}>
+          <span className="nf-label">{row.label}</span>
+          <span className="nf-value">: </span>
+          {row.live === 'clock' ? (
+            <NeofetchClock />
+          ) : (
+            <span className={row.valueClass || 'nf-value'}>{row.value}</span>
+          )}
+          {row.badge && <span className="nf-badge">{row.badge}</span>}
+        </div>
+      ))}
+      <div className="nf-hr" />
+      <div className="nf-swatches">
+        {SWATCH_COLORS.map((c) => (
+          <span key={c} className="nf-swatch" style={{ background: c }} />
+        ))}
+      </div>
+    </div>
+  </div>
 );
 
 const HELP_LINES = [
@@ -146,7 +243,7 @@ const buildCommands = ({ theme, toggleTheme, close }) => ({
     return ['Opening https://www.linkedin.com/in/nasssar/ …'];
   },
 
-  neofetch: () => NEOFETCH,
+  neofetch: () => [{ type: 'nf-panel' }],
 
   clear: () => null,
 
@@ -336,9 +433,13 @@ const Terminal = ({ theme, toggleTheme }) => {
                     </div>
                   ) : (
                     <div className="terminal-line output-line" key={index}>
-                      {entry.lines.map((line, lineIndex) => (
-                        <div key={lineIndex}>{line || ' '}</div>
-                      ))}
+                      {entry.lines.map((line, lineIndex) =>
+                        line && line.type === 'nf-panel' ? (
+                          <NeofetchPanel key={lineIndex} />
+                        ) : (
+                          <div key={lineIndex}>{line || ' '}</div>
+                        ),
+                      )}
                     </div>
                   ),
                 )}
