@@ -3,14 +3,7 @@ import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faWhatsapp,
-  faGithub,
-  faLinkedin,
-  faTelegram,
-  faInstagram,
-  faFacebook,
-} from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import './Home.scss';
 import profileImage from '../../assets/images/profile.png';
@@ -33,30 +26,6 @@ const Home = () => {
       url: 'https://github.com/AhmedNassar7',
       label: 'GitHub',
       contentId: 'github_profile',
-    },
-    {
-      icon: faWhatsapp,
-      url: 'https://wa.me/201110102554',
-      label: 'WhatsApp',
-      contentId: 'whatsapp_profile',
-    },
-    {
-      icon: faTelegram,
-      url: 'https://t.me/nassarrrr',
-      label: 'Telegram',
-      contentId: 'telegram_profile',
-    },
-    {
-      icon: faInstagram,
-      url: 'https://www.instagram.com/ahmed_nassar__',
-      label: 'Instagram',
-      contentId: 'instagram_profile',
-    },
-    {
-      icon: faFacebook,
-      url: 'https://fb.com/profile.php?id=100004270350132',
-      label: 'Facebook',
-      contentId: 'facebook_profile',
     },
   ];
 

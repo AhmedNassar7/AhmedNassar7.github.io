@@ -13,7 +13,6 @@ import {
   faHandshake,
   faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import GitHubHeatmap from './GitHubHeatmap';
 import { calculateStreaks } from '../../utils/streaks';
 import { trackEvent } from '../../utils/analytics';
@@ -29,7 +28,6 @@ const DJANGO_PRS_URL =
 const COMMITS_SEARCH_URL = `https://github.com/search?q=author%3A${GITHUB_USERNAME}&type=commits`;
 const PORTFOLIO_REPO_URL = `https://github.com/${GITHUB_USERNAME}/${PORTFOLIO_REPO}`;
 const CONTRIBUTIONS_API_URL = `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`;
-const COMMUNITY_DISCORD_URL = 'https://discord.gg/N95QU2Ww3h';
 
 // Repo/star counts as of Jul 2026 — used only if the live GitHub fetch fails.
 const FALLBACK_GITHUB_STARS = 530;
@@ -249,28 +247,14 @@ const Stats = ({ theme }) => {
                 className="github-star-cta"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.96 }}
+                aria-label="Star this portfolio's repo on GitHub"
                 onClick={() => trackEvent('cta_click', { cta_id: 'star_repo' })}
               >
                 <FontAwesomeIcon icon={faStar} />
-                Star Portfolio on GitHub
+                Star on GitHub
                 {repoStars !== null && (
                   <span className="star-count">{repoStars}</span>
                 )}
-              </motion.a>
-              <motion.a
-                href={COMMUNITY_DISCORD_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cta-secondary"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.96 }}
-                aria-label="Join Ahmed's Software Engineering community on Discord"
-                onClick={() =>
-                  trackEvent('cta_click', { cta_id: 'join_community' })
-                }
-              >
-                <FontAwesomeIcon icon={faDiscord} />
-                Join SWE Community
               </motion.a>
               <motion.button
                 type="button"
