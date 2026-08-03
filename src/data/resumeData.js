@@ -32,6 +32,9 @@ import {
   faTerminal,
   faGears,
   faSpider,
+  faBolt,
+  faArrowsRotate,
+  faMobileScreenButton,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const education = {
@@ -98,24 +101,48 @@ export const projects = [
   {
     name: 'Egypt Metro Backend',
     url: 'https://github.com/Egypt-Metro/backend',
-    tech: ['Python', 'Django', 'PostgreSQL', 'JavaScript', 'HTML', 'CSS'],
+    // Verified against the repo's own README badges + requirements.txt: it's
+    // a pure Django REST Framework API (django-cors-headers confirms a
+    // separate frontend consumes it, not templates), with Channels/Redis
+    // behind the "real-time train tracking" claim below — not the stale
+    // JavaScript/HTML/CSS tags this used to carry.
+    tech: [
+      'Python',
+      'Django',
+      'Django REST Framework',
+      'PostgreSQL',
+      'Docker',
+      'Channels',
+    ],
     description:
       'Scalable Django backend serving millions of users with 60+ RESTful APIs, real-time train tracking, and secure ticketing.',
+  },
+  {
+    name: 'Horizon',
+    url: 'https://github.com/AhmedNassar7/horizon',
+    liveUrl: 'https://ahmednassar7.github.io/horizon/',
+    tech: ['React', 'TypeScript', 'Vite', 'TanStack Query', 'Zustand', 'PWA'],
+    description:
+      'Installable weather + world-time PWA — live conditions, 7-day forecast, and air quality for any city, 100% client-side with zero backend.',
   },
   {
     name: 'PDF Toolkit',
     url: 'https://github.com/AhmedNassar7/toolkit',
     liveUrl: 'https://ahmednassar7.github.io/toolkit/',
-    tech: ['React', 'TypeScript', 'Node.js', 'Docker', 'Tailwind', 'Supabase'],
+    // Verified against the repo's own Developer Guide tech-stack table —
+    // Node.js + Docker are real (the optional self-hosted LibreOffice
+    // convert-service), but Supabase doesn't appear anywhere in the repo;
+    // swapped for react-router-dom, which the app actually uses.
+    tech: [
+      'React',
+      'TypeScript',
+      'Node.js',
+      'Docker',
+      'Tailwind',
+      'React Router',
+    ],
     description:
-      '22 client-side PDF tools — merge, split, compress, encrypt, convert — with zero server storage.',
-  },
-  {
-    name: 'Tracker',
-    url: 'https://github.com/AhmedNassar7/tracker',
-    tech: ['Python', 'GitHub Actions', 'Automation', 'Web Scraping'],
-    description:
-      'Automated hourly tracker for software engineering jobs, internships, and hackathons — no sign-up needed.',
+      '27 client-side PDF/image/SVG tools — merge, split, compress, encrypt, convert — with zero server storage.',
   },
 ];
 
@@ -217,8 +244,14 @@ export const techIcons = {
       .map((skill) => [skill.name, skill.icon]),
   ),
   Tailwind: faCss3,
-  Supabase: faDatabase,
   'GitHub Actions': faGithub,
   Automation: faGears,
   'Web Scraping': faSpider,
+  Vite: faBolt,
+  'TanStack Query': faArrowsRotate,
+  Zustand: faLayerGroup,
+  'Django REST Framework': faServer,
+  Channels: faNetworkWired,
+  PWA: faMobileScreenButton,
+  'React Router': faReact,
 };
