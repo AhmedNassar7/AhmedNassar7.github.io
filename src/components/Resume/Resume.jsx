@@ -34,6 +34,7 @@ import {
   faCode,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import TiltCard from './TiltCard';
 import './Resume.scss';
 
 // Auto-discovers any logo dropped in assets/images/logos, keyed by the
@@ -280,15 +281,10 @@ const Resume = () => {
                 viewport={{ once: true, amount: 0.2 }}
               >
                 {projects.map((project, index) => (
-                  <motion.div
+                  <TiltCard
                     key={index}
                     className="project-item"
                     variants={projectItemVariants}
-                    whileHover={{
-                      y: -8,
-                      boxShadow: '0 12px 30px rgba(0, 0, 0, 0.15)',
-                    }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 22 }}
                   >
                     <div className="project-header">
                       <h4>{project.name}</h4>
@@ -330,7 +326,7 @@ const Resume = () => {
                         </span>
                       ))}
                     </div>
-                  </motion.div>
+                  </TiltCard>
                 ))}
               </motion.div>
             </div>
@@ -345,16 +341,12 @@ const Resume = () => {
               </h3>
               <div className="achievements-grid">
                 {achievements.map((achievement, index) => (
-                  <motion.div
+                  <TiltCard
                     key={index}
                     className="achievement-item"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    whileHover={{
-                      y: -8,
-                      boxShadow: '0 12px 30px rgba(0, 0, 0, 0.15)',
-                    }}
                     transition={{
                       type: 'spring',
                       stiffness: 300,
@@ -411,7 +403,7 @@ const Resume = () => {
                         <li key={bulletIndex}>{bullet}</li>
                       ))}
                     </ul>
-                  </motion.div>
+                  </TiltCard>
                 ))}
               </div>
             </div>

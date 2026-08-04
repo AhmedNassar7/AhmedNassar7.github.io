@@ -16,3 +16,21 @@ if (!globalThis.IntersectionObserver) {
     disconnect() {}
   };
 }
+
+// jsdom doesn't implement matchMedia either (used for reduced-motion and
+// hover-capability checks). Default every query to non-matching, so tilt
+// effects gated on `(hover: hover) and (pointer: fine)` stay off — the same
+// way a touch device or headless browser would see it.
+if (!window.matchMedia) {
+  window.matchMedia = (query) => ({
+    matches: false,
+    media: query,
+    addEventListener() {},
+    removeEventListener() {},
+    // Legacy MediaQueryList API — deprecated, but framer-motion's internal
+    // reduced-motion detection still calls addListener/removeListener, so
+    // without these it throws on mount for every motion component.
+    addListener() {},
+    removeListener() {},
+  });
+}
