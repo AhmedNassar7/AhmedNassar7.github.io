@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion, useInView, animate } from 'framer-motion';
-import { scroller } from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCodePullRequest,
@@ -10,23 +9,19 @@ import {
   faCodeCommit,
   faStar,
   faFire,
-  faHandshake,
   faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import GitHubHeatmap from './GitHubHeatmap';
 import { calculateStreaks } from '../../utils/streaks';
-import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import './Stats.scss';
 
 const GITHUB_USERNAME = 'AhmedNassar7';
-const PORTFOLIO_REPO = `${GITHUB_USERNAME}.github.io`;
 const REPOS_TAB_URL = `https://github.com/${GITHUB_USERNAME}?tab=repositories`;
 const REPOS_BY_STARS_URL = `${REPOS_TAB_URL}&sort=stargazers`;
 const DJANGO_PRS_URL =
   'https://github.com/django/django/pulls?q=is%3Apr+author%3AAhmedNassar7';
 const COMMITS_SEARCH_URL = `https://github.com/search?q=author%3A${GITHUB_USERNAME}&type=commits`;
-const PORTFOLIO_REPO_URL = `https://github.com/${GITHUB_USERNAME}/${PORTFOLIO_REPO}`;
 const CONTRIBUTIONS_API_URL = `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`;
 
 // Repo/star counts as of Jul 2026 — used only if the live GitHub fetch fails.
@@ -76,7 +71,6 @@ const Stats = ({ theme }) => {
   const [githubStars, setGithubStars] = useState(null);
   const [publicRepos, setPublicRepos] = useState(null);
   const [currentStreak, setCurrentStreak] = useState(null);
-  const [repoStars, setRepoStars] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -120,34 +114,12 @@ const Stats = ({ theme }) => {
       }
     };
 
-    const fetchPortfolioRepoStars = async () => {
-      try {
-        const res = await fetch(
-          `https://api.github.com/repos/${GITHUB_USERNAME}/${PORTFOLIO_REPO}`,
-        );
-        if (!res.ok) throw new Error('Portfolio repo request failed');
-        const data = await res.json();
-        if (!cancelled) {
-          setRepoStars(data.stargazers_count);
-        }
-      } catch (error) {
-        console.error('Failed to fetch portfolio repo stars:', error);
-      }
-    };
-
     fetchGithubStats();
     fetchStreaks();
-    fetchPortfolioRepoStars();
     return () => {
       cancelled = true;
     };
   }, []);
-
-  const handleCollaborateClick = () => {
-    scroller.scrollTo('contact', { offset: -70 });
-    window.history.replaceState(null, '', '#contact');
-    trackEvent('cta_click', { cta_id: 'collaborate' });
-  };
 
   const stats = [
     {
@@ -237,38 +209,6 @@ const Stats = ({ theme }) => {
             );
           })}
         </div>
-        <Row className="justify-content-center">
-          <Col xs={12} className="text-center github-star-block">
-            <div className="cta-cluster">
-              <motion.a
-                href={PORTFOLIO_REPO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="github-star-cta"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.96 }}
-                aria-label="Star this portfolio's repo on GitHub"
-                onClick={() => trackEvent('cta_click', { cta_id: 'star_repo' })}
-              >
-                <FontAwesomeIcon icon={faStar} />
-                Star on GitHub
-                {repoStars !== null && (
-                  <span className="star-count">{repoStars}</span>
-                )}
-              </motion.a>
-              <motion.button
-                type="button"
-                className="cta-secondary"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={handleCollaborateClick}
-              >
-                <FontAwesomeIcon icon={faHandshake} />
-                Let&apos;s Collaborate
-              </motion.button>
-            </div>
-          </Col>
-        </Row>
         <Row className="justify-content-center">
           <Col xs={12} lg={10}>
             <h3 className="heatmap-title">Contribution Activity</h3>
