@@ -15,7 +15,6 @@
 - [Technologies Used](#️-technologies-used)
 - [Features](#-features)
 - [Features Breakdown](#-features-breakdown)
-- [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [Documentation](#-documentation)
 - [Testing \& Quality Gates](#-testing--quality-gates)
@@ -274,34 +273,6 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `GitHub Actions CI` – Every push and pull request to `main` runs formatting checks, linting, the test suite, and a production build.
 - `Automated Test Suite` – **Vitest** and **React Testing Library** cover key components and utilities.
 - `Pre-Commit Checks` – **Husky** and `lint-staged` auto-fix and format staged files before they're committed.
-
-## 📁 Project Structure
-
-```text
-AhmedNassar7.github.io/
-├── docs/ — Extended documentation (this file links out to it)
-│   ├── ARCHITECTURE.md — Component tree, data flow & build/deploy diagrams
-│   ├── DEVELOPER_GUIDE.md — Setup, scripts, conventions, testing
-│   ├── USER_GUIDE.md — Visitor-facing feature walkthrough
-│   └── screenshots/ — Images used in this README
-├── public/ — Static assets copied as-is (favicons, PDFs, manifest)
-├── src/
-│   ├── assets/ — Images bundled & optimized by Vite
-│   ├── components/ — One folder per feature (JSX + SCSS + tests colocated)
-│   ├── data/ — resumeData.js, single source of truth for resume content
-│   ├── hooks/ — Shared React hooks
-│   ├── styles/ — Global SCSS entry point (main.scss)
-│   ├── test/ — Vitest setup (jest-dom matchers, etc.)
-│   ├── utils/ — Framework-agnostic helpers (analytics, logger, timezone…)
-│   ├── App.jsx — Top-level layout & section composition
-│   ├── firebase.js — Firebase app/RTDB initialization
-│   └── main.jsx — React entry point
-├── .github/workflows/ — ci.yml (lint/test/build) & deploy.yml (GitHub Pages)
-├── vite.config.js — PWA, sitemap, compression, image optimization, chunking
-└── vitest.config.js — Isolated test config (keeps prod build plugins out of tests)
-```
-
-See **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** for diagrams of how these pieces fit together.
 
 ## 🚀 Getting Started
 
