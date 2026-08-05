@@ -22,6 +22,8 @@
 - [Documentation](#-documentation)
 - [Testing \& Quality Gates](#-testing--quality-gates)
 
+</div>
+
 ## 🌐 Demo
 
 You can view the live portfolio here: **[ahmednassar7.github.io](https://ahmednassar7.github.io/)**
