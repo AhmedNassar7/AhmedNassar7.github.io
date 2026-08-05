@@ -8,8 +8,6 @@
 
 🌟 Welcome to my **Personal Website**! Explore a world of creativity, innovation, and expertise through this **visually captivating**, **dynamic**, and **interactive** platform. Designed with cutting-edge technologies, this **fully responsive** website delivers a **seamless** and **engaging** user experience on any device. Dive in to discover my **skills**, **projects**, and **experiences**, all brought to life in a modern and immersive way 🚀
 
-<div align="center">
-
 ## 📖 Table of Contents
 
 - [Demo](#-demo)
@@ -21,8 +19,6 @@
 - [Getting Started](#-getting-started)
 - [Documentation](#-documentation)
 - [Testing \& Quality Gates](#-testing--quality-gates)
-
-</div>
 
 ## 🌐 Demo
 
