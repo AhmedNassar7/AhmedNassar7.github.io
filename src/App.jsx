@@ -13,6 +13,7 @@ import Footer from './components/Footer/Footer';
 const ParticlesBackground = lazy(
   () => import('./components/ParticlesBackground/ParticlesBackground'),
 );
+import CursorGlow from './components/CursorGlow/CursorGlow';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
@@ -138,6 +139,7 @@ function App() {
       <Suspense fallback={null}>
         <ParticlesBackground theme={theme} />
       </Suspense>
+      <CursorGlow theme={theme} />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <CommandPalette theme={theme} toggleTheme={toggleTheme} />
       <Terminal theme={theme} toggleTheme={toggleTheme} />

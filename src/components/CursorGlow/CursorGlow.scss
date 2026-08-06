@@ -1,0 +1,55 @@
+/* Fixed-position blob moved purely via `transform` (GPU-composited) rather
+   than by recomputing a full-viewport gradient's center on every mouse
+   move, which would repaint on every frame instead of just compositing. */
+.cursor-glow-blob {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 650px;
+  height: 650px;
+  margin: -325px 0 0 -325px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(var(--glow-x, 50vw), var(--glow-y, 50vh), 0);
+  will-change: transform;
+}
+
+/* "screen" blend mode brightens against a dark background, which is what
+   makes the glow read as light — but screen-blending onto a white page
+   would wash straight back out to white, so light theme uses a plain
+   low-opacity tint with no blend mode instead. */
+.cursor-glow-blob--light {
+  background: radial-gradient(
+    circle,
+    rgba(100, 108, 255, 0.1) 0%,
+    transparent 70%
+  );
+}
+
+.cursor-glow-blob--dark {
+  background: radial-gradient(
+    circle,
+    rgba(150, 170, 255, 0.28) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
+.cursor-ripple-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursor-ripple {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+}
