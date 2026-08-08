@@ -43,4 +43,20 @@ export default [
       ],
     },
   },
+  {
+    // react-three-fiber renders three.js objects as lowercase JSX host
+    // elements (<boxGeometry />, <mesh />, <group />, ...) whose props are
+    // three.js constructor/setter args, not DOM attributes — the base
+    // react/no-unknown-property rule only knows real DOM/SVG attributes, so
+    // it flags every one of them here.
+    files: ['src/components/Home/RotatableShape.jsx'],
+    rules: {
+      'react/no-unknown-property': [
+        'error',
+        {
+          ignore: ['args', 'position', 'rotation', 'material', 'intensity'],
+        },
+      ],
+    },
+  },
 ];

@@ -120,6 +120,55 @@
   }
 }
 
+/* Rotatable Rubik's Cube — floats transparently over the page background,
+   no card/border of its own, exactly like the CSS orbit balls. Unlike
+   orbit-ball-1's tiered positions (which drift partially inside the
+   .profile-image-container box at some breakpoints — fine for a small
+   flat-colored dot that's forgiving to overlap, not fine for a solid
+   colorful cube), every tier here keeps `left` at or past the container's
+   own width, so the shape sits entirely outside that box and can
+   never visually collide with the circular photo inscribed in it. */
+.home-section .rotatable-shape {
+  position: absolute;
+  z-index: 1;
+  width: 85px;
+  height: 85px;
+  top: 240px;
+  left: 300px;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-section .rotatable-shape {
+    width: 70px;
+    height: 70px;
+    top: 230px;
+    left: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-section .rotatable-shape {
+    width: 60px;
+    height: 60px;
+    top: 190px;
+    left: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-section .rotatable-shape {
+    width: 50px;
+    height: 50px;
+    top: 180px;
+    left: 250px;
+  }
+}
+
 /* Content wrapper for aligning elements */
 .home-section .content-wrapper {
   display: flex;

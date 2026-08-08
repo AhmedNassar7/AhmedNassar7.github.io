@@ -36,20 +36,21 @@
   mix-blend-mode: screen;
 }
 
-.cursor-ripple-layer {
+.cursor-spark-layer {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
 }
 
-.cursor-ripple {
+.cursor-spark {
   position: fixed;
   top: 0;
   left: 0;
-  width: 70px;
-  height: 70px;
-  margin: -35px 0 0 -35px;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
   border-radius: 50%;
-  border: 2px solid var(--primary);
+  background: var(--spark-color, var(--primary));
+  box-shadow: 0 0 6px var(--spark-color, var(--primary));
 }

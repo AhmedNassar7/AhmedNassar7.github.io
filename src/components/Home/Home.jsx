@@ -1,3 +1,4 @@
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
@@ -11,8 +12,21 @@ import profileImageWebp from '../../assets/images/profile.webp';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 
+// Three.js/react-three-fiber add a non-trivial chunk of JS, so the shape is
+// split into its own lazily-loaded bundle — visitors with reduced motion
+// enabled never mount it and never pay for the chunk at all.
+const RotatableShape = lazy(() => import('./RotatableShape'));
+
 const Home = () => {
   const sectionRef = useVirtualPageView('Home', '/#home');
+  const [enable3D, setEnable3D] = useState(false);
+
+  useEffect(() => {
+    // Mirrors the reduced-motion check AOS already applies app-wide (see
+    // App.jsx) — the shape is decorative, so visitors who've opted out of
+    // non-essential motion just don't get it, and never load the chunk.
+    setEnable3D(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
 
   const socialLinks = [
     {
@@ -58,7 +72,13 @@ const Home = () => {
                   fetchPriority="high"
                 />
               </picture>
-              <div className="orbit-ball orbit-ball-1"></div>
+              {enable3D ? (
+                <Suspense fallback={null}>
+                  <RotatableShape />
+                </Suspense>
+              ) : (
+                <div className="orbit-ball orbit-ball-1"></div>
+              )}
               <div className="orbit-ball orbit-ball-2"></div>
               {/* <div className="orbit-ball orbit-ball-3"></div> */}
             </div>

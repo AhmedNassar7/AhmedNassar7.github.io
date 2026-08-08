@@ -68,6 +68,18 @@ const ParticlesBackground = ({ theme }) => {
               area: 800,
             },
             value: 50,
+            // onClick below pushes 4 more particles per click with no cap
+            // otherwise — clicking anywhere on the page (nav links,
+            // buttons, the cube, ...) adds to this permanently, so a
+            // normal browsing session climbs well past the initial 50 and
+            // keeps getting more expensive to render (more particles means
+            // more pairwise link-distance checks every frame) the longer
+            // it goes on. This library's `limit` is a plain number, not an
+            // object — once the count would exceed it, addParticle() (see
+            // tsparticles-engine's Core/Particles.js) automatically removes
+            // the oldest particles to make room, so clicking still feels
+            // responsive instead of silently doing nothing past the cap.
+            limit: 80,
           },
           opacity: {
             value: 0.3,
