@@ -118,6 +118,8 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `Command Palette` – A **Ctrl/Cmd+K** launcher for jumping to any section, toggling the theme, or opening a profile link.
 - `Interactive Terminal` – A retro terminal Easter egg with real, typed commands (`whoami`, `projects`, `neofetch`, and more).
 - `Interactive Background` – **Animated tsParticles** background to create a modern, immersive look.
+- `3D Rotatable Cube` – A **Three.js / react-three-fiber** Rubik's Cube in the hero, draggable in any direction and auto-rotating while in view.
+- `Micro-interactions` – A cursor glow with a spark burst on click, magnetic hover on buttons/social icons, and a multi-shell confetti celebration when a contact message sends successfully.
 - `Dynamic Content` – Updates with **Framer Motion** transitions and motion effects as users scroll.
 - `UI/UX Design` – Followed the best practices of **UI/UX design** for a user-friendly experience.
 - `Testimonials & Live GitHub Stats` – Recommender testimonials and animated, live-fetched GitHub stats (stars, repos, commits, PRs) plus a live contribution heatmap and streak counter.
@@ -159,7 +161,8 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 
 - `Profile Image` – Personal image displayed on the homepage.
 - `Typing Effect` – Dynamic typing string effect displaying.
-- `Social Media Links` – Links to LinkedIn, GitHub, and other social profiles.
+- `Social Media Links` – Links to LinkedIn, GitHub, and other social profiles, with a **magnetic hover** pull toward the cursor.
+- `Rotatable 3D Cube` – A small **Rubik's Cube** (Three.js / react-three-fiber) next to the profile photo — drag to spin freely, auto-rotates on its own while scrolled into view. Lazy-loaded and skipped entirely under `prefers-reduced-motion`.
 - `Scroll Arrow` – A downward arrow to help users navigate to the next section.
 
 ### 5. GitHub Stats Section 📈
@@ -198,6 +201,9 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `Country Dropdown` – A dropdown with flags and search functionality for selecting countries.
 - `Firebase Integration` – Utilizes Firebase for storing and managing the collected messages in a secure database.
 - `EmailJS Integration` – Sends the collected messages directly to my email.
+- `Confetti Celebration` – A multi-shell firework/confetti burst fires from the Send button on an actual successful delivery — not on every click, so it stays a genuine reward moment.
+- `Magnetic Submit Button` – The Send button gently pulls toward the cursor on hover.
+- `Gradient Accent Heading` – The "Contact **Me**" heading highlights the key word with a per-letter brand-color gradient.
 
 ### 10. Quotes Section 💬
 
@@ -207,12 +213,14 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 ### 11. Footer Section 📌
 
 - `Quick Links` – Links to sections (Home, About, Resume, Contact).
-- `Social Media Links` – Icons linking to social media profiles.
+- `Social Media Links` – Icons linking to social media profiles, with the same **magnetic hover** pull used in the Home section.
 - `Copyright Notice` – "© Ahmed Nassar [Year] – All Rights Reserved."
 
 ### 12. Interactive Background 🌌
 
-- `tsParticles` – Creates a visually engaging, interactive, and dynamic background with animated particles for a modern experience. Learn more about it [here](https://particles.js.org/).
+- `tsParticles` – Creates a visually engaging, interactive, and dynamic background with animated particles for a modern experience. Learn more about it [here](https://particles.js.org/). Particle count is capped (`number.limit`) so clicking repeatedly can't grow it unbounded.
+- `Cursor Glow & Spark Burst` – A soft light trails the cursor; every click sends out a small burst of brand-colored sparks. Skipped on touch devices and under `prefers-reduced-motion`.
+- `Dot-Grid Texture` – A subtle, theme-aware dot texture under the whole page for extra depth.
 - `Customizable Effects` – Easily customizable particle effects to match the website's theme and aesthetics.
 - `Performance Optimized` – Ensures smooth performance without compromising the website's loading speed.
 - `Responsive Design` – Adapts seamlessly to different screen sizes and devices for a consistent user experience.

@@ -93,3 +93,12 @@ Installed content stays available offline via a cached service worker.
 ## Rotating Quotes 💬
 
 Ten programming quotes, auto-advance every 5s, or click to change manually.
+
+## Interactive Extras ✨
+
+A few small things worth trying (desktop, with a mouse — all skipped automatically on touch devices and under your OS's **reduce motion** setting):
+
+- **Drag the cube** — the small Rubik's Cube next to the profile photo spins freely in any direction; let go of it and it keeps auto-rotating on its own while it's on screen.
+- **Click anywhere** — a soft glow trails your cursor, and every click sends out a small burst of colored sparks.
+- **Hover a button** — social icons and the Contact form's Send button gently pull toward your cursor (a "magnetic" hover).
+- **Send a message** — a real, successful submission through the Contact form triggers a confetti/firework celebration from the Send button.

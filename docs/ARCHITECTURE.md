@@ -37,6 +37,7 @@ flowchart TD
     Main[main.jsx] --> App[App.jsx]
 
     App --> Particles[ParticlesBackground<br/><i>lazy-loaded</i>]
+    App --> CursorGlow
     App --> Navbar
     App --> CommandPalette
     App --> Terminal
@@ -50,19 +51,24 @@ flowchart TD
     App --> Footer
     App --> ScrollToTop[Scroll-to-top button]
 
+    Home --> RotatableShape[RotatableShape<br/><i>lazy-loaded, r3f cube</i>]
     Stats --> GitHubHeatmap
+    Contact --> ConfettiBurst
+    Contact --> GradientText
 
     App -. theme state .-> Navbar
     App -. theme state .-> CommandPalette
     App -. theme state .-> Terminal
     App -. theme state .-> Particles
+    App -. theme state .-> CursorGlow
 ```
 
 Key decisions:
 
 - **No router for navigation.** `react-router-dom` is a dependency, but the site is one scrollable page — `react-scroll` handles jumps; the URL hash updates manually (`window.history.replaceState`).
 - **`theme` lives in `App.jsx`** as local state, persisted to `localStorage`, passed as a prop to the few components that need it. No context/store — one level of drilling isn't worth the indirection.
-- **`ParticlesBackground` is the only lazy-loaded component** — `tsparticles` is large and not needed for first paint.
+- **Two components are lazy-loaded**: `ParticlesBackground` (`tsparticles` is large and not needed for first paint) and `RotatableShape` (`three`/`@react-three/fiber` — the Home section's 3D cube). Both are also gated behind a `prefers-reduced-motion` check in their parent, so visitors who've opted out of motion never fetch either chunk.
+- **`useMagneticHover`** (`src/hooks/useMagneticHover.js`) is a small shared hook — not a component — behind the magnetic pull on the Home/Footer social icons and the Contact submit button. Same gating pattern as `TiltCard`: inert on touch devices and under `prefers-reduced-motion`.
 - **Resume content is data-driven.** `src/data/resumeData.js` is the single source; both `Resume.jsx` and the terminal's commands read from it.
 
 ## 3. Data Flow: Contact Form
