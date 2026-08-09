@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 import Select from 'react-select';
 import ReactCountryFlag from 'react-country-flag';
 import emailjs from 'emailjs-com';
 import { addMessage } from '../../firebase';
 import { trackEvent } from './../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
+import { useMagneticHover } from '../../hooks/useMagneticHover';
 import { Logger, LogLevel } from '../../utils/logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceFrown } from '@fortawesome/free-regular-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import GradientText from '../GradientText/GradientText';
+import ConfettiBurst from './ConfettiBurst';
 import './Contact.scss';
 
 const Contact = () => {
   const sectionRef = useVirtualPageView('Contact', '/#contact');
+  const magneticSubmit = useMagneticHover(0.3);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,6 +26,7 @@ const Contact = () => {
     message: '',
   });
   const [status, setStatus] = useState('');
+  const [confetti, setConfetti] = useState(null);
 
   const countries = [
     { value: 'AF', label: 'Afghanistan', code: 'AF' },
@@ -336,6 +341,18 @@ const Contact = () => {
       setStatus('success');
       setFormData({ name: '', email: '', country: null, message: '' });
 
+      // Reserved for an actual delivered message, not every click — fires
+      // from wherever the submit button ended up (its center), so the
+      // burst always originates from the thing the visitor just pressed.
+      const rect = magneticSubmit.ref.current?.getBoundingClientRect();
+      if (rect) {
+        setConfetti({
+          key: Date.now(),
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        });
+      }
+
       // Only a genuinely delivered message counts as a generated lead —
       // tracking this on submit-attempt would count failed sends too.
       trackEvent('generate_lead', { lead_source: 'contact_form' });
@@ -422,10 +439,14 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <button
+                <motion.button
+                  ref={magneticSubmit.ref}
                   type="submit"
                   className="submit-btn"
                   disabled={status === 'sending'}
+                  style={magneticSubmit.style}
+                  onMouseMove={magneticSubmit.onMouseMove}
+                  onMouseLeave={magneticSubmit.onMouseLeave}
                 >
                   {status === 'sending' ? (
                     <>
@@ -434,7 +455,7 @@ const Contact = () => {
                   ) : (
                     'Send Message'
                   )}
-                </button>
+                </motion.button>
                 {status === 'success' && (
                   <Alert variant="success" className="mt-4" role="status">
                     Message sent successfully
@@ -459,6 +480,13 @@ const Contact = () => {
           </Col>
         </Row>
       </Container>
+      {confetti && (
+        <ConfettiBurst
+          triggerKey={confetti.key}
+          originX={confetti.x}
+          originY={confetti.y}
+        />
+      )}
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
@@ -11,11 +12,53 @@ import profileImage from '../../assets/images/profile.png';
 import profileImageWebp from '../../assets/images/profile.webp';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
+import { useMagneticHover } from '../../hooks/useMagneticHover';
 
 // Three.js/react-three-fiber add a non-trivial chunk of JS, so the shape is
 // split into its own lazily-loaded bundle — visitors with reduced motion
 // enabled never mount it and never pay for the chunk at all.
 const RotatableShape = lazy(() => import('./RotatableShape'));
+
+// A separate component (not inlined in the .map() below) because hooks —
+// useMagneticHover included — can't be called inside a loop; each icon
+// needs its own independent hover-tracking instance.
+const MagneticSocialIcon = ({ link, variants }) => {
+  const magnetic = useMagneticHover();
+
+  return (
+    <motion.a
+      ref={magnetic.ref}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="social-icon"
+      aria-label={link.label}
+      variants={variants}
+      whileTap={{ scale: 0.85 }}
+      style={magnetic.style}
+      onMouseMove={magnetic.onMouseMove}
+      onMouseLeave={magnetic.onMouseLeave}
+      onClick={() =>
+        trackEvent('select_content', {
+          content_type: 'social_profile',
+          content_id: link.contentId,
+        })
+      }
+    >
+      <FontAwesomeIcon icon={link.icon} />
+    </motion.a>
+  );
+};
+
+MagneticSocialIcon.propTypes = {
+  link: PropTypes.shape({
+    icon: PropTypes.object.isRequired,
+    url: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    contentId: PropTypes.string.isRequired,
+  }).isRequired,
+  variants: PropTypes.object.isRequired,
+};
 
 const Home = () => {
   const sectionRef = useVirtualPageView('Home', '/#home');
@@ -110,24 +153,11 @@ const Home = () => {
                 animate="visible"
               >
                 {socialLinks.map((link, index) => (
-                  <motion.a
+                  <MagneticSocialIcon
                     key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-icon"
-                    aria-label={link.label}
+                    link={link}
                     variants={socialItemVariants}
-                    whileTap={{ scale: 0.85 }}
-                    onClick={() =>
-                      trackEvent('select_content', {
-                        content_type: 'social_profile',
-                        content_id: link.contentId,
-                      })
-                    }
-                  >
-                    <FontAwesomeIcon icon={link.icon} />
-                  </motion.a>
+                  />
                 ))}
               </motion.div>
               <div>

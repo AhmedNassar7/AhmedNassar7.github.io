@@ -1,8 +1,11 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-scroll';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './Footer.scss';
 import { trackEvent } from '../../utils/analytics';
+import { useMagneticHover } from '../../hooks/useMagneticHover';
 
 const FOOTER_NAV_ITEMS = [
   { id: 'home', label: 'Home' },
@@ -12,6 +15,44 @@ const FOOTER_NAV_ITEMS = [
   { id: 'testimonials', label: 'Testimonials' },
   { id: 'contact', label: 'Contact' },
 ];
+
+// A separate component (not inlined in the .map() below) because hooks —
+// useMagneticHover included — can't be called inside a loop; each icon
+// needs its own independent hover-tracking instance.
+const MagneticSocialIcon = ({ link }) => {
+  const magnetic = useMagneticHover();
+
+  return (
+    <motion.a
+      ref={magnetic.ref}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="social-icon"
+      aria-label={link.label}
+      style={magnetic.style}
+      onMouseMove={magnetic.onMouseMove}
+      onMouseLeave={magnetic.onMouseLeave}
+      onClick={() =>
+        trackEvent('select_content', {
+          content_type: 'social_profile',
+          content_id: link.contentId,
+        })
+      }
+    >
+      <FontAwesomeIcon icon={link.icon} />
+    </motion.a>
+  );
+};
+
+MagneticSocialIcon.propTypes = {
+  link: PropTypes.shape({
+    icon: PropTypes.object.isRequired,
+    url: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    contentId: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -56,22 +97,7 @@ const Footer = () => {
 
         <div className="social-links">
           {socialLinks.map((link, index) => (
-            <a
-              key={index}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-icon"
-              aria-label={link.label}
-              onClick={() =>
-                trackEvent('select_content', {
-                  content_type: 'social_profile',
-                  content_id: link.contentId,
-                })
-              }
-            >
-              <FontAwesomeIcon icon={link.icon} />
-            </a>
+            <MagneticSocialIcon key={index} link={link} />
           ))}
         </div>
 
