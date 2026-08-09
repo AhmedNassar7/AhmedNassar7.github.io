@@ -157,9 +157,9 @@ const RotatableShape = () => {
   }, []);
 
   return (
-    <div className="rotatable-shape" ref={wrapperRef} data-visible={isVisible}>
+    <div className="rotatable-shape" ref={wrapperRef}>
       <Canvas
-        frameloop="always"
+        frameloop={isVisible ? 'always' : 'demand'}
         camera={{ position: [0, 0, 4.6], fov: 40 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}

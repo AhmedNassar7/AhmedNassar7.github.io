@@ -10,6 +10,7 @@ import { Logger, LogLevel } from '../../utils/logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faFaceFrown } from '@fortawesome/free-regular-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import GradientText from '../GradientText/GradientText';
 import './Contact.scss';
 
 const Contact = () => {
@@ -347,7 +348,7 @@ const Contact = () => {
     <section id="contact" className="contact-section" ref={sectionRef}>
       <Container>
         <h2 className="section-title text-center mb-5" data-aos="fade-up">
-          Contact Me
+          Contact <GradientText text="Me" />
         </h2>
 
         <Row className="justify-content-center">

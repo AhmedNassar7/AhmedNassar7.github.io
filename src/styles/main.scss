@@ -78,11 +78,27 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease;
+  // A fine dot-grid texture under everything — subtle depth on the flat
+  // theme background without competing with the particle network already
+  // rendered on top of it. Each dot is a 1px circle repeated on a 22px
+  // grid; the opacity is deliberately low enough that it reads as texture,
+  // not a pattern you consciously notice.
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
 
   &.dark-theme {
     background-color: var(--dark);
     color: var(--light);
     --primary-text: #9398ff;
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    );
   }
 
   &.light-theme {
