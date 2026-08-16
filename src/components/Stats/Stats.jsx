@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-scroll';
 import { motion, useInView, animate } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
   faCodePullRequest,
   faCodeBranch,
@@ -10,19 +12,25 @@ import {
   faStar,
   faFire,
   faArrowUpRightFromSquare,
+  faHandshake,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import GitHubHeatmap from './GitHubHeatmap';
 import { calculateStreaks } from '../../utils/streaks';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
+import { trackEvent } from '../../utils/analytics';
 import './Stats.scss';
 
 const GITHUB_USERNAME = 'AhmedNassar7';
+const PORTFOLIO_REPO_URL = `https://github.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}.github.io`;
 const REPOS_TAB_URL = `https://github.com/${GITHUB_USERNAME}?tab=repositories`;
 const REPOS_BY_STARS_URL = `${REPOS_TAB_URL}&sort=stargazers`;
 const DJANGO_PRS_URL =
   'https://github.com/django/django/pulls?q=is%3Apr+author%3AAhmedNassar7';
 const COMMITS_SEARCH_URL = `https://github.com/search?q=author%3A${GITHUB_USERNAME}&type=commits`;
 const CONTRIBUTIONS_API_URL = `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`;
+const SWE_COMMUNITY_URL = 'https://discord.gg/N95QU2Ww3h';
+const GITHUB_SPONSORS_URL = `https://github.com/sponsors/${GITHUB_USERNAME}`;
 
 // Repo/star counts as of Jul 2026 — used only if the live GitHub fetch fails.
 const FALLBACK_GITHUB_STARS = 530;
@@ -165,6 +173,34 @@ const Stats = ({ theme }) => {
       </>
     ) : null;
 
+  const actionLinks = [
+    {
+      icon: faGithub,
+      label: 'Star Portfolio',
+      href: PORTFOLIO_REPO_URL,
+      contentId: 'star_portfolio',
+    },
+    {
+      icon: faDiscord,
+      label: 'Join SWE Community',
+      href: SWE_COMMUNITY_URL,
+      contentId: 'join_swe_community',
+    },
+    {
+      icon: faHandshake,
+      label: "Let's Collaborate",
+      to: 'contact',
+      contentId: 'lets_collaborate',
+    },
+    {
+      icon: faHeart,
+      label: 'Sponsor Me',
+      href: GITHUB_SPONSORS_URL,
+      contentId: 'github_sponsors',
+      featured: true,
+    },
+  ];
+
   return (
     <section id="stats" className="stats-section" ref={sectionRef}>
       <Container>
@@ -209,6 +245,60 @@ const Stats = ({ theme }) => {
             );
           })}
         </div>
+        <motion.div
+          className="stats-actions"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.45, delay: 0.15 }}
+          aria-label="High value actions"
+        >
+          {actionLinks.map((action) =>
+            action.to ? (
+              <Link
+                key={action.contentId}
+                to={action.to}
+                href={`#${action.to}`}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+                className={`stats-action ${
+                  action.featured ? 'stats-action-featured' : ''
+                }`}
+                onClick={() => {
+                  window.history.replaceState(null, '', `#${action.to}`);
+                  trackEvent('select_content', {
+                    content_type: 'stats_action',
+                    content_id: action.contentId,
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon={action.icon} />
+                <span>{action.label}</span>
+              </Link>
+            ) : (
+              <a
+                key={action.contentId}
+                href={action.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`stats-action ${
+                  action.featured ? 'stats-action-featured' : ''
+                }`}
+                onClick={() =>
+                  trackEvent('select_content', {
+                    content_type: 'stats_action',
+                    content_id: action.contentId,
+                  })
+                }
+              >
+                <FontAwesomeIcon icon={action.icon} />
+                <span>{action.label}</span>
+              </a>
+            ),
+          )}
+        </motion.div>
         <Row className="justify-content-center">
           <Col xs={12} lg={10}>
             <h3 className="heatmap-title">Contribution Activity</h3>
