@@ -369,10 +369,10 @@ const Contact = () => {
         </h2>
 
         <Row className="justify-content-center">
-          <Col lg={8}>
+          <Col lg={7} xl={6}>
             <div className="contact-form-wrapper" data-aos="fade-up">
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-4" controlId="contactName">
+                <Form.Group className="mb-3" controlId="contactName">
                   <Form.Label>
                     Name <span className="text-danger">*</span>
                   </Form.Label>
@@ -387,7 +387,7 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-4" controlId="contactEmail">
+                <Form.Group className="mb-3" controlId="contactEmail">
                   <Form.Label>
                     Email <span className="text-danger">*</span>
                   </Form.Label>
@@ -402,7 +402,7 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-3">
                   <Form.Label>
                     Country{' '}
                     <span style={{ opacity: 0.5, fontSize: '0.85rem' }}>
@@ -423,13 +423,13 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-4" controlId="contactMessage">
+                <Form.Group className="mb-3" controlId="contactMessage">
                   <Form.Label>
                     Message <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
                     as="textarea"
-                    rows={5}
+                    rows={4}
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })

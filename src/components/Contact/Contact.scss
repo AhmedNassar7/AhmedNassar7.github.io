@@ -1,11 +1,11 @@
 .contact-section {
-  padding: 100px 0;
+  padding: 70px 0;
 
   .contact-form-wrapper {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    padding: 2rem;
+    padding: 1.75rem;
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
   }
@@ -14,7 +14,7 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: inherit;
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 0.85rem;
     border-radius: 8px;
     transition: all 0.3s ease;
 
@@ -28,7 +28,7 @@
   .section-title {
     font-size: 2rem;
     font-weight: 500;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     color: black;
 
     .dark-theme & {
@@ -112,7 +112,7 @@
 
   .submit-btn {
     width: 100%;
-    padding: 1rem;
+    padding: 0.7rem;
     // var(--primary) is only ~4.09:1 against white text (fails WCAG AA's
     // 4.5:1 for normal-size text); --secondary passes at ~5.06:1.
     background: var(--secondary);

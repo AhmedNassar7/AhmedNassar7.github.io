@@ -2,10 +2,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import {
+  faGithub,
+  faLinkedin,
+  faPaypal,
+} from '@fortawesome/free-brands-svg-icons';
+import { SiKofi } from 'react-icons/si';
 import './Footer.scss';
 import { trackEvent } from '../../utils/analytics';
 import { useMagneticHover } from '../../hooks/useMagneticHover';
+import instapayIcon from '../../assets/images/logos/instapay.png';
 
 const FOOTER_NAV_ITEMS = [
   { id: 'home', label: 'Home' },
@@ -30,6 +36,7 @@ const MagneticSocialIcon = ({ link }) => {
       rel="noopener noreferrer"
       className="social-icon"
       aria-label={link.label}
+      title={link.label}
       style={magnetic.style}
       onMouseMove={magnetic.onMouseMove}
       onMouseLeave={magnetic.onMouseLeave}
@@ -40,14 +47,37 @@ const MagneticSocialIcon = ({ link }) => {
         })
       }
     >
-      <FontAwesomeIcon icon={link.icon} />
+      {/* FontAwesome icons are plain objects; react-icons ones (e.g. Ko-fi,
+          which FontAwesome's brand set doesn't have) are components; brands
+          with no icon-font mark at all (e.g. InstaPay) are image URLs —
+          rendered as a CSS mask (silhouette from alpha, not the source
+          image's own colors) so it takes the same currentColor/hover
+          behavior as the real icon fonts instead of standing out. */}
+      {typeof link.icon === 'string' ? (
+        <span
+          className="brand-mask"
+          aria-hidden="true"
+          style={{
+            WebkitMaskImage: `url(${link.icon})`,
+            maskImage: `url(${link.icon})`,
+          }}
+        />
+      ) : typeof link.icon === 'function' ? (
+        <link.icon />
+      ) : (
+        <FontAwesomeIcon icon={link.icon} />
+      )}
     </motion.a>
   );
 };
 
 MagneticSocialIcon.propTypes = {
   link: PropTypes.shape({
-    icon: PropTypes.object.isRequired,
+    icon: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+      PropTypes.string,
+    ]).isRequired,
     url: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     contentId: PropTypes.string.isRequired,
@@ -69,6 +99,38 @@ const Footer = () => {
       url: 'https://github.com/AhmedNassar7',
       label: 'GitHub',
       contentId: 'github_profile',
+    },
+  ];
+
+  // Kept out of socialLinks and separated by a divider below — these are
+  // support/donation links, not social profiles, so they shouldn't read as
+  // just more items in that row. All three are offered rather than picking
+  // one, since visitors already set up with one platform rarely have the
+  // others — PayPal is the most globally recognized so it leads, Ko-fi
+  // follows for anyone who prefers a tip jar, and InstaPay trails since it
+  // only works for Egyptian supporters (an Egyptian-bank-only network, not
+  // usable from anywhere else, hence the qualifier in its label). InstaPay
+  // has no icon-font mark in either set available here (FontAwesome/
+  // simple-icons), so it's a local image asset instead — see
+  // MagneticSocialIcon's string-vs-object-vs-function branch above.
+  const supportLinks = [
+    {
+      icon: faPaypal,
+      url: 'https://paypal.me/Ahmednassar7',
+      label: 'Support me on PayPal',
+      contentId: 'paypal_support',
+    },
+    {
+      icon: SiKofi,
+      url: 'https://ko-fi.com/ahmed_nassar',
+      label: 'Support me on Ko-fi',
+      contentId: 'kofi_support',
+    },
+    {
+      icon: instapayIcon,
+      url: 'https://ipn.eg/S/ahmed.qnb.com/instapay/7gFajE',
+      label: 'Support me via InstaPay (Egypt, mobile banking app only)',
+      contentId: 'instapay_support',
     },
   ];
 
@@ -97,6 +159,10 @@ const Footer = () => {
 
         <div className="social-links">
           {socialLinks.map((link, index) => (
+            <MagneticSocialIcon key={index} link={link} />
+          ))}
+          <span className="social-divider" aria-hidden="true" />
+          {supportLinks.map((link, index) => (
             <MagneticSocialIcon key={index} link={link} />
           ))}
         </div>

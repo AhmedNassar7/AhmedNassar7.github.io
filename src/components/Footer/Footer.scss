@@ -61,11 +61,42 @@
       color: var(--primary);
       font-size: 1.25rem;
       transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
 
       &:hover {
         color: var(--secondary);
         transform: translateY(-3px);
       }
+    }
+
+    // InstaPay has no icon-font mark, so it's rendered as a CSS mask
+    // instead (see Footer.jsx) — the source image's own colors are
+    // discarded, only its alpha silhouette is used, filled with
+    // currentColor so it matches the real icon fonts' color and hover
+    // transition exactly. The source is a wide ~2.5:1 wordmark-style mark,
+    // unlike the square-ish icon fonts around it, so matching their full
+    // 20px height reads as oversized — sized shorter instead to land at a
+    // similar visual weight/footprint despite the different proportions.
+    .brand-mask {
+      display: inline-block;
+      width: 35px;
+      height: 14px;
+      background-color: currentColor;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
+
+    // Separates the support links from the social profile icons — same
+    // row, but visually a different category of link.
+    .social-divider {
+      width: 1px;
+      height: 22px;
+      background: var(--glass-border);
     }
   }
 
