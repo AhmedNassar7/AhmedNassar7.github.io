@@ -136,25 +136,22 @@
     }
   }
 
-  .org-logo-photo,
+  // Real logos render at their natural aspect ratio and natural color, no
+  // tile/background — the page's own background is enough contrast for
+  // arbitrary brand marks.
+  .org-logo-photo {
+    flex-shrink: 0;
+    width: auto;
+    height: 48px;
+    max-width: 170px;
+    object-fit: contain;
+  }
+
   .org-logo-fallback {
     flex-shrink: 0;
     width: 48px;
     height: 48px;
     border-radius: 12px;
-  }
-
-  .org-logo-photo {
-    // A flat white tile keeps arbitrary brand marks (dark, light, or
-    // transparent) legible in both themes, matching the "logo bar" pattern
-    // used across the rest of the industry.
-    background: #fff;
-    border: 1px solid var(--glass-border);
-    object-fit: contain;
-    padding: 7px;
-  }
-
-  .org-logo-fallback {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -162,6 +159,161 @@
     color: white;
     font-weight: 700;
     font-size: 0.95rem;
+  }
+
+  // h3 already carries a 2rem bottom margin for cards that go straight into
+  // content; pulled up here since this card's h3 is followed by a divider.
+  h3 + .interview-divider {
+    margin-top: -1.25rem;
+  }
+
+  .interview-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+  }
+
+  .interview-marquee {
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 5%,
+      black 95%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 5%,
+      black 95%,
+      transparent
+    );
+  }
+
+  // Position is driven imperatively (track.style.transform) by
+  // InterviewMarquee's rAF loop and pointer-drag handlers, not CSS —
+  // dragging needs to grab the animation mid-flight at its live offset,
+  // which a CSS `animation` can't hand control back and forth for.
+  .interview-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+    width: max-content;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    will-change: transform;
+
+    &.is-dragging {
+      cursor: grabbing;
+
+      .interview-icon {
+        pointer-events: none;
+      }
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .interview-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    transition: transform 0.2s ease;
+
+    // Real logos render at their natural aspect ratio, large enough to read
+    // at a glance, no tile/background in light mode — the page's own white
+    // is enough contrast for arbitrary brand marks. Several of these marks
+    // (PwC, xAI) are near-black and would vanish against the dark theme's
+    // card background, so dark mode keeps a small white plate under them —
+    // same fix the Experience/Education logos already rely on.
+    .org-logo-photo {
+      width: auto;
+      height: 40px;
+      max-width: 140px;
+      object-fit: contain;
+      pointer-events: none;
+      background: none;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+
+      .dark-theme & {
+        height: 34px;
+        padding: 8px 12px;
+        background: #fff;
+        border-radius: 8px;
+      }
+    }
+
+    // xAI's mark (see OrgLogo's INVERT_IN_DARK) is simple enough to flip to
+    // white directly instead of sitting on a plate, so it undoes the plate
+    // above and inverts the black mark to white in dark mode.
+    .org-logo-photo-invert {
+      .dark-theme & {
+        padding: 0;
+        background: none;
+        border-radius: 0;
+        filter: invert(1);
+      }
+    }
+
+    .org-logo-fallback {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    &:hover {
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .interview-marquee-track {
+      gap: 2.25rem;
+    }
+
+    .interview-icon {
+      height: 44px;
+
+      .org-logo-photo {
+        height: 32px;
+        max-width: 110px;
+
+        .dark-theme & {
+          height: 28px;
+          padding: 6px 10px;
+        }
+      }
+
+      .org-logo-fallback {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+      }
+    }
   }
 
   .education-item {

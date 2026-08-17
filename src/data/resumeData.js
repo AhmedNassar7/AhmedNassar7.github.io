@@ -97,6 +97,19 @@ export const experiences = [
   },
 ];
 
+// Companies that interviewed Ahmed or had a recruiter reach out — not
+// employers, so this stays name-only rather than claiming a role/date like
+// `experiences` does.
+export const interviewedCompanies = [
+  'Capgemini',
+  'xAI',
+  'Google',
+  'Amazon',
+  'PwC',
+  'Shopify',
+  'Siemens',
+];
+
 export const projects = [
   {
     name: 'Egypt Metro Backend',

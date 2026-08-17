@@ -36,10 +36,13 @@ const GITHUB_SPONSORS_URL = `https://github.com/sponsors/${GITHUB_USERNAME}`;
 const FALLBACK_GITHUB_STARS = 530;
 const FALLBACK_PUBLIC_REPOS = 45;
 
-// GitHub's commit-search API has a browser-CORS bug, so this can't be fetched
-// live from the client. Rounded down from the real count; update manually
-// when it drifts noticeably.
-const TOTAL_COMMITS = 2400;
+// GitHub's commit-search API sends a malformed Access-Control-Allow-Origin
+// header on this endpoint specifically (confirmed via real browser fetch,
+// rejected as an invalid CORS value — curl doesn't enforce CORS so it won't
+// show the failure), so this can't be fetched live from the client. Rounded
+// down from the real count (2,636 as of Aug 2026) — update manually when it
+// drifts noticeably.
+const TOTAL_COMMITS = 2635;
 
 // Rounds a live count down to the nearest 5 so displayed numbers stay clean
 // and consistent without ever overstating the real value.

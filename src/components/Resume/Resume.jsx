@@ -1,12 +1,9 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import { slugify } from '../../utils/slugify';
-import { getInitials } from '../../utils/initials';
 import {
   RESUME_URL,
   RESUME_VIEW_URL,
@@ -16,6 +13,7 @@ import {
 import {
   education,
   experiences,
+  interviewedCompanies,
   projects,
   achievements,
   skills,
@@ -26,6 +24,7 @@ import {
   faCalendar,
   faLocationDot,
   faBriefcase,
+  faBuilding,
   faDownload,
   faEye,
   faArrowUpRightFromSquare,
@@ -35,56 +34,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import TiltCard from './TiltCard';
+import OrgLogo from './OrgLogo';
+import InterviewMarquee from './InterviewMarquee';
 import './Resume.scss';
-
-// Auto-discovers any logo dropped in assets/images/logos, keyed by the
-// slugified company/school name (e.g. "Beshara Group" -> beshara_group.png).
-// Orgs without a matching file just fall back to an initials badge, so this
-// never breaks the build while logos are being sourced.
-const logoModules = import.meta.glob(
-  '../../assets/images/logos/*.{png,jpg,jpeg,svg,webp}',
-  { eager: true, import: 'default' },
-);
-const logosByKey = Object.fromEntries(
-  Object.entries(logoModules).map(([path, url]) => [
-    path
-      .split('/')
-      .pop()
-      .replace(/\.[^.]+$/, ''),
-    url,
-  ]),
-);
-
-const OrgLogo = ({ name }) => {
-  const [failed, setFailed] = useState(false);
-  const src = logosByKey[slugify(name)];
-
-  if (src && !failed) {
-    return (
-      <img
-        src={src}
-        alt=""
-        aria-hidden="true"
-        className="org-logo-photo"
-        width="48"
-        height="48"
-        loading="lazy"
-        decoding="async"
-        onError={() => setFailed(true)}
-      />
-    );
-  }
-
-  return (
-    <div className="org-logo-fallback" aria-hidden="true">
-      {getInitials(name)}
-    </div>
-  );
-};
-
-OrgLogo.propTypes = {
-  name: PropTypes.string.isRequired,
-};
 
 const Resume = () => {
   const sectionRef = useVirtualPageView('Resume', '/#resume');
@@ -263,6 +215,18 @@ const Resume = () => {
                   </p>
                 </div>
               </div>
+            </div>
+          </Col>
+        </Row>
+
+        <Row className="mb-5">
+          <Col lg={12} data-aos="fade-up">
+            <div className="resume-card">
+              <h3>
+                <FontAwesomeIcon icon={faBuilding} /> Interview Experience
+              </h3>
+              <p className="interview-divider">Recruited and interviewed by</p>
+              <InterviewMarquee companies={interviewedCompanies} />
             </div>
           </Col>
         </Row>
