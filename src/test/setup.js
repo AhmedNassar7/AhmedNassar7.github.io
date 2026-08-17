@@ -17,6 +17,17 @@ if (!globalThis.IntersectionObserver) {
   };
 }
 
+// jsdom doesn't implement ResizeObserver either (used to re-measure the
+// interview marquee's loop width as logos load). Components just never see
+// a resize in tests, which is fine — nothing under test asserts on it firing.
+if (!globalThis.ResizeObserver) {
+  globalThis.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
 // jsdom doesn't implement matchMedia either (used for reduced-motion and
 // hover-capability checks). Default every query to non-matching, so tilt
 // effects gated on `(hover: hover) and (pointer: fine)` stay off — the same
