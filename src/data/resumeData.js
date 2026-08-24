@@ -108,6 +108,7 @@ export const interviewedCompanies = [
   'PwC',
   'Shopify',
   'Siemens',
+  'Ramp',
 ];
 
 export const projects = [
