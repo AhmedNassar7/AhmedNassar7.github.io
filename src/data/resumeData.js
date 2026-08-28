@@ -110,6 +110,7 @@ export const interviewedCompanies = [
   'Siemens',
   'Ramp',
   'Deloitte',
+  'Optiver',
 ];
 
 export const projects = [

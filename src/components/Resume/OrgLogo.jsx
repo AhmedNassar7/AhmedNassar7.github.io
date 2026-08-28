@@ -19,9 +19,13 @@ const INVERT_IN_DARK = new Set(['xai']);
 //   picked up automatically — no code changes needed elsewhere.
 // - Prefer SVG (the official wordmark/logo, not a favicon or app icon) with
 //   a transparent background. If only a raster version is available, it
-//   must also have a transparent background (no baked-in white/colored
-//   box) and be at least ~300px on its longer side so it doesn't blur when
-//   scaled up to the marquee's display size.
+//   must also have a transparent background: strip any baked-in white/
+//   colored box so only the mark itself is opaque (e.g. make near-white
+//   pixels transparent), the same as every other raster logo here.
+// - Normalize raster logos to a consistent size: trim to the mark's
+//   content bounds (no surrounding padding) and scale the longer side to
+//   ~570px — matches the other wordmarks (see shopify.png) so nothing
+//   renders blurry or out of proportion at the marquee's display height.
 // - Keep the source's real brand colors — don't flatten a colored mark to
 //   black/grey.
 // - If the mark is near-black or very dark, it'll still render fine in
