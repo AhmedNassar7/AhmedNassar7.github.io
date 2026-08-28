@@ -111,6 +111,7 @@ export const interviewedCompanies = [
   'Ramp',
   'Deloitte',
   'Optiver',
+  'Snowflake',
 ];
 
 export const projects = [
