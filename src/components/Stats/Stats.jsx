@@ -28,21 +28,19 @@ const REPOS_BY_STARS_URL = `${REPOS_TAB_URL}&sort=stargazers`;
 const DJANGO_PRS_URL =
   'https://github.com/django/django/pulls?q=is%3Apr+author%3AAhmedNassar7';
 const COMMITS_SEARCH_URL = `https://github.com/search?q=author%3A${GITHUB_USERNAME}&type=commits`;
+// GitHub's own commit-search API — `total_count` is the exact number of
+// commits authored by the user across all public repos.
+const COMMITS_API_URL = `https://api.github.com/search/commits?q=author:${GITHUB_USERNAME}&per_page=1`;
 const CONTRIBUTIONS_API_URL = `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`;
 const SWE_COMMUNITY_URL = 'https://discord.gg/N95QU2Ww3h';
 const GITHUB_SPONSORS_URL = `https://github.com/sponsors/${GITHUB_USERNAME}`;
 
-// Repo/star counts as of Jul 2026 — used only if the live GitHub fetch fails.
+// Counts as of Sep 2026 — used only if the corresponding live fetch fails
+// (network error, or GitHub's low unauthenticated rate limit on the search
+// API — ~10 req/min — kicking in). Bump these when they drift noticeably.
 const FALLBACK_GITHUB_STARS = 530;
 const FALLBACK_PUBLIC_REPOS = 45;
-
-// GitHub's commit-search API sends a malformed Access-Control-Allow-Origin
-// header on this endpoint specifically (confirmed via real browser fetch,
-// rejected as an invalid CORS value — curl doesn't enforce CORS so it won't
-// show the failure), so this can't be fetched live from the client. Rounded
-// down from the real count (2,636 as of Aug 2026) — update manually when it
-// drifts noticeably.
-const TOTAL_COMMITS = 2635;
+const FALLBACK_TOTAL_COMMITS = 2975;
 
 // Rounds a live count down to the nearest 5 so displayed numbers stay clean
 // and consistent without ever overstating the real value.
@@ -81,6 +79,7 @@ const Stats = ({ theme }) => {
   const sectionRef = useVirtualPageView('GitHub Stats', '/#stats');
   const [githubStars, setGithubStars] = useState(null);
   const [publicRepos, setPublicRepos] = useState(null);
+  const [totalCommits, setTotalCommits] = useState(null);
   const [currentStreak, setCurrentStreak] = useState(null);
 
   useEffect(() => {
@@ -110,6 +109,21 @@ const Stats = ({ theme }) => {
       }
     };
 
+    const fetchCommits = async () => {
+      try {
+        const res = await fetch(COMMITS_API_URL);
+        if (!res.ok) throw new Error('Commit search request failed');
+        const data = await res.json();
+        if (typeof data.total_count !== 'number') {
+          throw new Error('Commit search response missing total_count');
+        }
+        if (!cancelled) setTotalCommits(roundDownToFive(data.total_count));
+      } catch (error) {
+        console.error('Failed to fetch live commit count:', error);
+        if (!cancelled) setTotalCommits(FALLBACK_TOTAL_COMMITS);
+      }
+    };
+
     // Streaks change daily, unlike stars/repos which move slowly, so there's
     // no sane hardcoded fallback here — leave it as "—" (null) if the fetch
     // fails rather than show a number that goes stale within a day.
@@ -126,6 +140,7 @@ const Stats = ({ theme }) => {
     };
 
     fetchGithubStats();
+    fetchCommits();
     fetchStreaks();
     return () => {
       cancelled = true;
@@ -161,7 +176,7 @@ const Stats = ({ theme }) => {
     },
     {
       icon: faCodeCommit,
-      value: TOTAL_COMMITS,
+      value: totalCommits,
       suffix: '+',
       label: 'Commits',
       url: COMMITS_SEARCH_URL,
