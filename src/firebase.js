@@ -1,5 +1,11 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, onValue } from 'firebase/database';
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue,
+  runTransaction,
+} from 'firebase/database';
 import { Logger, LogLevel } from './utils/logger';
 
 // Instantiate the Logger
@@ -126,6 +132,82 @@ export const addMessage = async (messageData) => {
     // update the submit button and show an error alert — swallowing the
     // error here instead of rethrowing made every Firebase failure look
     // like a success to the user.
+    throw error;
+  }
+};
+
+// ---------------------------------------------------------------------------
+// Global "like this site" counter
+// ---------------------------------------------------------------------------
+// A single shared integer at /likes/total that every visitor can nudge
+// upward — the running number is the whole point (it reads as "lots of
+// people have been here and enjoyed it"), so it's streamed back live via
+// onValue and ticks up on screen as other people like in real time.
+//
+// Writes go through runTransaction so concurrent likes from different
+// visitors can't clobber each other. The client batches a visitor's rapid
+// clicks and sends them as one increment (see LikeButton), and enforces a
+// per-visitor cap in the UI; a matching Realtime Database rule should also
+// reject any single write that jumps the total by more than that cap or
+// moves it downward. Suggested rules (Firebase console → Realtime Database
+// → Rules):
+//
+//   {
+//     "rules": {
+//       "likes": {
+//         "total": {
+//           ".read": true,
+//           ".write": true,
+//           ".validate": "newData.isNumber() && newData.val() >= (data.val() || 0) && newData.val() <= (data.val() || 0) + 50"
+//         }
+//       }
+//     }
+//   }
+
+export const LIKES_PATH = 'likes/total';
+
+// Re-exported so UI can hide the like button entirely when Firebase has no
+// config, the same way the contact form degrades (see note above).
+export const isFirebaseReady = isFirebaseConfigured;
+
+/**
+ * Subscribe to the live like total. Calls `callback(total)` immediately with
+ * the current value and again on every remote change.
+ * @param {(total: number) => void} callback
+ * @returns {() => void} unsubscribe
+ */
+export const subscribeToLikes = (callback) => {
+  if (!db) return () => {};
+  return onValue(ref(db, LIKES_PATH), (snapshot) => {
+    callback(snapshot.val() ?? 0);
+  });
+};
+
+/**
+ * Atomically add `count` likes to the global total.
+ * @param {number} count - number of likes to add (floored, non-negative).
+ * @returns {Promise<number|null>} the committed total after the write, so the
+ *   caller can reconcile its optimistic count against the real value without
+ *   waiting for the onValue echo.
+ */
+export const addLikes = async (count) => {
+  if (!db) {
+    throw new Error('Firebase is not configured — likes cannot be saved.');
+  }
+
+  const amount = Math.max(0, Math.floor(count));
+  if (amount === 0) return 0;
+
+  try {
+    const result = await runTransaction(
+      ref(db, LIKES_PATH),
+      (current) => (current ?? 0) + amount,
+    );
+    logger.info(`Added ${amount} like(s) to the global counter.`);
+    const total = result?.snapshot?.val();
+    return typeof total === 'number' ? total : null;
+  } catch (error) {
+    logger.error(`Error incrementing like counter: ${error.message}.`);
     throw error;
   }
 };

@@ -1,0 +1,118 @@
+.like-dock {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+}
+
+.like-dock__hearts {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.like-dock__floating-heart {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  color: #ff4d6d;
+  filter: drop-shadow(0 2px 6px rgba(255, 77, 109, 0.5));
+}
+
+.like-dock__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+
+  &:hover {
+    border-color: var(--primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  &.is-maxed {
+    cursor: default;
+  }
+}
+
+.like-dock__icon {
+  display: inline-flex;
+  font-size: 1rem;
+  color: var(--primary-text);
+  transition: color 0.25s ease;
+
+  .like-dock__button.is-liked & {
+    color: #ff4d6d;
+    filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.45));
+  }
+}
+
+// The live number reuses the site's tabular figures; keep it from ever
+// wrapping or shifting the pill width as digits roll.
+.like-dock__button .rolling-number {
+  color: inherit;
+  white-space: nowrap;
+}
+
+.like-dock__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.dark-theme .like-dock__button {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 480px) {
+  .like-dock {
+    bottom: 1rem;
+  }
+
+  .like-dock__button {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .like-dock__button {
+    transition: none;
+  }
+}

@@ -11,6 +11,7 @@ import { SiKofi } from 'react-icons/si';
 import './Footer.scss';
 import { trackEvent } from '../../utils/analytics';
 import { useMagneticHover } from '../../hooks/useMagneticHover';
+import Signature from '../Signature/Signature';
 import instapayIcon from '../../assets/images/logos/instapay.png';
 
 const FOOTER_NAV_ITEMS = [
@@ -168,6 +169,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-meta">
+          <Signature name="Ahmed Nassar" className="footer-signature" />
           <div className="copyright">
             © {currentYear} Ahmed Nassar – All Rights Reserved
           </div>

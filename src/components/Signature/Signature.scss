@@ -1,0 +1,114 @@
+.signature {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  // Ink is the site's brand blue: the inlined signature.svg paints with
+  // `currentColor`, so setting the colour here tints it on both themes.
+  color: var(--primary);
+}
+
+.signature__svg {
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+  overflow: visible;
+}
+
+// Real signature asset: written on with a left-to-right wipe (as if being
+// signed) plus a short fade, so the reveal is clearly visible.
+.signature__reveal {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  transition:
+    clip-path 2.4s cubic-bezier(0.6, 0, 0.2, 1),
+    opacity 0.9s ease;
+}
+
+.signature__reveal--svg {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.signature.is-drawn .signature__reveal {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+.signature__img {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+// A black-ink signature file would vanish on the dark theme — flip it.
+body.dark-theme .signature__img {
+  filter: invert(1) brightness(1.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signature__reveal {
+    clip-path: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+.signature__ink {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  // The write-on. stroke-dasharray / stroke-dashoffset come inline from the
+  // measured stroke length; this only times the sweep.
+  transition: stroke-dashoffset 1.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+// Text fallback (used only when `paths` is null): a thin outline that draws
+// on, then quietly inks in.
+.signature__ink--text {
+  fill: transparent;
+  stroke-width: 1.4;
+  font-family:
+    'Segoe Script', 'Bradley Hand', 'Snell Roundhand', 'Brush Script MT',
+    'Comic Sans MS', cursive;
+  font-size: 84px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  transition:
+    stroke-dashoffset 2.2s cubic-bezier(0.7, 0, 0.3, 1),
+    fill 0.7s ease 1.9s;
+}
+
+.signature.is-drawn .signature__ink--text {
+  fill: currentColor;
+}
+
+@media (max-width: 480px) {
+  .signature__ink--text {
+    font-size: 70px;
+  }
+}
+
+// No sweep for visitors who opted out of motion — the signature is just
+// there, already inked.
+@media (prefers-reduced-motion: reduce) {
+  .signature__ink {
+    stroke-dashoffset: 0 !important;
+    transition: none;
+  }
+
+  .signature__ink--text {
+    fill: currentColor;
+  }
+}

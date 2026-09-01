@@ -14,6 +14,7 @@ const ParticlesBackground = lazy(
   () => import('./components/ParticlesBackground/ParticlesBackground'),
 );
 import CursorGlow from './components/CursorGlow/CursorGlow';
+import LikeButton from './components/LikeButton/LikeButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
@@ -153,6 +154,7 @@ function App() {
         <Quotes />
       </main>
       <Footer />
+      <LikeButton />
       <AnimatePresence>
         {showScrollTop && (
           <motion.button

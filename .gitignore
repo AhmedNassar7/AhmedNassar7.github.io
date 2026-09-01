@@ -45,3 +45,7 @@ docs/linkedin-demo/
 
 # Test files
 .nyc_output/
+
+# Recordings
+recordings/output/
+recordings/*.mp4
