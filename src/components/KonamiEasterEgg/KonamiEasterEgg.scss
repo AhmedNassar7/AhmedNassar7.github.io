@@ -1,0 +1,51 @@
+.konami-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.konami-piece {
+  position: absolute;
+  top: 0;
+  border-radius: 2px;
+  will-change: transform;
+}
+
+.konami-piece--round {
+  border-radius: 50%;
+}
+
+.konami-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  z-index: 2501;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28);
+  color: inherit;
+  font-weight: 600;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.konami-toast__emoji {
+  font-size: 1.15rem;
+}
+
+@media (max-width: 480px) {
+  .konami-toast {
+    font-size: 0.85rem;
+    bottom: 1.5rem;
+  }
+}

@@ -17,9 +17,11 @@ const ParticlesBackground = lazy(
 );
 import CursorGlow from './components/CursorGlow/CursorGlow';
 import LikeButton from './components/LikeButton/LikeButton';
+import KonamiEasterEgg from './components/KonamiEasterEgg/KonamiEasterEgg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { trackEvent } from './utils/analytics';
+import { printConsoleGreeting } from './utils/consoleGreeting';
 import CommandPalette from './components/CommandPalette/CommandPalette';
 import Terminal from './components/Terminal/Terminal';
 import ReactGA from 'react-ga4';
@@ -47,6 +49,7 @@ function App() {
 
   useEffect(() => {
     initAnalytics();
+    printConsoleGreeting();
 
     // Manage theme from localStorage
     try {
@@ -159,6 +162,7 @@ function App() {
       </main>
       <Footer />
       <LikeButton scrolled={showScrollTop} />
+      <KonamiEasterEgg />
       <AnimatePresence>
         {showScrollTop && (
           <motion.button

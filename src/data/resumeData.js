@@ -112,6 +112,7 @@ export const interviewedCompanies = [
   'Deloitte',
   'Optiver',
   'Snowflake',
+  'ServiceNow',
 ];
 
 // `featured` projects render first and carry an accent. Add an optional

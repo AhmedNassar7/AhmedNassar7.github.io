@@ -117,12 +117,18 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `Fully Responsive Design` – Adapts seamlessly across all devices and screen sizes.
 - `Command Palette` – A **Ctrl/Cmd+K** launcher for jumping to any section, toggling the theme, or opening a profile link.
 - `Interactive Terminal` – A retro terminal Easter egg with real, typed commands (`whoami`, `projects`, `neofetch`, and more).
+- `Projects Section` – A dedicated showcase (moved out of the résumé) with per-project icon, description, tech tags, and repo/demo links.
+- `Global Like Counter` – A live, shared like total in the corner, backed by **Firebase Realtime Database**, that ticks up as other visitors like — with optimistic updates and batched writes.
+- `Public Guestbook` – A signed public wall on the same Realtime Database, with a capped scrollable list, a per-browser rate limit, and a honeypot.
+- `Animated Signature` – A hand signature inlined as SVG in the footer, written on with a stroke sweep on scroll-in, tinted with the brand colour.
+- `Résumé Menu` – One navbar control with a View / Download dropdown, mirrored in the command palette and terminal.
+- `Easter Eggs` – The **Konami code** (`↑ ↑ ↓ ↓ ← → ← → B A`) fires a confetti drop and toast; a styled **console greeting** prints for anyone who opens DevTools.
 - `Interactive Background` – **Animated tsParticles** background to create a modern, immersive look.
 - `3D Rotatable Cube` – A **Three.js / react-three-fiber** Rubik's Cube in the hero, draggable in any direction and auto-rotating while in view.
 - `Micro-interactions` – A cursor glow with a spark burst on click, magnetic hover on buttons/social icons, and a multi-shell confetti celebration when a contact message sends successfully.
 - `Dynamic Content` – Updates with **Framer Motion** transitions and motion effects as users scroll.
 - `UI/UX Design` – Followed the best practices of **UI/UX design** for a user-friendly experience.
-- `Testimonials & Live GitHub Stats` – Recommender testimonials and animated, live-fetched GitHub stats (stars, repos, commits, PRs) plus a live contribution heatmap and streak counter.
+- `Testimonials & Live GitHub Stats` – Recommender testimonials and animated GitHub stats — stars, repos, and commit count fetched live from the GitHub API (commits via the commit-search endpoint), Django PRs curated — plus a live contribution heatmap and streak counter.
 - `Rotating Quotes` – Display of rotating programming quotes with **manual** and **auto-change** options.
 - `Custom Scrollbar` – Unique design for better aesthetics and usability.
 - `Scroll-to-Top Button` – **Smooth scrolling** and **navigation** back to the top.
@@ -140,8 +146,9 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 ### 1. Navbar 🔽
 
 - `Logo` – Incorporates my custom logo.
-- `Smooth-Scrolling Links` – Quick links to sections (Home, About, Resume, Testimonials, Contact) with smooth scrolling.
-- `Theme Toggle` – Toggle button for switching between light and dark themes.
+- `Smooth-Scrolling Links` – A short primary path — Home, About, Projects, Resume, Contact — with smooth scrolling and active-section highlighting. (Stats, Testimonials, and the Guestbook are in the footer, command palette, and terminal.)
+- `Résumé Menu` – A single top-right button with a **View / Download** dropdown (closes on outside-click / Esc).
+- `Theme Toggle` – Toggle button for switching between light and dark themes, grouped with the Résumé menu so the controls stay aligned at every width.
 - `Mobile-Friendly Menu` – Collapsible, mobile-responsive menu for easier navigation.
 - `Scroll Progress Bar` – Visual indicator at the top of the navbar will display the scroll position.
 
@@ -167,9 +174,9 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 
 ### 5. GitHub Stats Section 📈
 
-- `Live Stats` – Stars, public repos, commits, and merged Django PRs fetched live from the GitHub API.
+- `Live Stats` – Stars and public repos from the GitHub REST API; the commit count from GitHub's commit-search API (`total_count`). Merged Django PRs are a curated number.
 - `Animated Counters` – Numbers count up into view using Framer Motion when scrolled into view.
-- `Graceful Fallback` – Falls back to last-known values if the live GitHub fetch fails.
+- `Graceful Fallback` – Falls back to last-known values if a live fetch fails or the (low, ~10 req/min) search-API rate limit is hit.
 - `Contribution Heatmap` – A live GitHub contribution calendar with a running streak counter.
 - `Get Involved CTAs` – Star the portfolio repo, join the community Discord, or jump straight to the contact form.
 
@@ -181,21 +188,29 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 
 ### 7. Resume Section 📝
 
-- `Summary` – A concise professional summary.
-- `Education` – Information about academic qualifications.
 - `Experience` – Professional experiences and job history.
-- `Projects` – Showcases of notable projects with descriptions and technologies used.
+- `Education` – Academic qualifications.
+- `Interview Experience` – A marquee of companies that have interviewed / recruited Ahmed.
 - `Achievements` – Awards, memberships, and other notable recognitions.
 - `Skills` – A categorized list of technical skills and tools.
-- `View / Download Resume` – Buttons to view or download the resume in PDF format.
+- `View / Download Resume` – Buttons to view or download the resume in PDF format (also on the navbar Résumé menu).
 
-### 8. Testimonials Section 💬
+> Projects have their own dedicated section (below) rather than a sub-list here.
+
+### 8. Projects Section 🗂️
+
+- `Project Cards` – One card per project: an app-icon tile, name, description, tech tags, and links to the repo and (where present) a live demo. `featured` projects sort first.
+- `Auto-Matched Icons` – Drop an image at `src/assets/images/projects/<slug>.<ext>` and it's picked up by filename; otherwise a branded gradient/initials tile is used.
+- `Hover Tilt` – Cards use the same mouse-tracked 3D tilt as the résumé/achievement cards.
+- `Own Nav Entry` – In the navbar, footer, command palette, and terminal (`open projects`).
+
+### 9. Testimonials Section 💬
 
 - `Recommendations` – Rotating carousel of testimonials from instructors, mentors, and colleagues.
 - `LinkedIn Verified` – Each testimonial links to the reviewer's LinkedIn profile.
 - `See All on LinkedIn` – CTA linking out to the full list of LinkedIn recommendations.
 
-### 9. Contact Section 📬
+### 10. Contact Section 📬
 
 - `Contact Form` – Collects user information including name, email, country, and message.
 - `Country Dropdown` – A dropdown with flags and search functionality for selecting countries.
@@ -205,18 +220,26 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `Magnetic Submit Button` – The Send button gently pulls toward the cursor on hover.
 - `Gradient Accent Heading` – The "Contact **Me**" heading highlights the key word with a per-letter brand-color gradient.
 
-### 10. Quotes Section 💬
+### 11. Guestbook Section ✍️
+
+- `Public Wall` – Visitors leave a name + short message; it appears in the live list for everyone (distinct from the private Contact form).
+- `Firebase Realtime Database` – Entries at `/guestbook`, streamed with `onValue` and `limitToLast(60)`, newest first.
+- `Capped Scrollable List` – A fixed-height, fade-edged scroll well, so the section height is stable no matter how many people sign; a "N notes" badge shows the count.
+- `Spam Guards` – Length caps, a per-browser cooldown, an off-screen honeypot field, and write-once security rules (moderation from the Firebase console).
+
+### 12. Quotes Section 💬
 
 - `Rotating Quotes` – Displays 10 rotating programming quotes that auto-update every 5 seconds.
 - `Manual Quote Change` – Users can click to change the current quote.
 
-### 11. Footer Section 📌
+### 13. Footer Section 📌
 
-- `Quick Links` – Links to sections (Home, About, Resume, Contact).
-- `Social Media Links` – Icons linking to social media profiles, with the same **magnetic hover** pull used in the Home section.
-- `Copyright Notice` – "© Ahmed Nassar [Year] – All Rights Reserved."
+- `Quick Links` – Full site map — every section, including the ones kept out of the navbar.
+- `Social & Support Links` – Social profile icons plus support links (PayPal, Ko-fi, InstaPay), with the same **magnetic hover** pull used in the Home section.
+- `Animated Signature` – Ahmed's signature inlined as SVG, written on with a left-to-right sweep the first time it scrolls into view, tinted with the brand colour and theme-aware.
+- `Sign-off` – "Made with ❤️ by Ahmed Nassar · © [Year]".
 
-### 12. Interactive Background 🌌
+### 14. Interactive Background 🌌
 
 - `tsParticles` – Creates a visually engaging, interactive, and dynamic background with animated particles for a modern experience. Learn more about it [here](https://particles.js.org/). Particle count is capped (`number.limit`) so clicking repeatedly can't grow it unbounded.
 - `Cursor Glow & Spark Burst` – A soft light trails the cursor; every click sends out a small burst of brand-colored sparks. Skipped on touch devices and under `prefers-reduced-motion`.
@@ -225,26 +248,39 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `Performance Optimized` – Ensures smooth performance without compromising the website's loading speed.
 - `Responsive Design` – Adapts seamlessly to different screen sizes and devices for a consistent user experience.
 
-### 13. Scroll-to-Top Button ⬆️
+### 15. Global Like Counter ❤️
+
+- `Shared Total` – One integer at `/likes/total` in **Firebase Realtime Database**, streamed live so the number ticks up as other visitors like.
+- `Optimistic + Reconciled` – A tap moves the number instantly; rapid taps are batched and sent as one `runTransaction` (chunks of ≤ 45 to stay under the server rule), then the display reconciles to the committed total with no bounce.
+- `No Per-Visitor Cap` – Tap as many times as you like; your own contribution is remembered in `localStorage`. The server rule rejects any single write that moves the total by more than 50.
+- `Corner Placement` – A glass pill bottom-right; it slides left to sit beside the scroll-to-top button when that appears.
+
+### 16. Scroll-to-Top Button ⬆️
 
 - `Scroll-to-Top Button` – Appears when the user scrolls down, enabling **quick** and **smooth scrolling** and **navigation** back to the top.
-- `Customizable Design` – Easily customizable to match the website's theme and aesthetics.
+- `Paired with the Like Counter` – Sits in the bottom-right corner beside the like pill, sharing a drop shadow so they read as one control cluster.
 - `Visibility Control` – Automatically hides when the user is at the top of the page.
 
-### 14. Modular & Scalable Architecture 🧩
+### 17. Easter Eggs 🥚
+
+- `Konami Code` – Typing `↑ ↑ ↓ ↓ ← → ← → B A` (page focused, not in a field) fires a one-shot confetti fall and a toast; reduced-motion gets just the toast. Fires a GA4 `easter_egg` event.
+- `Console Greeting` – A short styled message with repo/LinkedIn links prints once for anyone who opens the browser console.
+- `Interactive Terminal` – The retro terminal (see #3) is itself an Easter egg.
+
+### 18. Modular & Scalable Architecture 🧩
 
 - `Component-Based Architecture` – Built with a component-based architecture, allowing easy maintenance, scalability, and clean code for future updates.
 - `Reusable Components` – Components are designed to be reusable across different parts of the application.
 - `Separation of Concerns` – Clear separation between different functionalities, making the codebase easier to manage and extend.
 - `Optimized Dependencies` – Bootstrap is imported modularly (only the components actually used) to keep the CSS bundle lean.
 
-### 15. Dynamic & Interactive Experience ⚙️
+### 19. Dynamic & Interactive Experience ⚙️
 
 - `Animated Transitions` – Smooth motion effects using **Framer Motion**, **AOS**, and **CSS animations** for an engaging user experience.
 - `Interactive Elements` – Elements that respond to user interactions, enhancing engagement.
 - `Real-Time Updates` – Dynamic content updates without requiring a page refresh, providing a seamless experience.
 
-### 16. UI/UX Design Principles 🎨
+### 20. UI/UX Design Principles 🎨
 
 - `Consistency` – Uniform color schemes, typography, and spacing.
 - `Simplicity` – Clean and uncluttered interface.
@@ -255,7 +291,7 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `Smooth Navigation` – Easy-to-use navigation.
 - `Performance Optimization` – Fast load times and smooth performance.
 
-### 17. Google Analytics 📊
+### 21. Google Analytics 📊
 
 - `Google Analytics` – Tracks website traffic, user behavior, and engagement for data-driven decisions.
 - `Real-Time Reporting` – Provides real-time data on user activity and interactions.
@@ -265,18 +301,18 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 - `Behavior Flow` – Visualizes the path users take through the website.
 - `Event Tracking` – Monitors specific interactions such as clicks, downloads, and form submissions.
 
-### 18. Google Search Console 🔍
+### 22. Google Search Console 🔍
 
 - `Google Search Console` – Optimizes website **performance** and **speed** using **sitemap.xml** and best **SEO** practices to improve search visibility.
 - `SEO Techniques` – Implements strategies to boost search engine **rankings**.
 
-### 19. PWA Support 📱
+### 23. PWA Support 📱
 
 - `Installable` – Can be installed to a device's home screen via `vite-plugin-pwa`.
 - `Offline-Ready` – A generated service worker precaches assets for offline/repeat-visit access.
 - `Web App Manifest` – Custom icons and manifest for a native-like install experience.
 
-### 20. Continuous Integration & Testing ✅
+### 24. Continuous Integration & Testing ✅
 
 - `GitHub Actions CI` – Every push and pull request to `main` runs formatting checks, linting, the test suite, and a production build.
 - `Automated Test Suite` – **Vitest** and **React Testing Library** cover key components and utilities.

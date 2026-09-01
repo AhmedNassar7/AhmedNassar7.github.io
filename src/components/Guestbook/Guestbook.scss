@@ -1,4 +1,8 @@
 .guestbook-section {
+  // The global `section { min-height: 100vh }` (main.scss) would leave a
+  // big empty gap below this section's short content — override it so the
+  // spacing matches the other content-sized sections (Stats, Testimonials).
+  min-height: auto;
   padding: 100px 0;
 
   .section-title {

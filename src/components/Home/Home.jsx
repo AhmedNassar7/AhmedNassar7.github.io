@@ -63,13 +63,16 @@ const Home = () => {
             <div className="profile-image-container">
               <picture>
                 <source srcSet={profileImageWebp} type="image/webp" />
+                {/* No `fetchPriority` — React 18 doesn't recognise the prop
+                    (it warns and drops it); the image is small, above the
+                    fold and has explicit dimensions, so the browser
+                    prioritises it anyway. */}
                 <img
                   src={profileImage}
                   alt="Ahmed Nassar"
                   className="profile-image"
                   width="406"
                   height="301"
-                  fetchPriority="high"
                 />
               </picture>
               {enable3D ? (
