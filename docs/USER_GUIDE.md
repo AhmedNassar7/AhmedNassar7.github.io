@@ -64,6 +64,8 @@ In the navbar, top-right. Click it for a small menu: **View** (opens the PDF in 
 
 Live stars, public repos, commit count, and merged Django PRs, plus a contribution heatmap with a streak counter — fetched on load (commits come from GitHub's commit-search API), falling back to last-known values if the API is unavailable or rate-limited.
 
+Each stat card is a link — click it to open the matching GitHub page (repos sorted by stars, the repositories tab, the Django PR list, or the commit search).
+
 CTAs: star the repo, join the Discord, or jump to Contact.
 
 ## Projects 🗂️

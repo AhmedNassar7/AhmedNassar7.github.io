@@ -176,6 +176,7 @@ All screenshots below are real captures of the live app (desktop @ 1440px, mobil
 
 - `Live Stats` – Stars and public repos from the GitHub REST API; the commit count from GitHub's commit-search API (`total_count`). Merged Django PRs are a curated number.
 - `Animated Counters` – Numbers count up into view using Framer Motion when scrolled into view.
+- `Deep-Linked Cards` – Every stat card is an external link to its matching GitHub page (repos by stars, repositories tab, Django PR list, commit search), with an external-link icon and a `select_content` analytics event on click.
 - `Graceful Fallback` – Falls back to last-known values if a live fetch fails or the (low, ~10 req/min) search-API rate limit is hit.
 - `Contribution Heatmap` – A live GitHub contribution calendar with a running streak counter.
 - `Get Involved CTAs` – Star the portfolio repo, join the community Discord, or jump straight to the contact form.

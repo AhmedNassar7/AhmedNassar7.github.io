@@ -155,6 +155,7 @@ const Stats = ({ theme }) => {
       label: 'GitHub Stars',
       url: REPOS_BY_STARS_URL,
       ariaLabel: 'View repositories sorted by stars on GitHub',
+      contentId: 'github_stars',
     },
     {
       icon: faCodeBranch,
@@ -163,6 +164,7 @@ const Stats = ({ theme }) => {
       label: 'Public Repositories',
       url: REPOS_TAB_URL,
       ariaLabel: 'View all public repositories on GitHub',
+      contentId: 'public_repos',
     },
     {
       // Verified via GitHub's search API against django/django as of Aug
@@ -173,6 +175,7 @@ const Stats = ({ theme }) => {
       label: 'Open-Source PRs',
       url: DJANGO_PRS_URL,
       ariaLabel: "View Ahmed's pull requests to Django on GitHub",
+      contentId: 'open_source_prs',
     },
     {
       icon: faCodeCommit,
@@ -181,6 +184,7 @@ const Stats = ({ theme }) => {
       label: 'Commits',
       url: COMMITS_SEARCH_URL,
       ariaLabel: "View Ahmed's commits on GitHub",
+      contentId: 'commits',
     },
   ];
 
@@ -234,6 +238,11 @@ const Stats = ({ theme }) => {
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   'aria-label': stat.ariaLabel || stat.label,
+                  onClick: () =>
+                    trackEvent('select_content', {
+                      content_type: 'stat_card',
+                      content_id: stat.contentId,
+                    }),
                 }
               : {};
 
