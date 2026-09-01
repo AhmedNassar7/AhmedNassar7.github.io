@@ -14,10 +14,8 @@ import {
   education,
   experiences,
   interviewedCompanies,
-  projects,
   achievements,
   skills,
-  techIcons,
 } from '../../data/resumeData';
 import {
   faGraduationCap,
@@ -40,23 +38,6 @@ import './Resume.scss';
 
 const Resume = () => {
   const sectionRef = useVirtualPageView('Resume', '/#resume');
-
-  const projectGridVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
-  };
-
-  const projectItemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  const trackProjectClick = (projectName, linkType) => {
-    trackEvent('select_content', {
-      content_type: 'project',
-      content_id: `${slugify(projectName)}_${linkType}`,
-    });
-  };
 
   const handleResumeView = () => {
     trackEvent('select_content', {
@@ -227,72 +208,6 @@ const Resume = () => {
               </h3>
               <p className="interview-divider">Recruited and interviewed by</p>
               <InterviewMarquee companies={interviewedCompanies} />
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="mb-5">
-          <Col lg={12} data-aos="fade-up" data-aos-delay="100">
-            <div className="resume-card">
-              <h3>
-                <FontAwesomeIcon icon={faGithub} /> Projects
-              </h3>
-              <motion.div
-                className="projects-grid"
-                variants={projectGridVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                {projects.map((project, index) => (
-                  <TiltCard
-                    key={index}
-                    className="project-item"
-                    variants={projectItemVariants}
-                  >
-                    <div className="project-header">
-                      <h4>{project.name}</h4>
-                      <div className="project-links">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`Open ${project.name} live demo`}
-                            onClick={() =>
-                              trackProjectClick(project.name, 'demo')
-                            }
-                          >
-                            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                          </a>
-                        )}
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`View ${project.name} on GitHub`}
-                          onClick={() =>
-                            trackProjectClick(project.name, 'repo')
-                          }
-                        >
-                          <FontAwesomeIcon icon={faGithub} />
-                        </a>
-                      </div>
-                    </div>
-                    <p className="project-description">{project.description}</p>
-                    <div className="tech-stack">
-                      {project.tech.map((tech, techIndex) => (
-                        <span key={techIndex} className="tech-tag">
-                          {techIcons[tech] && (
-                            <FontAwesomeIcon icon={techIcons[tech]} />
-                          )}
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </TiltCard>
-                ))}
-              </motion.div>
             </div>
           </Col>
         </Row>

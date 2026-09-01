@@ -22,11 +22,13 @@ const PROMPT = 'guest@ahmed-nassar:~$';
 const SECTION_ALIASES = {
   home: 'home',
   about: 'about',
+  projects: 'projects',
   resume: 'resume',
   stats: 'stats',
   github: 'stats',
   testimonials: 'testimonials',
   contact: 'contact',
+  guestbook: 'guestbook',
 };
 
 // Pixel-grid "A N" monogram, rendered as real DOM cells (not monospace
@@ -163,7 +165,7 @@ const HELP_LINES = [
   '  contact            how to reach Ahmed',
   '  resume             download the resume PDF',
   '  github / linkedin  open the profile in a new tab',
-  '  open <section>     jump to a section (about, resume, stats, testimonials, contact)',
+  '  open <section>     jump to a section (about, projects, resume, stats, testimonials, contact, guestbook)',
   '  theme <dark|light> switch the site theme',
   '  neofetch           system info, but make it a portfolio',
   '  clear              clear the screen',
@@ -257,7 +259,7 @@ const buildCommands = ({ theme, toggleTheme, close }) => ({
     if (!target) {
       return [
         `open: unknown section '${arg || ''}'`,
-        'Try: open about | resume | stats | testimonials | contact',
+        'Try: open about | projects | resume | stats | testimonials | contact | guestbook',
       ];
     }
     scroller.scrollTo(target, { offset: -70 });

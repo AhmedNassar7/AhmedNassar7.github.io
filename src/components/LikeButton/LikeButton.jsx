@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { AnimatePresence, motion, animate as tween } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -7,14 +8,15 @@ import { trackEvent } from '../../utils/analytics';
 import RollingNumber from './RollingNumber';
 import './LikeButton.scss';
 
-// How many likes one visitor can add, ever (persisted in localStorage). The
-// counter is meant to reflect "lots of different people liked this", not how
-// long one person can hold the button down, so it's capped — and the same
-// ceiling should be mirrored in the Realtime Database rule (see firebase.js).
-const MAX_PER_VISITOR = 50;
+// No per-visitor limit — it's just a friendly number, so anyone can keep
+// tapping. The only ceiling is per *write*: a burst is batched and sent in
+// chunks of at most this many, staying under the Realtime Database rule
+// that rejects any single write moving the total by more than 50 (the
+// server-side backstop against a scripted client inflating it in bulk).
+const MAX_PER_FLUSH = 45;
 
-// Rapid clicks are accumulated and sent as a single transaction this long
-// after the last one, so a burst of 20 taps is one write, not 20.
+// Rapid clicks are accumulated and sent as one transaction this long after
+// the last tap, so a burst of taps is one write, not one per tap.
 const FLUSH_DELAY_MS = 900;
 
 const STORAGE_KEY = 'likes:contributed';
@@ -22,7 +24,7 @@ const STORAGE_KEY = 'likes:contributed';
 const readContributed = () => {
   try {
     const raw = Number(localStorage.getItem(STORAGE_KEY));
-    return Number.isFinite(raw) && raw > 0 ? Math.min(raw, MAX_PER_VISITOR) : 0;
+    return Number.isFinite(raw) && raw > 0 ? raw : 0;
   } catch {
     return 0;
   }
@@ -32,8 +34,8 @@ const writeContributed = (value) => {
   try {
     localStorage.setItem(STORAGE_KEY, String(value));
   } catch {
-    // Private-mode / disabled storage — the cap just won't persist across
-    // reloads for this visitor, which is an acceptable degradation.
+    // Private-mode / disabled storage — "you liked N times" just won't
+    // persist across reloads, which is an acceptable degradation.
   }
 };
 
@@ -43,7 +45,7 @@ const prefersReducedMotion = () =>
 
 let heartId = 0;
 
-const LikeButton = () => {
+const LikeButton = ({ scrolled = false }) => {
   // The live/animated total, excluding this visitor's not-yet-saved taps.
   // null until the first value streams in from the server.
   const [displayBase, setDisplayBase] = useState(null);
@@ -52,7 +54,6 @@ const LikeButton = () => {
   const [contributed, setContributed] = useState(readContributed);
   const [hearts, setHearts] = useState([]);
   const [pop, setPop] = useState(0);
-  const [nudge, setNudge] = useState(0);
 
   const bufferedRef = useRef(0);
   const contributedRef = useRef(contributed);
@@ -110,16 +111,15 @@ const LikeButton = () => {
 
   const flush = useCallback(async () => {
     if (flushingRef.current) return;
-    const amount = bufferedRef.current;
+    const amount = Math.min(bufferedRef.current, MAX_PER_FLUSH);
     if (amount <= 0 || !isFirebaseReady) return;
 
-    // Hand the buffered likes to the in-flight slot in the same tick we
-    // clear the buffer, so displayValue (base + buffered + inFlight) stays
-    // put — no jump.
+    // Hand this chunk to the in-flight slot in the same tick we take it out
+    // of the buffer, so displayValue (base + buffered + inFlight) stays put.
     flushingRef.current = true;
     inFlightRef.current = amount;
-    bufferedRef.current = 0;
-    setBuffered(0);
+    bufferedRef.current -= amount;
+    setBuffered(bufferedRef.current);
 
     try {
       const committedTotal = await addLikes(amount);
@@ -137,13 +137,14 @@ const LikeButton = () => {
         amount,
         visitor_total: contributedRef.current,
       });
-      // Anything tapped while the write was in flight goes out next.
+      // More taps queued (either buffered while in flight, or the remainder
+      // of a burst bigger than one chunk) — send the next one.
       if (bufferedRef.current > 0) {
         clearTimeout(flushTimer.current);
         flushTimer.current = setTimeout(flush, FLUSH_DELAY_MS);
       }
     } catch {
-      // Write failed — return the likes to the buffer and retry shortly.
+      // Write failed — return this chunk to the buffer and retry shortly.
       bufferedRef.current += inFlightRef.current;
       inFlightRef.current = 0;
       flushingRef.current = false;
@@ -171,19 +172,8 @@ const LikeButton = () => {
     };
   }, [flush]);
 
-  const maxedOut = contributed >= MAX_PER_VISITOR;
-
   const handleLike = () => {
     if (!isFirebaseReady) return;
-
-    // `contributed` already counts every tap this visitor has made,
-    // including the ones still buffered — so the cap check is against it
-    // alone, not contributed + buffered (that would double-count and stop
-    // at half the real limit).
-    if (contributedRef.current >= MAX_PER_VISITOR) {
-      setNudge((n) => n + 1);
-      return;
-    }
 
     bufferedRef.current += 1;
     setBuffered(bufferedRef.current);
@@ -223,14 +213,14 @@ const LikeButton = () => {
   const displayValue = (displayBase ?? 0) + buffered + inFlightRef.current;
 
   const hasLiked = contributed > 0;
-  const label = maxedOut
-    ? `You've liked this site ${MAX_PER_VISITOR} times — thank you!`
-    : hasLiked
-      ? `You've liked this site ${contributed} time${contributed === 1 ? '' : 's'}. Tap to add another.`
-      : 'Like this site';
+  const label = hasLiked
+    ? `You've liked this site ${contributed} time${
+        contributed === 1 ? '' : 's'
+      }. Tap to add another.`
+    : 'Like this site';
 
   return (
-    <div className="like-dock">
+    <div className={`like-dock${scrolled ? ' is-docked' : ''}`}>
       <div className="like-dock__hearts" aria-hidden="true">
         <AnimatePresence>
           {hearts.map((heart) => (
@@ -256,24 +246,14 @@ const LikeButton = () => {
 
       <motion.button
         type="button"
-        className={`like-dock__button${hasLiked ? ' is-liked' : ''}${
-          maxedOut ? ' is-maxed' : ''
-        }`}
+        className={`like-dock__button${hasLiked ? ' is-liked' : ''}`}
         onClick={handleLike}
         aria-label={label}
         aria-pressed={hasLiked}
         title={label}
         initial={{ opacity: 0, y: 24, scale: 0.9 }}
-        animate={
-          nudge
-            ? { opacity: 1, y: 0, scale: 1, x: [0, -6, 6, -4, 4, 0] }
-            : { opacity: 1, y: 0, scale: 1, x: 0 }
-        }
-        transition={
-          nudge
-            ? { duration: 0.4, ease: 'easeInOut' }
-            : { type: 'spring', stiffness: 260, damping: 22, delay: 0.4 }
-        }
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 22, delay: 0.4 }}
         whileHover={{ scale: 1.04, y: -2 }}
         whileTap={{ scale: 0.94 }}
       >
@@ -286,10 +266,7 @@ const LikeButton = () => {
         >
           <FontAwesomeIcon icon={faHeart} />
         </motion.span>
-        <RollingNumber
-          value={loaded ? displayValue : null}
-          animate={!reduceMotion.current}
-        />
+        <RollingNumber value={loaded ? displayValue : null} />
         <span className="like-dock__sr" role="status" aria-live="polite">
           {loaded
             ? `${displayValue.toLocaleString('en-US')} likes`
@@ -298,6 +275,12 @@ const LikeButton = () => {
       </motion.button>
     </div>
   );
+};
+
+LikeButton.propTypes = {
+  // True once the page is scrolled far enough that the scroll-to-top button
+  // is showing — the pill then makes room for it at its right end.
+  scrolled: PropTypes.bool,
 };
 
 export default LikeButton;

@@ -1,0 +1,156 @@
+.projects-section {
+  padding: 100px 0;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    color: black;
+
+    .dark-theme & {
+      color: white;
+    }
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+    border-radius: 15px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: var(--glass-bg-strong);
+    }
+
+    &.is-featured {
+      border-left: 3px solid var(--primary);
+    }
+  }
+
+  // Header: icon tile + name + out-links, same rhythm as the Resume cards.
+  .project-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  // App-icon style: fill the tile, consistent 46px square, gentle rounding —
+  // uniform regardless of each source file's own size or background.
+  .project-card__logo {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    object-fit: cover;
+  }
+
+  .project-card__logo--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .project-card__name {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .project-card__links {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.75rem;
+
+    a {
+      color: var(--primary);
+      font-size: 1.15rem;
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+
+      &:hover {
+        color: var(--secondary);
+        transform: scale(1.12);
+      }
+    }
+  }
+
+  .project-card__description {
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .project-card__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+
+    .tech-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 15px;
+      background: transparent;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+      svg {
+        font-size: 0.9rem;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--primary);
+        z-index: -1;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: inherit;
+      }
+
+      &:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+
+        &::before {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+}

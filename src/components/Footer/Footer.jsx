@@ -18,9 +18,11 @@ const FOOTER_NAV_ITEMS = [
   { id: 'home', label: 'Home' },
   { id: 'stats', label: 'Stats' },
   { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
   { id: 'resume', label: 'Resume' },
   { id: 'testimonials', label: 'Testimonials' },
   { id: 'contact', label: 'Contact' },
+  { id: 'guestbook', label: 'Guestbook' },
 ];
 
 // A separate component (not inlined in the .map() below) because hooks —
@@ -170,12 +172,10 @@ const Footer = () => {
 
         <div className="footer-meta">
           <Signature name="Ahmed Nassar" className="footer-signature" />
-          <div className="copyright">
-            © {currentYear} Ahmed Nassar – All Rights Reserved
-          </div>
-          <div className="made-with-love">
-            Made with <span className="heart">❤️</span>
-          </div>
+          <p className="footer-line">
+            Made with <span className="heart">❤️</span> by Ahmed Nassar · ©{' '}
+            {currentYear}
+          </p>
         </div>
       </div>
     </footer>

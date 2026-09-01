@@ -55,38 +55,47 @@
   will-change: transform, filter;
 }
 
-.theme-toggle-btn {
-  background: none;
-  border: none;
-  color: var(--primary);
-  cursor: pointer;
-  z-index: 1100;
+// The Résumé menu + theme toggle live in one flex group so they're always
+// vertically centred on the same line with a consistent gap, at every
+// breakpoint. On desktop the group is pinned top-right; on mobile it sits
+// inline just before the hamburger.
+.navbar-actions {
   display: flex;
-  padding-top: 0px;
   align-items: center;
-  margin-left: auto;
+  gap: 0.6rem;
+  z-index: 1100;
+
+  @media (min-width: 992px) {
+    position: fixed;
+    top: 12px;
+    right: 1.5rem;
+  }
+
+  @media (max-width: 991px) {
+    margin-left: auto;
+    margin-right: 0.55rem;
+  }
+}
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--primary);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
   overflow: hidden;
 
   .theme-icon {
     display: flex;
     align-items: center;
-  }
-
-  @media (max-width: 991px) {
-    font-size: 1.3rem;
-    margin-left: 0;
-    right: 5rem;
-  }
-
-  @media (max-width: 767px) {
-    font-size: 1.2rem;
-  }
-
-  @media (min-width: 992px) {
-    font-size: 1.5rem;
-    position: fixed;
-    top: 16px;
-    right: 5rem;
   }
 }
 

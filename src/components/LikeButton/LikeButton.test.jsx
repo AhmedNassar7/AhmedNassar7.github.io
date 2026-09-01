@@ -78,7 +78,7 @@ describe('LikeButton', () => {
     await waitForCount(/1,203 likes/);
   });
 
-  it('stops counting once the per-visitor cap is reached', async () => {
+  it('has no per-visitor cap and sends a big burst in <=45-per-write chunks', async () => {
     render(<LikeButton />);
     await waitForCount(/1,200 likes/);
     const button = screen.getByRole('button');
@@ -87,19 +87,26 @@ describe('LikeButton', () => {
       for (let i = 0; i < 60; i += 1) fireEvent.click(button);
     });
 
-    // Capped at +50 over the starting 1200 no matter how many clicks.
-    expect(srText()).toMatch(/1,250 likes/);
+    // Every tap counts — nothing is dropped.
+    expect(srText()).toMatch(/1,260 likes/);
 
-    await waitFor(() => expect(addLikes).toHaveBeenCalledWith(50), {
-      timeout: 4000,
-    });
+    // ...but no single write exceeds the per-write limit.
+    await waitFor(() => expect(addLikes).toHaveBeenCalled(), { timeout: 4000 });
+    await waitFor(
+      () => {
+        const total = addLikes.mock.calls.reduce((sum, [n]) => sum + n, 0);
+        expect(total).toBe(60);
+      },
+      { timeout: 6000 },
+    );
+    expect(addLikes.mock.calls.every(([n]) => n <= 45)).toBe(true);
   });
 
-  it('remembers a returning visitor who already maxed out', () => {
-    localStorage.setItem('likes:contributed', '50');
+  it('greets a returning visitor who has liked before', () => {
+    localStorage.setItem('likes:contributed', '7');
     render(<LikeButton />);
     expect(
-      screen.getByRole('button', { name: /thank you/i }),
+      screen.getByRole('button', { name: /you've liked this site 7 times/i }),
     ).toBeInTheDocument();
   });
 });

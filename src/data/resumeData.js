@@ -114,10 +114,16 @@ export const interviewedCompanies = [
   'Snowflake',
 ];
 
+// `featured` projects render first and carry an accent. Add an optional
+// `image` (a path, or drop a file at src/assets/images/projects/<slug>.png
+// where <slug> is the name lower-cased with non-alphanumerics as "_", e.g.
+// egypt_metro_backend.png — it's picked up automatically) to give a card a
+// real screenshot; without one it falls back to a branded gradient cover.
 export const projects = [
   {
     name: 'Egypt Metro Backend',
     url: 'https://github.com/Egypt-Metro/backend',
+    featured: true,
     // Verified against the repo's own README badges + requirements.txt: it's
     // a pure Django REST Framework API (django-cors-headers confirms a
     // separate frontend consumes it, not templates), with Channels/Redis

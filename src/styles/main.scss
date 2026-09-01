@@ -197,11 +197,12 @@ section {
   }
 }
 
-// Scroll to Top Button
+// Scroll to Top Button — its normal bottom-right corner spot, layered on
+// top of the like counter's right end (see .like-dock.is-docked).
 .scroll-to-top {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 1.25rem;
+  right: 1.25rem;
   background: var(--primary);
   color: white;
   width: 40px;
@@ -212,8 +213,15 @@ section {
   justify-content: center;
   cursor: pointer;
   border: none;
-  z-index: 1000;
+  z-index: 1001;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 480px) {
+  .scroll-to-top {
+    bottom: 1rem;
+    right: 1rem;
+  }
 }
 
 // Skills Animation

@@ -3,7 +3,10 @@ import {
   getDatabase,
   ref,
   set,
+  push,
   onValue,
+  query,
+  limitToLast,
   runTransaction,
 } from 'firebase/database';
 import { Logger, LogLevel } from './utils/logger';
@@ -144,23 +147,22 @@ export const addMessage = async (messageData) => {
 // people have been here and enjoyed it"), so it's streamed back live via
 // onValue and ticks up on screen as other people like in real time.
 //
-// Writes go through runTransaction so concurrent likes from different
-// visitors can't clobber each other. The client batches a visitor's rapid
-// clicks and sends them as one increment (see LikeButton), and enforces a
-// per-visitor cap in the UI; a matching Realtime Database rule should also
-// reject any single write that jumps the total by more than that cap or
-// moves it downward. Suggested rules (Firebase console → Realtime Database
-// → Rules):
+// There's no per-visitor cap — it's just a friendly number. Writes go
+// through runTransaction so concurrent likes can't clobber each other, and
+// the client sends a burst in chunks of at most 45 (see LikeButton). The
+// Realtime Database rule is the only real limit: it rejects any single
+// write that moves the total down or up by more than 50, so a scripted
+// client can't inflate it in bulk.
 //
-//   {
-//     "rules": {
-//       "likes": {
-//         "total": {
-//           ".read": true,
-//           ".write": true,
-//           ".validate": "newData.isNumber() && newData.val() >= (data.val() || 0) && newData.val() <= (data.val() || 0) + 50"
-//         }
-//       }
+// Seed the starting value in the Data tab: open likes/total and set it to
+// 10000 (the counter is expected to live in roughly the 10k–100k range).
+//
+// Rules (Firebase console → Realtime Database → Rules):
+//
+//   "likes": {
+//     "total": {
+//       ".read": true,
+//       ".write": "newData.isNumber() && newData.val() >= (data.exists() ? data.val() : 0) && newData.val() <= (data.exists() ? data.val() : 0) + 50"
 //     }
 //   }
 
@@ -208,6 +210,84 @@ export const addLikes = async (count) => {
     return typeof total === 'number' ? total : null;
   } catch (error) {
     logger.error(`Error incrementing like counter: ${error.message}.`);
+    throw error;
+  }
+};
+
+// ---------------------------------------------------------------------------
+// Guestbook
+// ---------------------------------------------------------------------------
+// A public wall: anyone can append a short signed note under /guestbook and
+// everyone sees the recent ones live. Entries are write-once from the client
+// (no edit/delete) — moderation is done from the Firebase console. Suggested
+// rules to publish alongside the `likes` rule:
+//
+//   "guestbook": {
+//     ".read": true,
+//     "$entry": {
+//       ".write": "!data.exists() && newData.hasChildren(['name','message','ts'])",
+//       "name":    { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40" },
+//       "message": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 280" },
+//       "ts":      { ".validate": "newData.isNumber()" },
+//       "$other":  { ".validate": false }
+//     }
+//   }
+
+export const GUESTBOOK_PATH = 'guestbook';
+const GUESTBOOK_LIMIT = 60;
+const NAME_MAX = 40;
+const MESSAGE_MAX = 280;
+
+const tidy = (value, max) =>
+  String(value ?? '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, max);
+
+/**
+ * Subscribe to the most recent guestbook entries, newest first.
+ * @param {(entries: Array<{id:string,name:string,message:string,ts:number}>) => void} callback
+ * @returns {() => void} unsubscribe
+ */
+export const subscribeToGuestbook = (callback) => {
+  if (!db) return () => {};
+  const recent = query(ref(db, GUESTBOOK_PATH), limitToLast(GUESTBOOK_LIMIT));
+  return onValue(recent, (snapshot) => {
+    const value = snapshot.val() || {};
+    const entries = Object.entries(value)
+      .map(([id, entry]) => ({ id, ...entry }))
+      .sort((a, b) => (b.ts || 0) - (a.ts || 0));
+    callback(entries);
+  });
+};
+
+/**
+ * Append a signed note to the guestbook.
+ * @param {{name: string, message: string}} input
+ * @returns {Promise<{name:string,message:string,ts:number}>} the stored entry
+ */
+export const addGuestbookEntry = async ({ name, message }) => {
+  if (!db) {
+    throw new Error(
+      'Firebase is not configured — the guestbook is unavailable.',
+    );
+  }
+
+  const entry = {
+    name: tidy(name, NAME_MAX),
+    message: tidy(message, MESSAGE_MAX),
+    ts: Date.now(),
+  };
+  if (!entry.name || !entry.message) {
+    throw new Error('Both a name and a message are required.');
+  }
+
+  try {
+    await push(ref(db, GUESTBOOK_PATH), entry);
+    logger.info('Guestbook entry saved.');
+    return entry;
+  } catch (error) {
+    logger.error(`Error saving guestbook entry: ${error.message}.`);
     throw error;
   }
 };

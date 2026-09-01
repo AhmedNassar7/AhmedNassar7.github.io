@@ -1,17 +1,24 @@
+// Bottom-right corner. When the scroll-to-top button appears (page
+// scrolled) the pill slides left so the two sit side by side with a gap —
+// never overlapping.
 .like-dock {
   position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 1.25rem;
+  right: 1.25rem;
   z-index: 1000;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  transition: right 0.3s ease;
+}
+
+.like-dock.is-docked {
+  right: 4.6rem;
 }
 
 .like-dock__hearts {
   position: absolute;
   bottom: 100%;
-  left: 50%;
+  left: 1.75rem;
   width: 0;
   height: 0;
   pointer-events: none;
@@ -37,8 +44,10 @@
   background: var(--glass-bg-strong);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  // Same drop shadow as the scroll-to-top button, so the two read as one
+  // control cluster in the corner.
   box-shadow:
-    var(--glass-shadow),
+    0 4px 15px rgba(0, 0, 0, 0.25),
     inset 0 0 0 1px rgba(255, 255, 255, 0.04);
   color: inherit;
   font-family: inherit;
@@ -58,10 +67,6 @@
   &:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 3px;
-  }
-
-  &.is-maxed {
-    cursor: default;
   }
 }
 
@@ -97,12 +102,19 @@
 }
 
 body.dark-theme .like-dock__button {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 @media (max-width: 480px) {
   .like-dock {
     bottom: 1rem;
+    right: 1rem;
+  }
+
+  .like-dock.is-docked {
+    right: 4.1rem;
   }
 
   .like-dock__button {

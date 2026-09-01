@@ -5,9 +5,11 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Stats from './components/Stats/Stats';
 import About from './components/About/About';
+import Projects from './components/Projects/Projects';
 import Resume from './components/Resume/Resume';
 import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './components/Contact/Contact';
+import Guestbook from './components/Guestbook/Guestbook';
 import Quotes from './components/Quotes/Quotes';
 import Footer from './components/Footer/Footer';
 const ParticlesBackground = lazy(
@@ -148,13 +150,15 @@ function App() {
         <Home />
         <Stats theme={theme} />
         <About />
+        <Projects />
         <Resume />
         <Testimonials />
         <Contact />
+        <Guestbook />
         <Quotes />
       </main>
       <Footer />
-      <LikeButton />
+      <LikeButton scrolled={showScrollTop} />
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
