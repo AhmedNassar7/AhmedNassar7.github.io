@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFilePdf,
@@ -82,7 +82,7 @@ const ResumeMenu = () => {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             className="resume-menu__pop"
             role="menu"
             initial={{ opacity: 0, y: -6, scale: 0.96 }}
@@ -98,7 +98,7 @@ const ResumeMenu = () => {
               <FontAwesomeIcon icon={faDownload} />
               Download
             </button>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

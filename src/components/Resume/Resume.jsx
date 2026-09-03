@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { trackEvent } from '../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
@@ -79,7 +79,7 @@ const Resume = () => {
               </h3>
               <div className="experience-grid">
                 {experiences.map((exp, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     className="experience-item"
                     initial={{ opacity: 0, y: 24 }}
@@ -109,7 +109,7 @@ const Resume = () => {
                       </h4>
                     </div>
                     <div className="role-row">
-                      <motion.p
+                      <m.p
                         className="role"
                         whileHover={{ scale: 1.05, y: -2 }}
                         transition={{
@@ -119,9 +119,9 @@ const Resume = () => {
                         }}
                       >
                         {exp.role}
-                      </motion.p>
+                      </m.p>
                       {exp.type && (
-                        <motion.span
+                        <m.span
                           className="role-type"
                           initial={{ opacity: 0, scale: 0.7 }}
                           whileInView={{ opacity: 1, scale: 1 }}
@@ -144,7 +144,7 @@ const Resume = () => {
                           }}
                         >
                           {exp.type}
-                        </motion.span>
+                        </m.span>
                       )}
                     </div>
                     <div className="details">
@@ -155,7 +155,7 @@ const Resume = () => {
                         <FontAwesomeIcon icon={faLocationDot} /> {exp.location}
                       </p>
                     </div>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
@@ -325,22 +325,22 @@ const Resume = () => {
             data-aos-delay="300"
           >
             <div className="resume-actions">
-              <motion.button
+              <m.button
                 onClick={handleResumeView}
                 className="view-btn"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <FontAwesomeIcon icon={faEye} /> View Resume
-              </motion.button>
-              <motion.button
+              </m.button>
+              <m.button
                 onClick={handleResumeDownload}
                 className="download-btn"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <FontAwesomeIcon icon={faDownload} /> Download Resume
-              </motion.button>
+              </m.button>
             </div>
           </Col>
         </Row>

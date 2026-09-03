@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { scroller } from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -227,14 +227,14 @@ const CommandPalette = ({ theme, toggleTheme }) => {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             className="command-palette-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closePalette}
           >
-            <motion.div
+            <m.div
               className="command-palette"
               role="dialog"
               aria-modal="true"
@@ -293,8 +293,8 @@ const CommandPalette = ({ theme, toggleTheme }) => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

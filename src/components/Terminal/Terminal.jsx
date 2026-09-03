@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { scroller } from 'react-scroll';
 import {
   experiences,
@@ -403,14 +403,14 @@ const Terminal = ({ theme, toggleTheme }) => {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             className="terminal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={close}
           >
-            <motion.div
+            <m.div
               className="terminal-window"
               role="dialog"
               aria-modal="true"
@@ -461,8 +461,8 @@ const Terminal = ({ theme, toggleTheme }) => {
                   />
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

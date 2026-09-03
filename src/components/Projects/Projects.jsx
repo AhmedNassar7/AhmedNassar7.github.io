@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Container } from 'react-bootstrap';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
@@ -63,7 +63,7 @@ const Projects = () => {
           Projects
         </h2>
 
-        <motion.div
+        <m.div
           className="projects-grid"
           variants={gridVariants}
           initial="hidden"
@@ -145,7 +145,7 @@ const Projects = () => {
               </TiltCard>
             );
           })}
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

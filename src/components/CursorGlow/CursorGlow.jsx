@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import './CursorGlow.scss';
 
 let burstIdCounter = 0;
@@ -94,7 +94,7 @@ const CursorGlow = ({ theme }) => {
       <div className="cursor-spark-layer" aria-hidden="true">
         <AnimatePresence>
           {sparks.map((spark) => (
-            <motion.span
+            <m.span
               key={spark.id}
               className="cursor-spark"
               style={{

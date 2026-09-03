@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
 import { scroller } from 'react-scroll';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
@@ -141,7 +141,7 @@ function App() {
   }
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <Suspense fallback={null}>
         <ParticlesBackground theme={theme} />
       </Suspense>
@@ -165,7 +165,7 @@ function App() {
       <KonamiEasterEgg />
       <AnimatePresence>
         {showScrollTop && (
-          <motion.button
+          <m.button
             className="scroll-to-top"
             onClick={scrollToTop}
             aria-label="Scroll to top"
@@ -177,10 +177,10 @@ function App() {
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
             <FontAwesomeIcon icon={faArrowUp} />
-          </motion.button>
+          </m.button>
         )}
       </AnimatePresence>
-    </>
+    </LazyMotion>
   );
 }
 

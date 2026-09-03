@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { m, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 const TILT_DEGREES = 10;
@@ -12,7 +12,7 @@ const DEFAULT_WHILE_HOVER = {
 const DEFAULT_TRANSITION = { type: 'spring', stiffness: 300, damping: 22 };
 
 /**
- * Drop-in replacement for a plain resume-card motion.div (project or
+ * Drop-in replacement for a plain resume-card m.div (project or
  * achievement items) that adds an Apple/Stripe-style mouse-tracked 3D tilt
  * (CSS perspective transform, no WebGL — there's no imagery to mount on a
  * 3D mockup, so depth comes from tilting the real card content instead).
@@ -58,7 +58,7 @@ const TiltCard = ({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       whileHover={whileHover}
@@ -73,7 +73,7 @@ const TiltCard = ({
       {...motionProps}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 

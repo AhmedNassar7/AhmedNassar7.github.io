@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import Select from 'react-select';
+import { m } from 'framer-motion';
 import ReactCountryFlag from 'react-country-flag';
-import emailjs from 'emailjs-com';
 import { addMessage } from '../../firebase';
+
+// react-select pulls in @emotion + @floating-ui (~36 KB gzipped) and the
+// contact form sits well below the fold, so it's code-split into its own
+// chunk that only loads once this section is actually rendered. The native
+// <select> fallback below keeps the field fully usable (and submittable)
+// during that brief load and if the chunk ever fails to fetch.
+const Select = lazy(() => import('react-select'));
 import { trackEvent } from './../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import { useMagneticHover } from '../../hooks/useMagneticHover';
@@ -292,17 +297,23 @@ const Contact = () => {
     // cut the other off before it's had a chance to complete.
     const [emailResult, firebaseResult] = await Promise.allSettled([
       withTimeout(
-        emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          {
-            from_name: formData.name || 'Anonymous',
-            from_email: formData.email || 'No Email Provided',
-            country: formData.country?.label || 'N/A',
-            message: formData.message,
-            to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
-          },
-          import.meta.env.VITE_EMAILJS_USER_ID,
+        // emailjs-com is only ever needed on an actual submit, so it's
+        // loaded on demand here rather than in the initial bundle. The
+        // import() starts immediately (this runs before the await below),
+        // so it still overlaps the Firebase write.
+        import('emailjs-com').then(({ default: emailjs }) =>
+          emailjs.send(
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+            {
+              from_name: formData.name || 'Anonymous',
+              from_email: formData.email || 'No Email Provided',
+              country: formData.country?.label || 'N/A',
+              message: formData.message,
+              to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
+            },
+            import.meta.env.VITE_EMAILJS_USER_ID,
+          ),
         ),
         15000,
         'EmailJS request timed out',
@@ -409,18 +420,44 @@ const Contact = () => {
                       (Optional)
                     </span>
                   </Form.Label>
-                  <Select
-                    value={formData.country}
-                    onChange={(value) =>
-                      setFormData({ ...formData, country: value })
+                  <Suspense
+                    fallback={
+                      <select
+                        className="country-select custom-input"
+                        aria-label="Country"
+                        value={formData.country?.value || ''}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            country:
+                              countries.find(
+                                (c) => c.value === e.target.value,
+                              ) || null,
+                          })
+                        }
+                      >
+                        <option value="">Select…</option>
+                        {countries.map((c) => (
+                          <option key={c.value} value={c.value}>
+                            {c.label}
+                          </option>
+                        ))}
+                      </select>
                     }
-                    options={countries}
-                    aria-label="Country"
-                    formatOptionLabel={formatOptionLabel}
-                    styles={customStyles}
-                    className="country-select"
-                    classNamePrefix="select"
-                  />
+                  >
+                    <Select
+                      value={formData.country}
+                      onChange={(value) =>
+                        setFormData({ ...formData, country: value })
+                      }
+                      options={countries}
+                      aria-label="Country"
+                      formatOptionLabel={formatOptionLabel}
+                      styles={customStyles}
+                      className="country-select"
+                      classNamePrefix="select"
+                    />
+                  </Suspense>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="contactMessage">
@@ -439,7 +476,7 @@ const Contact = () => {
                   />
                 </Form.Group>
 
-                <motion.button
+                <m.button
                   ref={magneticSubmit.ref}
                   type="submit"
                   className="submit-btn"
@@ -455,7 +492,7 @@ const Contact = () => {
                   ) : (
                     'Send Message'
                   )}
-                </motion.button>
+                </m.button>
                 {status === 'success' && (
                   <Alert variant="success" className="mt-4" role="status">
                     Message sent successfully

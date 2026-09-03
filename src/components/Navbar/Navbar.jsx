@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-scroll';
 import { Container, Nav, Navbar as BootstrapNavbar } from 'react-bootstrap';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { Sun, Moon } from 'lucide-react';
+import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { Sun, Moon } from './ThemeIcons';
 import ResumeMenu from './ResumeMenu';
 import './Navbar.scss';
 
@@ -58,7 +58,7 @@ const Navbar = ({ theme, toggleTheme }) => {
       >
         <Container>
           <BootstrapNavbar.Brand href="#home" className="brand-logo-link">
-            <motion.img
+            <m.img
               src="/favicon.svg"
               alt="Logo"
               width="29"
@@ -90,7 +90,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               evenly spaced at every width */}
           <div className="navbar-actions">
             <ResumeMenu />
-            <motion.button
+            <m.button
               className="theme-toggle-btn"
               onClick={toggleTheme}
               aria-label="Toggle theme"
@@ -99,7 +99,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             >
               <AnimatePresence mode="wait" initial={false}>
                 {theme === 'dark' ? (
-                  <motion.span
+                  <m.span
                     key="sun"
                     className="theme-icon"
                     initial={{ rotate: -90, opacity: 0 }}
@@ -108,9 +108,9 @@ const Navbar = ({ theme, toggleTheme }) => {
                     transition={{ duration: 0.25 }}
                   >
                     <Sun size={19} />
-                  </motion.span>
+                  </m.span>
                 ) : (
-                  <motion.span
+                  <m.span
                     key="moon"
                     className="theme-icon"
                     initial={{ rotate: 90, opacity: 0 }}
@@ -119,10 +119,10 @@ const Navbar = ({ theme, toggleTheme }) => {
                     transition={{ duration: 0.25 }}
                   >
                     <Moon size={19} />
-                  </motion.span>
+                  </m.span>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </m.button>
           </div>
           {/* Custom Toggler */}
           <BootstrapNavbar.Toggle

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { AnimatePresence, motion, animate as tween } from 'framer-motion';
+import { AnimatePresence, m, animate as tween } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { addLikes, isFirebaseReady, subscribeToLikes } from '../../firebase';
@@ -224,7 +224,7 @@ const LikeButton = ({ scrolled = false }) => {
       <div className="like-dock__hearts" aria-hidden="true">
         <AnimatePresence>
           {hearts.map((heart) => (
-            <motion.span
+            <m.span
               key={heart.id}
               className="like-dock__floating-heart"
               initial={{ opacity: 0, y: 0, scale: 0.5, x: 0, rotate: 0 }}
@@ -239,12 +239,12 @@ const LikeButton = ({ scrolled = false }) => {
               transition={{ duration: 0.9, ease: 'easeOut' }}
             >
               <FontAwesomeIcon icon={faHeart} />
-            </motion.span>
+            </m.span>
           ))}
         </AnimatePresence>
       </div>
 
-      <motion.button
+      <m.button
         type="button"
         className={`like-dock__button${hasLiked ? ' is-liked' : ''}`}
         onClick={handleLike}
@@ -257,7 +257,7 @@ const LikeButton = ({ scrolled = false }) => {
         whileHover={{ scale: 1.04, y: -2 }}
         whileTap={{ scale: 0.94 }}
       >
-        <motion.span
+        <m.span
           className="like-dock__icon"
           key={pop}
           initial={pop ? { scale: 0.6 } : false}
@@ -265,14 +265,14 @@ const LikeButton = ({ scrolled = false }) => {
           transition={{ type: 'spring', stiffness: 500, damping: 14 }}
         >
           <FontAwesomeIcon icon={faHeart} />
-        </motion.span>
+        </m.span>
         <RollingNumber value={loaded ? displayValue : null} />
         <span className="like-dock__sr" role="status" aria-live="polite">
           {loaded
             ? `${displayValue.toLocaleString('en-US')} likes`
             : 'Loading like count'}
         </span>
-      </motion.button>
+      </m.button>
     </div>
   );
 };

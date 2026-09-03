@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { trackEvent } from '../../utils/analytics';
 import './KonamiEasterEgg.scss';
 
@@ -111,7 +111,7 @@ const KonamiEasterEgg = () => {
         <>
           <div className="konami-confetti" aria-hidden="true">
             {pieces.map((piece) => (
-              <motion.span
+              <m.span
                 key={piece.id}
                 className={`konami-piece${
                   piece.round ? ' konami-piece--round' : ''
@@ -138,7 +138,7 @@ const KonamiEasterEgg = () => {
             ))}
           </div>
 
-          <motion.div
+          <m.div
             className="konami-toast"
             role="status"
             initial={{ opacity: 0, y: 24, scale: 0.9 }}
@@ -150,7 +150,7 @@ const KonamiEasterEgg = () => {
               🎮
             </span>
             You found the Konami code!
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
@@ -106,14 +106,14 @@ const Home = () => {
                 />
               </div>
               <p className="tagline">Turning ideas into reality through code</p>
-              <motion.div
+              <m.div
                 className="social-links"
                 variants={socialContainerVariants}
                 initial="hidden"
                 animate="visible"
               >
                 {socialLinks.map((link, index) => (
-                  <motion.a
+                  <m.a
                     key={index}
                     href={link.url}
                     target="_blank"
@@ -137,9 +137,9 @@ const Home = () => {
                     }
                   >
                     <FontAwesomeIcon icon={link.icon} />
-                  </motion.a>
+                  </m.a>
                 ))}
-              </motion.div>
+              </m.div>
               <div>
                 <Link
                   to="stats"

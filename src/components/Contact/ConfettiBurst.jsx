@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import './ConfettiBurst.scss';
 
 const SHELL_COUNT = 3;
@@ -63,7 +63,7 @@ const ConfettiBurst = ({ triggerKey, originX, originY }) => {
       <AnimatePresence>
         {shells.flatMap((shell) =>
           shell.pieces.map((piece) => (
-            <motion.span
+            <m.span
               key={piece.id}
               className={
                 piece.isSpark

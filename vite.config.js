@@ -72,13 +72,17 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
-      // Linter
-      eslint({
-        cache: false, // Disable caching for updated linting rules
-        fix: false, // Automatically fix issues
-        include: ['src/**/*.{js,jsx,ts,tsx}'],
-        exclude: ['node_modules', 'dist'],
-      }),
+      // Linter — dev only. It re-lints the whole tree on every production
+      // build (cache disabled) without changing a byte of output; CI runs
+      // `npm run lint` and Husky lint-stages commits, so the build doesn't
+      // need to repeat that work.
+      isDev &&
+        eslint({
+          cache: false, // Disable caching for updated linting rules
+          fix: false, // Automatically fix issues
+          include: ['src/**/*.{js,jsx,ts,tsx}'],
+          exclude: ['node_modules', 'dist'],
+        }),
       // Sitemap generation for SEO (only in production). This plugin scans
       // dist/*.html and lists every file it finds, so the GitHub Pages SPA
       // fallback (404.html) must be excluded explicitly — otherwise a
@@ -159,7 +163,9 @@ export default defineConfig(({ mode }) => {
               purpose: 'maskable',
             },
           ],
-          theme_color: '#ffffff',
+          // Matches <meta name="theme-color"> in index.html so the PWA's
+          // window chrome doesn't flash white before the app paints.
+          theme_color: '#1E1E2F',
           background_color: '#ffffff',
           display: 'standalone',
           start_url: '/', // Ensures app starts at the root
@@ -237,10 +243,41 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks(id) {
-            // Split dependencies into chunks based on the node_modules directory
-            if (id.includes('node_modules')) {
-              return id.split('node_modules/')[1].split('/')[0];
+            if (!id.includes('node_modules')) return undefined;
+
+            // Package (or scope) folder name, e.g. "react-dom" or
+            // "@react-three" — same key the previous per-package split used.
+            const pkg = id.split('node_modules/')[1].split('/')[0];
+
+            // Group families that always load together anyway, so they're
+            // one request instead of a dozen. Every group below is either
+            // always in the initial graph (react-vendor) or only ever
+            // reached through an existing lazy import (three via the 3D
+            // shape, particles via the background, firebase on first
+            // like/guestbook/contact use) — so this changes request count,
+            // not what loads when.
+            if (
+              ['react', 'react-dom', 'scheduler', 'object-assign'].includes(pkg)
+            ) {
+              return 'react-vendor';
             }
+            if (
+              pkg === 'three' ||
+              pkg === 'three-stdlib' ||
+              pkg === '@react-three'
+            ) {
+              return 'three';
+            }
+            if (pkg.startsWith('tsparticles') || pkg === 'react-particles') {
+              return 'particles';
+            }
+            if (pkg === 'firebase' || pkg === '@firebase') {
+              return 'firebase';
+            }
+
+            // Everything else keeps its own per-package chunk, which is what
+            // preserves the lazy split for react-select, emailjs-com, etc.
+            return pkg;
           },
           // Add hash to filenames for cache busting
           entryFileNames: 'assets/[name].[hash].js',

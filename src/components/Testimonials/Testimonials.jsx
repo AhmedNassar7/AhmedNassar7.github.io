@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faQuoteLeft,
@@ -127,7 +127,7 @@ const Testimonials = () => {
           <FontAwesomeIcon icon={faQuoteLeft} className="quote-icon" />
 
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={current}
               className="testimonial-content"
               initial={{ opacity: 0, y: 15 }}
@@ -150,7 +150,7 @@ const Testimonials = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           <div className="testimonial-nav-btns">
@@ -185,7 +185,7 @@ const Testimonials = () => {
         </div>
 
         <div className="testimonials-footer">
-          <motion.a
+          <m.a
             href={LINKEDIN_RECOMMENDATIONS_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -202,7 +202,7 @@ const Testimonials = () => {
               icon={faArrowUpRightFromSquare}
               className="external-icon"
             />
-          </motion.a>
+          </m.a>
         </div>
       </Container>
     </section>

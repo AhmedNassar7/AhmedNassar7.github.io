@@ -1,14 +1,3 @@
-import { initializeApp } from 'firebase/app';
-import {
-  getDatabase,
-  ref,
-  set,
-  push,
-  onValue,
-  query,
-  limitToLast,
-  runTransaction,
-} from 'firebase/database';
 import { Logger, LogLevel } from './utils/logger';
 
 // Instantiate the Logger
@@ -68,22 +57,52 @@ if (import.meta.env.MODE === 'production') {
   logger.debug('Debugging mode active');
 }
 
-// Initialize Firebase — only when fully configured, so an incomplete env
-// never hands a half-valid config to the SDK.
-const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
-const db = app ? getDatabase(app) : null;
+// ---------------------------------------------------------------------------
+// Lazy SDK loading
+// ---------------------------------------------------------------------------
+// The Firebase SDK (firebase/app + firebase/database) is ~85 KB gzipped and
+// nothing on the page needs it until a visitor actually likes the site,
+// opens the guestbook, or submits the contact form. Importing it statically
+// pulled that whole chunk into the initial page-load graph; a dynamic
+// import() instead splits it into its own chunk that's fetched only on
+// first use, off the critical path.
+//
+// Every exported function below funnels through initFirebase(), which loads
+// the SDK, initialises the app once, and (as before) subscribes to
+// ".info/connected" straight away so the Realtime Database opens its
+// WebSocket immediately rather than lazily on the first read/write — that
+// path is always readable regardless of security rules, so it's safe on any
+// project configuration.
+let firebasePromise = null;
 
-// The Realtime Database SDK opens its WebSocket/long-polling connection
-// lazily, on first read/write — which otherwise means the contact form's
-// submit is what pays for the full connection handshake, making it feel
-// slow even when nothing is wrong. Subscribing to the special
-// ".info/connected" path is Firebase's own documented way to open that
-// connection immediately at page load instead, well ahead of anyone
-// reaching the form. It's always readable regardless of the database's
-// security rules, so this is safe on any project configuration.
-if (db) {
-  onValue(ref(db, '.info/connected'), () => {});
-}
+const initFirebase = () => {
+  if (!isFirebaseConfigured) return Promise.resolve(null);
+
+  if (!firebasePromise) {
+    firebasePromise = Promise.all([
+      import('firebase/app'),
+      import('firebase/database'),
+    ])
+      .then(([{ initializeApp }, database]) => {
+        const app = initializeApp(firebaseConfig);
+        const db = database.getDatabase(app);
+
+        // Open the connection eagerly (see note above).
+        database.onValue(database.ref(db, '.info/connected'), () => {});
+
+        return { app, db, database };
+      })
+      .catch((error) => {
+        // Reset so a transient network failure loading the SDK chunk can be
+        // retried on the next call instead of being cached as a rejection.
+        firebasePromise = null;
+        logger.error(`Failed to load the Firebase SDK: ${error.message}.`);
+        throw error;
+      });
+  }
+
+  return firebasePromise;
+};
 
 /**
  * Helper to get the current date and time in the desired format.
@@ -109,19 +128,22 @@ const getFormattedTimestamp = () => {
  * @param {Object} messageData - The message data to save.
  */
 export const addMessage = async (messageData) => {
-  if (!db) {
+  const firebase = await initFirebase();
+  if (!firebase) {
     throw new Error(
       'Firebase is not configured — missing environment variables: ' +
         `${missingVariables.join(', ')}.`,
     );
   }
 
+  const { db, database } = firebase;
+
   try {
     // Use timestamp as the key for the message
     const timestampKey = Date.now().toString();
 
     // Save the message with a single formatted timestamp
-    await set(ref(db, `contactMessages/${timestampKey}`), {
+    await database.set(database.ref(db, `contactMessages/${timestampKey}`), {
       ...messageData,
       timestamp: getFormattedTimestamp(), // Save combined date and time
     });
@@ -179,10 +201,35 @@ export const isFirebaseReady = isFirebaseConfigured;
  * @returns {() => void} unsubscribe
  */
 export const subscribeToLikes = (callback) => {
-  if (!db) return () => {};
-  return onValue(ref(db, LIKES_PATH), (snapshot) => {
-    callback(snapshot.val() ?? 0);
-  });
+  if (!isFirebaseConfigured) return () => {};
+
+  // The SDK loads asynchronously now, but callers still expect an
+  // unsubscribe function synchronously. Hand back a stub that tears down the
+  // real listener once it's attached (or cancels it if the caller
+  // unsubscribes before the SDK finishes loading).
+  let realUnsubscribe = null;
+  let cancelled = false;
+
+  initFirebase()
+    .then((firebase) => {
+      if (cancelled || !firebase) return;
+      const { db, database } = firebase;
+      realUnsubscribe = database.onValue(
+        database.ref(db, LIKES_PATH),
+        (snapshot) => {
+          callback(snapshot.val() ?? 0);
+        },
+      );
+    })
+    .catch(() => {
+      // SDK failed to load — the like count just stays in its loading state,
+      // which LikeButton already renders gracefully.
+    });
+
+  return () => {
+    cancelled = true;
+    if (realUnsubscribe) realUnsubscribe();
+  };
 };
 
 /**
@@ -193,16 +240,19 @@ export const subscribeToLikes = (callback) => {
  *   waiting for the onValue echo.
  */
 export const addLikes = async (count) => {
-  if (!db) {
+  const firebase = await initFirebase();
+  if (!firebase) {
     throw new Error('Firebase is not configured — likes cannot be saved.');
   }
+
+  const { db, database } = firebase;
 
   const amount = Math.max(0, Math.floor(count));
   if (amount === 0) return 0;
 
   try {
-    const result = await runTransaction(
-      ref(db, LIKES_PATH),
+    const result = await database.runTransaction(
+      database.ref(db, LIKES_PATH),
       (current) => (current ?? 0) + amount,
     );
     logger.info(`Added ${amount} like(s) to the global counter.`);
@@ -250,15 +300,36 @@ const tidy = (value, max) =>
  * @returns {() => void} unsubscribe
  */
 export const subscribeToGuestbook = (callback) => {
-  if (!db) return () => {};
-  const recent = query(ref(db, GUESTBOOK_PATH), limitToLast(GUESTBOOK_LIMIT));
-  return onValue(recent, (snapshot) => {
-    const value = snapshot.val() || {};
-    const entries = Object.entries(value)
-      .map(([id, entry]) => ({ id, ...entry }))
-      .sort((a, b) => (b.ts || 0) - (a.ts || 0));
-    callback(entries);
-  });
+  if (!isFirebaseConfigured) return () => {};
+
+  let realUnsubscribe = null;
+  let cancelled = false;
+
+  initFirebase()
+    .then((firebase) => {
+      if (cancelled || !firebase) return;
+      const { db, database } = firebase;
+      const recent = database.query(
+        database.ref(db, GUESTBOOK_PATH),
+        database.limitToLast(GUESTBOOK_LIMIT),
+      );
+      realUnsubscribe = database.onValue(recent, (snapshot) => {
+        const value = snapshot.val() || {};
+        const entries = Object.entries(value)
+          .map(([id, entry]) => ({ id, ...entry }))
+          .sort((a, b) => (b.ts || 0) - (a.ts || 0));
+        callback(entries);
+      });
+    })
+    .catch(() => {
+      // SDK failed to load — the guestbook list just stays empty, which
+      // Guestbook.jsx already renders as its "no notes yet" state.
+    });
+
+  return () => {
+    cancelled = true;
+    if (realUnsubscribe) realUnsubscribe();
+  };
 };
 
 /**
@@ -267,11 +338,14 @@ export const subscribeToGuestbook = (callback) => {
  * @returns {Promise<{name:string,message:string,ts:number}>} the stored entry
  */
 export const addGuestbookEntry = async ({ name, message }) => {
-  if (!db) {
+  const firebase = await initFirebase();
+  if (!firebase) {
     throw new Error(
       'Firebase is not configured — the guestbook is unavailable.',
     );
   }
+
+  const { db, database } = firebase;
 
   const entry = {
     name: tidy(name, NAME_MAX),
@@ -283,7 +357,7 @@ export const addGuestbookEntry = async ({ name, message }) => {
   }
 
   try {
-    await push(ref(db, GUESTBOOK_PATH), entry);
+    await database.push(database.ref(db, GUESTBOOK_PATH), entry);
     logger.info('Guestbook entry saved.');
     return entry;
   } catch (error) {
@@ -291,5 +365,3 @@ export const addGuestbookEntry = async ({ name, message }) => {
     throw error;
   }
 };
-
-export default app;

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-scroll';
-import { motion, useInView, animate } from 'framer-motion';
+import { m, useInView, animate } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -231,7 +231,7 @@ const Stats = ({ theme }) => {
         </h2>
         <div className="stats-grid">
           {stats.map((stat, index) => {
-            const CardTag = stat.url ? motion.a : motion.div;
+            const CardTag = stat.url ? m.a : m.div;
             const linkProps = stat.url
               ? {
                   href: stat.url,
@@ -272,7 +272,7 @@ const Stats = ({ theme }) => {
             );
           })}
         </div>
-        <motion.div
+        <m.div
           className="stats-actions"
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -325,7 +325,7 @@ const Stats = ({ theme }) => {
               </a>
             ),
           )}
-        </motion.div>
+        </m.div>
         <Row className="justify-content-center">
           <Col xs={12} lg={10}>
             <h3 className="heatmap-title">Contribution Activity</h3>

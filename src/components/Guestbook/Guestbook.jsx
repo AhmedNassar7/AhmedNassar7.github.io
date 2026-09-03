@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenNib, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -181,7 +181,7 @@ const Guestbook = () => {
         <ul className="guestbook-list" aria-live="polite">
           <AnimatePresence initial={false}>
             {entries.map((entry) => (
-              <motion.li
+              <m.li
                 key={entry.id}
                 className="guestbook-entry"
                 initial={{ opacity: 0, y: -12 }}
@@ -201,7 +201,7 @@ const Guestbook = () => {
                   </p>
                   <p className="guestbook-entry__message">{entry.message}</p>
                 </div>
-              </motion.li>
+              </m.li>
             ))}
           </AnimatePresence>
           {entries.length === 0 && (
