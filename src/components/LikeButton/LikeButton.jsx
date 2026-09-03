@@ -20,6 +20,7 @@ const MAX_PER_FLUSH = 45;
 const FLUSH_DELAY_MS = 900;
 
 const STORAGE_KEY = 'likes:contributed';
+const VISITOR_KEY = 'likes:visitorId';
 
 const readContributed = () => {
   try {
@@ -27,6 +28,26 @@ const readContributed = () => {
     return Number.isFinite(raw) && raw > 0 ? raw : 0;
   } catch {
     return 0;
+  }
+};
+
+// A stable, random, non-identifying id kept in localStorage so the
+// `like_site` analytics event can tell a returning liker apart from a new
+// one without any account or personal data. Not sent anywhere except GA4,
+// and a visitor clearing site data simply becomes "new" again.
+const readVisitorId = () => {
+  try {
+    let id = localStorage.getItem(VISITOR_KEY);
+    if (!id) {
+      id =
+        (typeof crypto !== 'undefined' && crypto.randomUUID?.()) ||
+        `v-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+      localStorage.setItem(VISITOR_KEY, id);
+    }
+    return id;
+  } catch {
+    // Storage disabled — the like still sends, just without a stable id.
+    return null;
   }
 };
 
@@ -60,6 +81,10 @@ const LikeButton = ({ scrolled = false }) => {
   const flushTimer = useRef(null);
   const revealStarted = useRef(false);
   const reduceMotion = useRef(prefersReducedMotion());
+  // Set once at mount so a like is attributed to a first-time vs returning
+  // liker based on state from *before* this visit, not after it.
+  const visitorIdRef = useRef(readVisitorId());
+  const wasReturningLikerRef = useRef(contributed > 0);
   // Last total seen from the server.
   const serverRef = useRef(null);
   // True while a write is in flight; its likes are held in inFlightRef and
@@ -136,6 +161,15 @@ const LikeButton = ({ scrolled = false }) => {
       trackEvent('like_site', {
         amount,
         visitor_total: contributedRef.current,
+        // Anonymous attribution — see readVisitorId(). Lets GA4 answer
+        // "who's liking" (new vs returning, from where) without any account.
+        visitor_id: visitorIdRef.current ?? undefined,
+        is_returning_liker: wasReturningLikerRef.current,
+        referrer: (document.referrer || '').slice(0, 100) || undefined,
+        page_path: `${window.location.pathname}${window.location.hash}`.slice(
+          0,
+          100,
+        ),
       });
       // More taps queued (either buffered while in flight, or the remainder
       // of a burst bigger than one chunk) — send the next one.

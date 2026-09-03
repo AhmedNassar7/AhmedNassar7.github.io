@@ -1,0 +1,7 @@
+# Build output & generated artifacts — not authored, never hand-formatted
+dist/
+coverage/
+stats.html
+
+# Lockfile
+package-lock.json

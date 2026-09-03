@@ -18,6 +18,9 @@ dist-ssr/
 static/
 *.local
 
+# rollup-plugin-visualizer output (regenerated on every production build)
+stats.html
+
 # Logs
 logs/
 *.log

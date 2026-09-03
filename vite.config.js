@@ -122,10 +122,12 @@ export default defineConfig(({ mode }) => {
           },
           exclude: /favicon\.svg$|images\/profile\.png$/, // Exclude favicon from image optimization
         }),
-      // Bundle visualization for production (optional)
+      // Bundle visualization for production (optional). Writes stats.html to
+      // the project root (git-ignored) — opened automatically after a local
+      // build, but not in CI, where there's no browser to open it in.
       !isDev &&
         visualizer({
-          open: true, // Automatically open the visualizer after build
+          open: !process.env.CI, // Auto-open locally; stay quiet in CI
           gzipSize: true, // Show Gzip size in the visualizer
           brotliSize: true, // Show Brotli size in the visualizer
         }),
