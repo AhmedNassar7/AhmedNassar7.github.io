@@ -1,0 +1,38 @@
+// Scroll-reveal styles — replaces aos/dist/aos.css. Only the variants
+// actually used in the markup (fade-up, fade-left, fade-right) are defined,
+// with the duration/easing AOS.init() was configured with (1000ms, ease).
+// The .aos-animate class is toggled by utils/scrollReveal.js.
+
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 1000ms;
+  transition-timing-function: ease;
+}
+
+[data-aos='fade-up'] {
+  transform: translate3d(0, 100px, 0);
+}
+
+[data-aos='fade-right'] {
+  transform: translate3d(-100px, 0, 0);
+}
+
+[data-aos='fade-left'] {
+  transform: translate3d(100px, 0, 0);
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+// Safety net: if the reveal script never runs, content must not stay
+// invisible. Also covers users who prefer reduced motion.
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

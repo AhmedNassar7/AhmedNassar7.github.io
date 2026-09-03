@@ -1,15 +1,13 @@
 import { lazy, Suspense, useState } from 'react';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 import { m } from 'framer-motion';
-import ReactCountryFlag from 'react-country-flag';
 import { addMessage } from '../../firebase';
 
-// react-select pulls in @emotion + @floating-ui (~36 KB gzipped) and the
-// contact form sits well below the fold, so it's code-split into its own
-// chunk that only loads once this section is actually rendered. The native
-// <select> fallback below keeps the field fully usable (and submittable)
-// during that brief load and if the chunk ever fails to fetch.
-const Select = lazy(() => import('react-select'));
+// The country picker (react-select + react-country-flag) is code-split into
+// its own chunk that only loads once this below-the-fold section renders.
+// The native <select> fallback below keeps the field fully usable (and
+// submittable) during that brief load and if the chunk ever fails to fetch.
+const CountrySelect = lazy(() => import('./CountrySelect'));
 import { trackEvent } from './../../utils/analytics';
 import { useVirtualPageView } from '../../hooks/useVirtualPageView';
 import { useMagneticHover } from '../../hooks/useMagneticHover';
@@ -230,43 +228,6 @@ const Contact = () => {
     { value: 'ZW', label: 'Zimbabwe', code: 'ZW' },
   ].sort((a, b) => a.label.localeCompare(b.label));
 
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      display: 'flex',
-      alignItems: 'center',
-      padding: '8px 12px',
-      cursor: 'pointer',
-      backgroundColor: state.isSelected
-        ? 'var(--primary)'
-        : state.isFocused
-          ? 'rgba(100, 108, 255, 0.1)'
-          : 'transparent',
-      '&:hover': {
-        backgroundColor: 'rgba(100, 108, 255, 0.1)',
-      },
-    }),
-    control: (provided) => ({
-      ...provided,
-      backgroundColor: 'var(--glass-bg)',
-      borderColor: 'var(--glass-border)',
-      '&:hover': {
-        borderColor: 'var(--primary)',
-      },
-    }),
-  };
-
-  const formatOptionLabel = ({ label, code }) => (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <ReactCountryFlag
-        countryCode={code}
-        svg
-        style={{ marginRight: '10px' }}
-      />
-      {label}
-    </div>
-  );
-
   const logger = new Logger(LogLevel.DEBUG);
 
   // A hung network request (blocked by CSP, a dropped connection, etc.)
@@ -445,17 +406,12 @@ const Contact = () => {
                       </select>
                     }
                   >
-                    <Select
+                    <CountrySelect
                       value={formData.country}
                       onChange={(value) =>
                         setFormData({ ...formData, country: value })
                       }
                       options={countries}
-                      aria-label="Country"
-                      formatOptionLabel={formatOptionLabel}
-                      styles={customStyles}
-                      className="country-select"
-                      classNamePrefix="select"
                     />
                   </Suspense>
                 </Form.Group>

@@ -26,8 +26,8 @@ import CommandPalette from './components/CommandPalette/CommandPalette';
 import Terminal from './components/Terminal/Terminal';
 import ReactGA from 'react-ga4';
 import throttle from 'lodash/throttle';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { initScrollReveal } from './utils/scrollReveal';
+import './styles/scrollReveal.scss';
 import './styles/main.scss';
 
 const initAnalytics = () => {
@@ -80,23 +80,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Initialize AOS once the sections have actually mounted (they're gated
-    // behind `loading`). AOS is a global singleton — calling AOS.init() from
-    // multiple components re-scans and resets every [data-aos] element's
-    // state each time, stomping other components' in-progress or completed
-    // animations, so it must only happen once for the whole app.
+    // Wire up scroll-reveal once the sections have actually mounted (they're
+    // gated behind `loading`). initScrollReveal() is idempotent — it only
+    // does its one-time [data-aos] scan the first time it's called — and it
+    // honours prefers-reduced-motion internally (see utils/scrollReveal.js).
     if (!loading) {
-      AOS.init({
-        duration: 1000,
-        once: true,
-        offset: 50,
-        // Respect the OS-level reduced-motion preference: AOS has no
-        // built-in awareness of it, so without this every scroll-reveal
-        // animation still runs (and still does its layout work) for
-        // visitors who've explicitly opted out of non-essential motion.
-        disable: () =>
-          window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      });
+      initScrollReveal();
 
       // Sections don't mount until the loading screen clears, so the
       // browser's native fragment navigation (e.g. a shared /#resume link)
