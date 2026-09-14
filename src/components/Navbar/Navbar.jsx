@@ -8,7 +8,7 @@ import ResumeMenu from './ResumeMenu';
 import './Navbar.scss';
 
 // Kept deliberately short — the primary path through the site. The rest
-// (Stats, Testimonials, Guestbook) are one scroll away and are listed in
+// (Stats, Testimonials) are one scroll away and are listed in
 // the footer, the command palette (⌘K) and the terminal.
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },

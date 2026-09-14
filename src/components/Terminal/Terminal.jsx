@@ -28,7 +28,6 @@ const SECTION_ALIASES = {
   github: 'stats',
   testimonials: 'testimonials',
   contact: 'contact',
-  guestbook: 'guestbook',
 };
 
 // Pixel-grid "A N" monogram, rendered as real DOM cells (not monospace
@@ -165,7 +164,7 @@ const HELP_LINES = [
   '  contact            how to reach Ahmed',
   '  resume             download the resume PDF',
   '  github / linkedin  open the profile in a new tab',
-  '  open <section>     jump to a section (about, projects, resume, stats, testimonials, contact, guestbook)',
+  '  open <section>     jump to a section (about, projects, resume, stats, testimonials, contact)',
   '  theme <dark|light> switch the site theme',
   '  neofetch           system info, but make it a portfolio',
   '  clear              clear the screen',
@@ -259,7 +258,7 @@ const buildCommands = ({ theme, toggleTheme, close }) => ({
     if (!target) {
       return [
         `open: unknown section '${arg || ''}'`,
-        'Try: open about | projects | resume | stats | testimonials | contact | guestbook',
+        'Try: open about | projects | resume | stats | testimonials | contact',
       ];
     }
     scroller.scrollTo(target, { offset: -70 });

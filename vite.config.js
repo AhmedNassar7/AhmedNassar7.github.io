@@ -256,7 +256,7 @@ export default defineConfig(({ mode }) => {
             // always in the initial graph (react-vendor) or only ever
             // reached through an existing lazy import (three via the 3D
             // shape, particles via the background, firebase on first
-            // like/guestbook/contact use) — so this changes request count,
+            // like/contact use) — so this changes request count,
             // not what loads when.
             if (
               ['react', 'react-dom', 'scheduler', 'object-assign'].includes(pkg)

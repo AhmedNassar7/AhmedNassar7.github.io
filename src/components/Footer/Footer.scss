@@ -120,25 +120,4 @@
     }
   }
 
-  .footer-line {
-    margin: 0;
-    text-align: center;
-    opacity: 0.72;
-    font-size: 0.85rem;
-
-    .heart {
-      display: inline-block;
-      animation: heartbeat 1.4s ease-in-out infinite;
-    }
-  }
-}
-
-@keyframes heartbeat {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
 }

@@ -14,7 +14,6 @@ import {
   faSun,
   faDownload,
   faDiagramProject,
-  faPenNib,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { trackEvent } from '../../utils/analytics';
@@ -74,12 +73,6 @@ const CommandPalette = ({ theme, toggleTheme }) => {
         label: 'Go to Testimonials',
         icon: faComments,
         run: () => goTo('testimonials'),
-      },
-      {
-        id: 'guestbook',
-        label: 'Go to Guestbook',
-        icon: faPenNib,
-        run: () => goTo('guestbook'),
       },
       {
         id: 'contact',

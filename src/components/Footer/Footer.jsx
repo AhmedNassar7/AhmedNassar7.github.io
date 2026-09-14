@@ -40,7 +40,6 @@ const FOOTER_NAV_ITEMS = [
   { id: 'resume', label: 'Resume' },
   { id: 'testimonials', label: 'Testimonials' },
   { id: 'contact', label: 'Contact' },
-  { id: 'guestbook', label: 'Guestbook' },
 ];
 
 // A separate component (not inlined in the .map() below) because hooks —
@@ -106,8 +105,6 @@ MagneticSocialIcon.propTypes = {
 };
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   const socialLinks = [
     {
       icon: faLinkedin,
@@ -190,10 +187,6 @@ const Footer = () => {
 
         <div className="footer-meta">
           <Signature name="Ahmed Nassar" className="footer-signature" />
-          <p className="footer-line">
-            Made with <span className="heart">❤️</span> by Ahmed Nassar · ©{' '}
-            {currentYear}
-          </p>
         </div>
       </div>
     </footer>

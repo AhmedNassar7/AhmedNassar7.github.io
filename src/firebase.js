@@ -61,8 +61,8 @@ if (import.meta.env.MODE === 'production') {
 // Lazy SDK loading
 // ---------------------------------------------------------------------------
 // The Firebase SDK (firebase/app + firebase/database) is ~85 KB gzipped and
-// nothing on the page needs it until a visitor actually likes the site,
-// opens the guestbook, or submits the contact form. Importing it statically
+// nothing on the page needs it until a visitor actually likes the site or
+// submits the contact form. Importing it statically
 // pulled that whole chunk into the initial page-load graph; a dynamic
 // import() instead splits it into its own chunk that's fetched only on
 // first use, off the critical path.
@@ -260,108 +260,6 @@ export const addLikes = async (count) => {
     return typeof total === 'number' ? total : null;
   } catch (error) {
     logger.error(`Error incrementing like counter: ${error.message}.`);
-    throw error;
-  }
-};
-
-// ---------------------------------------------------------------------------
-// Guestbook
-// ---------------------------------------------------------------------------
-// A public wall: anyone can append a short signed note under /guestbook and
-// everyone sees the recent ones live. Entries are write-once from the client
-// (no edit/delete) — moderation is done from the Firebase console. Suggested
-// rules to publish alongside the `likes` rule:
-//
-//   "guestbook": {
-//     ".read": true,
-//     "$entry": {
-//       ".write": "!data.exists() && newData.hasChildren(['name','message','ts'])",
-//       "name":    { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40" },
-//       "message": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 280" },
-//       "ts":      { ".validate": "newData.isNumber()" },
-//       "$other":  { ".validate": false }
-//     }
-//   }
-
-export const GUESTBOOK_PATH = 'guestbook';
-const GUESTBOOK_LIMIT = 60;
-const NAME_MAX = 40;
-const MESSAGE_MAX = 280;
-
-const tidy = (value, max) =>
-  String(value ?? '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .slice(0, max);
-
-/**
- * Subscribe to the most recent guestbook entries, newest first.
- * @param {(entries: Array<{id:string,name:string,message:string,ts:number}>) => void} callback
- * @returns {() => void} unsubscribe
- */
-export const subscribeToGuestbook = (callback) => {
-  if (!isFirebaseConfigured) return () => {};
-
-  let realUnsubscribe = null;
-  let cancelled = false;
-
-  initFirebase()
-    .then((firebase) => {
-      if (cancelled || !firebase) return;
-      const { db, database } = firebase;
-      const recent = database.query(
-        database.ref(db, GUESTBOOK_PATH),
-        database.limitToLast(GUESTBOOK_LIMIT),
-      );
-      realUnsubscribe = database.onValue(recent, (snapshot) => {
-        const value = snapshot.val() || {};
-        const entries = Object.entries(value)
-          .map(([id, entry]) => ({ id, ...entry }))
-          .sort((a, b) => (b.ts || 0) - (a.ts || 0));
-        callback(entries);
-      });
-    })
-    .catch(() => {
-      // SDK failed to load — the guestbook list just stays empty, which
-      // Guestbook.jsx already renders as its "no notes yet" state.
-    });
-
-  return () => {
-    cancelled = true;
-    if (realUnsubscribe) realUnsubscribe();
-  };
-};
-
-/**
- * Append a signed note to the guestbook.
- * @param {{name: string, message: string}} input
- * @returns {Promise<{name:string,message:string,ts:number}>} the stored entry
- */
-export const addGuestbookEntry = async ({ name, message }) => {
-  const firebase = await initFirebase();
-  if (!firebase) {
-    throw new Error(
-      'Firebase is not configured — the guestbook is unavailable.',
-    );
-  }
-
-  const { db, database } = firebase;
-
-  const entry = {
-    name: tidy(name, NAME_MAX),
-    message: tidy(message, MESSAGE_MAX),
-    ts: Date.now(),
-  };
-  if (!entry.name || !entry.message) {
-    throw new Error('Both a name and a message are required.');
-  }
-
-  try {
-    await database.push(database.ref(db, GUESTBOOK_PATH), entry);
-    logger.info('Guestbook entry saved.');
-    return entry;
-  } catch (error) {
-    logger.error(`Error saving guestbook entry: ${error.message}.`);
     throw error;
   }
 };

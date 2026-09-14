@@ -6,7 +6,7 @@ A walkthrough for visitors of [ahmednassar7.github.io](https://ahmednassar7.gith
 
 One scrollable page, one URL. Three ways to move:
 
-1. **Navbar links** — `Home`, `About`, `Projects`, `Resume`, `Contact` smooth-scroll; the current section highlights as you pass it. (Stats, Testimonials, and the Guestbook are one scroll away and are in the footer, command palette, and terminal.)
+1. **Navbar links** — `Home`, `About`, `Projects`, `Resume`, `Contact` smooth-scroll; the current section highlights as you pass it. (Stats and Testimonials are one scroll away and are in the footer, command palette, and terminal.)
 2. **Command palette** — `Ctrl/Cmd + K`.
 3. **Terminal** — `open <section>`.
 
@@ -18,13 +18,13 @@ A progress bar fills the navbar as you scroll. A **scroll-to-top button** appear
 
 `Ctrl + K` (Windows/Linux) or `Cmd + K` (macOS) — or click the `Ctrl K` trigger, bottom-left.
 
-| Action                                                                                     | Does                                |
-| ------------------------------------------------------------------------------------------ | ----------------------------------- |
-| Go to Home / About / Projects / Resume / GitHub Stats / Testimonials / Contact / Guestbook | Jumps to that section               |
-| Switch to Dark/Light Theme                                                                 | Toggles the theme                   |
-| Download Resume (PDF)                                                                      | Downloads `Ahmed_Nassar_Resume.pdf` |
-| Open GitHub Profile / Open LinkedIn Profile                                                | Opens in a new tab                  |
-| Email Ahmed                                                                                | Opens your mail client              |
+| Action                                                                     | Does                                |
+| --------------------------------------------------------------------------- | ------------------------------------ |
+| Go to Home / About / Projects / Resume / GitHub Stats / Testimonials / Contact | Jumps to that section               |
+| Switch to Dark/Light Theme                                                   | Toggles the theme                   |
+| Download Resume (PDF)                                                        | Downloads `Ahmed_Nassar_Resume.pdf` |
+| Open GitHub Profile / Open LinkedIn Profile                                  | Opens in a new tab                  |
+| Email Ahmed                                                                  | Opens your mail client              |
 
 **Keys**: type to filter · `↑`/`↓` to move · `Enter` to run · `Esc` to close.
 
@@ -44,7 +44,7 @@ Click the terminal icon (bottom-left). Type `help` for the list:
 | `contact`             | Email, LinkedIn, GitHub                                                                    |
 | `resume`              | Downloads the resume PDF                                                                   |
 | `github` / `linkedin` | Opens the profile                                                                          |
-| `open <section>`      | Jumps to `about`, `projects`, `resume`, `stats`, `testimonials`, `contact`, or `guestbook` |
+| `open <section>`      | Jumps to `about`, `projects`, `resume`, `stats`, `testimonials`, or `contact`              |
 | `theme <dark\|light>` | Switches theme                                                                             |
 | `neofetch`            | System-info card, but Ahmed                                                                |
 | `clear`               | Clears the screen                                                                          |
@@ -86,11 +86,7 @@ Rotating recommendations, each linked to the reviewer's LinkedIn. "See all" link
 
 ## Contact Form 📬
 
-Name, email, optional country, message. Sent via email and saved to a database — independently, so one failing doesn't block the other. This is **private** — it goes to Ahmed's inbox, not a public page (that's the guestbook).
-
-## Guestbook ✍️
-
-A **public** wall. Leave a name and a short message and it appears in the live list below for everyone. The list is a capped, scrollable box, so the section stays the same size no matter how many people sign. There's a light rate limit (one note per minute per browser) to keep out spam. Entries are moderated by Ahmed and can only be removed by him.
+Name, email, optional country, message. Sent via email and saved to a database — independently, so one failing doesn't block the other. This is **private** — it goes to Ahmed's inbox.
 
 ## Like the Site ❤️
 

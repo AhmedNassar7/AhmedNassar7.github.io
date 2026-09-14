@@ -8,7 +8,7 @@ Setup: [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md). Visitor-facing features: [USE
 
 A **static single-page app**: React, built by Vite, deployed to GitHub Pages. No app server. Two third-party backends, called directly from the browser:
 
-- **Firebase Realtime Database** — contact-form submissions (`contactMessages`), the global like counter (`likes/total`), and the guestbook (`guestbook/*`).
+- **Firebase Realtime Database** — contact-form submissions (`contactMessages`) and the global like counter (`likes/total`).
 - **EmailJS** — emails Ahmed a copy of each contact submission.
 
 Everything else (GitHub stats, heatmap, particles, terminal, command palette, Konami code) is a public API call or client-side state.
@@ -21,7 +21,7 @@ flowchart LR
 
     App -->|GET /users/:user/repos<br/>GET /search/commits| GitHubAPI[GitHub REST API]
     App -->|contribution calendar| GHCalendar[github-contributions-api]
-    App -->|contactMessages · likes/total · guestbook| Firebase[(Firebase Realtime DB)]
+    App -->|contactMessages · likes/total| Firebase[(Firebase Realtime DB)]
     App -->|emailjs.send| EmailJS[EmailJS]
     App -->|pageview / events| GA[Google Analytics]
 
@@ -50,7 +50,6 @@ flowchart TD
     App --> Resume
     App --> Testimonials
     App --> Contact
-    App --> Guestbook[Guestbook<br/><i>Firebase RTDB</i>]
     App --> Quotes
     App --> Footer
     App --> ScrollToTop[Scroll-to-top button]
@@ -77,7 +76,7 @@ Key decisions:
 - **Two components are lazy-loaded**: `ParticlesBackground` (`tsparticles` is large and not needed for first paint) and `RotatableShape` (`three`/`@react-three/fiber` — the Home section's 3D cube). Both are also gated behind a `prefers-reduced-motion` check in their parent, so visitors who've opted out of motion never fetch either chunk.
 - **`useMagneticHover`** (`src/hooks/useMagneticHover.js`) is a small shared hook — not a component — behind the magnetic pull on the Home/Footer social icons and the Contact submit button. Same gating pattern as `TiltCard`: inert on touch devices and under `prefers-reduced-motion`.
 - **Resume/Projects content is data-driven.** `src/data/resumeData.js` is the single source; `Resume.jsx`, `Projects.jsx`, and the terminal's commands all read from it. Projects moved out of the résumé into their own top-level section but keep sharing that file (and `Resume/TiltCard`).
-- **Firebase powers three features.** The Contact form (`contactMessages`), the [global like counter](#5-data-flow-likes--guestbook) (`likes/total`, `runTransaction`), and the [guestbook](#5-data-flow-likes--guestbook) (`guestbook/*`, `push` + `limitToLast`). All three degrade to no-ops when `VITE_FIREBASE_*` vars are absent.
+- **Firebase powers two features.** The Contact form (`contactMessages`) and the [global like counter](#5-data-flow-likes) (`likes/total`, `runTransaction`). Both degrade to no-ops when `VITE_FIREBASE_*` vars are absent.
 - **Two corner overlays** are siblings of the sections: `LikeButton` (bottom-right, slides aside for the scroll-to-top button) and `KonamiEasterEgg` (a `keydown` listener + one-shot confetti). Neither is a section or a nav target.
 
 ## 3. Data Flow: Contact Form
@@ -135,9 +134,9 @@ flowchart LR
 - Merged-Django-PRs is a curated constant, not a fetch.
 - `src/utils/streaks.js` holds the streak logic, kept separate for unit testing (`streaks.test.js`).
 
-## 5. Data Flow: Likes & Guestbook
+## 5. Data Flow: Likes
 
-Both live in `src/firebase.js` and share the same Realtime Database, degrading to no-ops without `VITE_FIREBASE_*`.
+Lives in `src/firebase.js`, degrading to a no-op without `VITE_FIREBASE_*`.
 
 **Like counter** (`LikeButton.jsx` ↔ `likes/total`):
 
@@ -145,12 +144,6 @@ Both live in `src/firebase.js` and share the same Realtime Database, degrading t
 - A tap increments a local buffer and moves the displayed number immediately (optimistic).
 - After a short debounce, `addLikes(n)` sends **one** `runTransaction` for the whole buffer, in chunks of ≤ 45. Its resolved snapshot value reconciles the display, and server echoes are ignored mid-write so the number never double-counts or bounces.
 - No per-visitor cap (contribution is tracked in `localStorage` for the "you liked N times" label); the RTDB rule rejects any single write that moves the total down or up by > 50.
-
-**Guestbook** (`Guestbook.jsx` ↔ `guestbook/*`):
-
-- `subscribeToGuestbook(cb)` — `onValue` on `query(ref, limitToLast(60))`, sorted newest-first.
-- `addGuestbookEntry({name, message})` — trims/caps the fields and `push`es `{name, message, ts}`.
-- Client-side spam guards: length caps, a `localStorage` per-browser cooldown, an off-screen honeypot input. Security rules make entries write-once; moderation is manual from the Firebase console.
 
 ## 6. Build & Deployment Pipeline
 

@@ -44,7 +44,7 @@ All prefixed `VITE_`, read via `import.meta.env`. **All optional for local dev**
 
 | Variable                            | Feature                             | If missing                                                                                                                                     |
 | ----------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `VITE_FIREBASE_API_KEY`             | Contact storage · likes · guestbook | `firebase.js` skips init, logs an error. `addMessage()` rejects; the like counter and guestbook render nothing. Rest of the app is unaffected. |
+| `VITE_FIREBASE_API_KEY`             | Contact storage · likes             | `firebase.js` skips init, logs an error. `addMessage()` rejects; the like counter renders nothing. Rest of the app is unaffected.               |
 | `VITE_FIREBASE_AUTH_DOMAIN`         | ″                                   | ″                                                                                                                                              |
 | `VITE_FIREBASE_DATABASE_URL`        | ″                                   | ″                                                                                                                                              |
 | `VITE_FIREBASE_PROJECT_ID`          | ″                                   | ″                                                                                                                                              |
@@ -92,9 +92,9 @@ npm run test:watch  # watch mode
 3. Render it inside `<main>` in `App.jsx`, in page order.
 4. Add links where relevant: `Navbar.jsx`'s `NAV_ITEMS` (keep it short — see below), `Footer.jsx`'s `FOOTER_NAV_ITEMS`, `CommandPalette.jsx`'s `commands` array, `Terminal.jsx`'s `SECTION_ALIASES` + `open` help text.
 5. Add `NewSection.test.jsx`.
-6. If the content is shorter than a viewport, add `min-height: auto;` to the section's SCSS to cancel the global `section { min-height: 100vh }` (as `Stats`, `Testimonials`, and `Guestbook` do).
+6. If the content is shorter than a viewport, add `min-height: auto;` to the section's SCSS to cancel the global `section { min-height: 100vh }` (as `Stats` and `Testimonials` do).
 
-> **Navbar vs footer:** `NAV_ITEMS` is a deliberately short primary path (Home · About · Projects · Resume · Contact). Secondary sections (Stats, Testimonials, Guestbook) go in the footer / command palette / terminal only, not the navbar.
+> **Navbar vs footer:** `NAV_ITEMS` is a deliberately short primary path (Home · About · Projects · Resume · Contact). Secondary sections (Stats, Testimonials) go in the footer / command palette / terminal only, not the navbar.
 
 ## Building & Previewing a Production Build
 

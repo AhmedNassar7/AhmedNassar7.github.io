@@ -9,7 +9,6 @@ import Projects from './components/Projects/Projects';
 import Resume from './components/Resume/Resume';
 import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './components/Contact/Contact';
-import Guestbook from './components/Guestbook/Guestbook';
 import Quotes from './components/Quotes/Quotes';
 import Footer from './components/Footer/Footer';
 const ParticlesBackground = lazy(
@@ -146,7 +145,6 @@ function App() {
         <Resume />
         <Testimonials />
         <Contact />
-        <Guestbook />
         <Quotes />
       </main>
       <Footer />
