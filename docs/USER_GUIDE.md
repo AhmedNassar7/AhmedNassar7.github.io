@@ -18,13 +18,13 @@ A progress bar fills the navbar as you scroll. A **scroll-to-top button** appear
 
 `Ctrl + K` (Windows/Linux) or `Cmd + K` (macOS) — or click the `Ctrl K` trigger, bottom-left.
 
-| Action                                                                     | Does                                |
-| --------------------------------------------------------------------------- | ------------------------------------ |
+| Action                                                                         | Does                                |
+| ------------------------------------------------------------------------------ | ----------------------------------- |
 | Go to Home / About / Projects / Resume / GitHub Stats / Testimonials / Contact | Jumps to that section               |
-| Switch to Dark/Light Theme                                                   | Toggles the theme                   |
-| Download Resume (PDF)                                                        | Downloads `Ahmed_Nassar_Resume.pdf` |
-| Open GitHub Profile / Open LinkedIn Profile                                  | Opens in a new tab                  |
-| Email Ahmed                                                                  | Opens your mail client              |
+| Switch to Dark/Light Theme                                                     | Toggles the theme                   |
+| Download Resume (PDF)                                                          | Downloads `Ahmed_Nassar_Resume.pdf` |
+| Open GitHub Profile / Open LinkedIn Profile                                    | Opens in a new tab                  |
+| Email Ahmed                                                                    | Opens your mail client              |
 
 **Keys**: type to filter · `↑`/`↓` to move · `Enter` to run · `Esc` to close.
 
@@ -32,23 +32,23 @@ A progress bar fills the navbar as you scroll. A **scroll-to-top button** appear
 
 Click the terminal icon (bottom-left). Type `help` for the list:
 
-| Command               | Does                                                                                       |
-| --------------------- | ------------------------------------------------------------------------------------------ |
-| `help`                | Lists commands                                                                             |
-| `whoami`              | Who Ahmed is                                                                               |
-| `about`               | Short bio                                                                                  |
-| `experience`          | Work history                                                                               |
-| `projects`            | Featured projects                                                                          |
-| `skills`              | Tech stack                                                                                 |
-| `achievements`        | Notable wins                                                                               |
-| `contact`             | Email, LinkedIn, GitHub                                                                    |
-| `resume`              | Downloads the resume PDF                                                                   |
-| `github` / `linkedin` | Opens the profile                                                                          |
-| `open <section>`      | Jumps to `about`, `projects`, `resume`, `stats`, `testimonials`, or `contact`              |
-| `theme <dark\|light>` | Switches theme                                                                             |
-| `neofetch`            | System-info card, but Ahmed                                                                |
-| `clear`               | Clears the screen                                                                          |
-| `exit`                | Closes the terminal                                                                        |
+| Command               | Does                                                                          |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `help`                | Lists commands                                                                |
+| `whoami`              | Who Ahmed is                                                                  |
+| `about`               | Short bio                                                                     |
+| `experience`          | Work history                                                                  |
+| `projects`            | Featured projects                                                             |
+| `skills`              | Tech stack                                                                    |
+| `achievements`        | Notable wins                                                                  |
+| `contact`             | Email, LinkedIn, GitHub                                                       |
+| `resume`              | Downloads the resume PDF                                                      |
+| `github` / `linkedin` | Opens the profile                                                             |
+| `open <section>`      | Jumps to `about`, `projects`, `resume`, `stats`, `testimonials`, or `contact` |
+| `theme <dark\|light>` | Switches theme                                                                |
+| `neofetch`            | System-info card, but Ahmed                                                   |
+| `clear`               | Clears the screen                                                             |
+| `exit`                | Closes the terminal                                                           |
 
 `↑`/`↓` recall previous commands.
 

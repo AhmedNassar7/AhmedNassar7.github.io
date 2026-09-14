@@ -42,21 +42,21 @@ Dev server: [http://localhost:5173](http://localhost:5173).
 
 All prefixed `VITE_`, read via `import.meta.env`. **All optional for local dev** — a missing group only disables its own feature:
 
-| Variable                            | Feature                             | If missing                                                                                                                                     |
-| ----------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `VITE_FIREBASE_API_KEY`             | Contact storage · likes             | `firebase.js` skips init, logs an error. `addMessage()` rejects; the like counter renders nothing. Rest of the app is unaffected.               |
-| `VITE_FIREBASE_AUTH_DOMAIN`         | ″                                   | ″                                                                                                                                              |
-| `VITE_FIREBASE_DATABASE_URL`        | ″                                   | ″                                                                                                                                              |
-| `VITE_FIREBASE_PROJECT_ID`          | ″                                   | ″                                                                                                                                              |
-| `VITE_FIREBASE_STORAGE_BUCKET`      | ″                                   | ″                                                                                                                                              |
-| `VITE_FIREBASE_MESSAGING_SENDER_ID` | ″                                   | ″                                                                                                                                              |
-| `VITE_FIREBASE_APP_ID`              | ″                                   | ″                                                                                                                                              |
-| `VITE_EMAILJS_SERVICE_ID`           | Contact form email                  | `emailjs.send` rejects; Firebase write still runs independently.                                                                               |
-| `VITE_EMAILJS_TEMPLATE_ID`          | ″                                   | ″                                                                                                                                              |
-| `VITE_EMAILJS_USER_ID`              | ″                                   | ″                                                                                                                                              |
-| `VITE_EMAILJS_TO_EMAIL`             | ″                                   | ″                                                                                                                                              |
-| `VITE_GOOGLE_ANALYTICS_ID`          | Google Analytics                    | Init fails silently (caught); no tracking.                                                                                                     |
-| `VITE_GOOGLE_SITE_VERIFICATION`     | Search Console                      | Meta tag omitted.                                                                                                                              |
+| Variable                            | Feature                 | If missing                                                                                                                        |
+| ----------------------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `VITE_FIREBASE_API_KEY`             | Contact storage · likes | `firebase.js` skips init, logs an error. `addMessage()` rejects; the like counter renders nothing. Rest of the app is unaffected. |
+| `VITE_FIREBASE_AUTH_DOMAIN`         | ″                       | ″                                                                                                                                 |
+| `VITE_FIREBASE_DATABASE_URL`        | ″                       | ″                                                                                                                                 |
+| `VITE_FIREBASE_PROJECT_ID`          | ″                       | ″                                                                                                                                 |
+| `VITE_FIREBASE_STORAGE_BUCKET`      | ″                       | ″                                                                                                                                 |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | ″                       | ″                                                                                                                                 |
+| `VITE_FIREBASE_APP_ID`              | ″                       | ″                                                                                                                                 |
+| `VITE_EMAILJS_SERVICE_ID`           | Contact form email      | `emailjs.send` rejects; Firebase write still runs independently.                                                                  |
+| `VITE_EMAILJS_TEMPLATE_ID`          | ″                       | ″                                                                                                                                 |
+| `VITE_EMAILJS_USER_ID`              | ″                       | ″                                                                                                                                 |
+| `VITE_EMAILJS_TO_EMAIL`             | ″                       | ″                                                                                                                                 |
+| `VITE_GOOGLE_ANALYTICS_ID`          | Google Analytics        | Init fails silently (caught); no tracking.                                                                                        |
+| `VITE_GOOGLE_SITE_VERIFICATION`     | Search Console          | Meta tag omitted.                                                                                                                 |
 
 Create `.env.development` in the project root (git-ignored). Same variables needed wherever `vite build` runs — for CI, as **GitHub Actions repository secrets** (`Settings → Secrets and variables → Actions`), named per [`ci.yml`](../.github/workflows/ci.yml) / [`deploy.yml`](../.github/workflows/deploy.yml).
 
