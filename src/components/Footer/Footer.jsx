@@ -36,7 +36,6 @@ const FOOTER_NAV_ITEMS = [
   { id: 'home', label: 'Home' },
   { id: 'stats', label: 'Stats' },
   { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
   { id: 'resume', label: 'Resume' },
   { id: 'testimonials', label: 'Testimonials' },
   { id: 'contact', label: 'Contact' },

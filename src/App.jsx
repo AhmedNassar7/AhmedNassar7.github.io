@@ -5,7 +5,6 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Stats from './components/Stats/Stats';
 import About from './components/About/About';
-import Projects from './components/Projects/Projects';
 import Resume from './components/Resume/Resume';
 import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './components/Contact/Contact';
@@ -141,7 +140,6 @@ function App() {
         <Home />
         <Stats theme={theme} />
         <About />
-        <Projects />
         <Resume />
         <Testimonials />
         <Contact />

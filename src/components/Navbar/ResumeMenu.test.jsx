@@ -2,11 +2,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 const downloadResume = vi.fn();
+const viewResume = vi.fn();
 vi.mock('../../utils/resume', () => ({
   RESUME_URL: '/assets/PDFs/resume.pdf',
-  RESUME_VIEW_URL: 'https://drive.example/view',
   RESUME_FILE_NAME: 'resume.pdf',
   downloadResume: () => downloadResume(),
+  viewResume: () => viewResume(),
 }));
 vi.mock('../../utils/analytics', () => ({ trackEvent: vi.fn() }));
 
@@ -15,7 +16,6 @@ import ResumeMenu from './ResumeMenu';
 describe('ResumeMenu', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    window.open = vi.fn();
   });
 
   it('is a single collapsed control until opened', () => {
@@ -39,11 +39,7 @@ describe('ResumeMenu', () => {
     render(<ResumeMenu />);
     fireEvent.click(screen.getByRole('button', { name: /résumé options/i }));
     fireEvent.click(screen.getByRole('menuitem', { name: /view/i }));
-    expect(window.open).toHaveBeenCalledWith(
-      'https://drive.example/view',
-      '_blank',
-      'noopener,noreferrer',
-    );
+    expect(viewResume).toHaveBeenCalledTimes(1);
   });
 
   it('Download triggers the file download', () => {

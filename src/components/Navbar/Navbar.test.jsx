@@ -8,8 +8,10 @@ describe('Navbar', () => {
 
     expect(screen.getByLabelText('Toggle theme')).toBeInTheDocument();
     expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.getByText('Stats')).toBeInTheDocument();
     expect(screen.getByText('About')).toBeInTheDocument();
     expect(screen.getByText('Resume')).toBeInTheDocument();
+    expect(screen.getByText('Testimonials')).toBeInTheDocument();
     expect(screen.getByText('Contact')).toBeInTheDocument();
   });
 });

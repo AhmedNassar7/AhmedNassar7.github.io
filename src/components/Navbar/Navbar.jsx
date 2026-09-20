@@ -7,14 +7,13 @@ import { Sun, Moon } from './ThemeIcons';
 import ResumeMenu from './ResumeMenu';
 import './Navbar.scss';
 
-// Kept deliberately short — the primary path through the site. The rest
-// (Stats, Testimonials) are one scroll away and are listed in
-// the footer, the command palette (⌘K) and the terminal.
+// Mirrors the page's own section order (see App.jsx) and the footer nav.
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
+  { id: 'stats', label: 'Stats' },
   { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
   { id: 'resume', label: 'Resume' },
+  { id: 'testimonials', label: 'Testimonials' },
   { id: 'contact', label: 'Contact' },
 ];
 

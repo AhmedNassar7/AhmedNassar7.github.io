@@ -35,6 +35,7 @@ import {
   faBolt,
   faArrowsRotate,
   faMobileScreenButton,
+  faRocket,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const education = {
@@ -168,11 +169,34 @@ export const projects = [
     description:
       '27 client-side PDF/image/SVG tools — merge, split, compress, encrypt, convert — with zero server storage.',
   },
+  {
+    name: 'Tracker',
+    url: 'https://github.com/AhmedNassar7/tracker',
+    liveUrl: 'https://ahmednassar7.github.io/tracker/',
+    // Verified against the repo's own README + site/package.json: an hourly
+    // GitHub Actions pipeline (stdlib-only Python, no paid APIs) scrapes
+    // 15+ job boards/ATS APIs into the repo itself as JSON/Markdown, and an
+    // Astro + React site serves search and bookmarking on top of it.
+    tech: [
+      'Python',
+      'TypeScript',
+      'Astro',
+      'React',
+      'Tailwind',
+      'GitHub Actions',
+    ],
+    description:
+      'Hourly-updated tracker of 4,000+ software engineering jobs, internships, and hackathons from 15+ sources — zero-cost automation with a searchable, bookmarkable web app.',
+  },
 ];
 
 export const achievements = [
   {
     title: 'Individual Member, Django Software Foundation',
+    // Reuses the same transparent django_software_foundation.svg shown for
+    // the Django Software Foundation experience entry, so the two stay
+    // pixel-for-pixel consistent instead of carrying separate art.
+    org: 'Django Software Foundation',
     secondaryUrl:
       'https://www.djangoproject.com/foundation/individual-members/',
     secondaryLabel: 'DSF Members Page',
@@ -182,6 +206,8 @@ export const achievements = [
   },
   {
     title: 'Founder, Software Engineering Community',
+    // Matches src/assets/images/logos/swe_community.png.
+    org: 'SWE Community',
     url: 'https://github.com/AhmedNassar7/Software-Engineering',
     secondaryUrl: 'https://discord.gg/N95QU2Ww3h',
     secondaryLabel: 'Discord',
@@ -193,6 +219,8 @@ export const achievements = [
   },
   {
     title: 'Round 2 Qualifier, Meta Hacker Cup',
+    // Matches src/assets/images/logos/meta.png.
+    org: 'Meta',
     secondaryUrl:
       'https://web.facebook.com/codingcompetitions/hacker-cup/2025/certificate/209508058776009',
     secondaryLabel: 'Certificate',
@@ -272,6 +300,7 @@ export const techIcons = {
   Automation: faGears,
   'Web Scraping': faSpider,
   Vite: faBolt,
+  Astro: faRocket,
   'TanStack Query': faArrowsRotate,
   Zustand: faLayerGroup,
   'Django REST Framework': faServer,

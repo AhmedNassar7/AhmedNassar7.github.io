@@ -9,9 +9,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {
   RESUME_URL,
-  RESUME_VIEW_URL,
   RESUME_FILE_NAME,
   downloadResume,
+  viewResume,
 } from '../../utils/resume';
 import { trackEvent } from '../../utils/analytics';
 import './ResumeMenu.scss';
@@ -44,7 +44,7 @@ const ResumeMenu = () => {
       content_type: 'resume',
       content_id: 'resume_view',
     });
-    window.open(RESUME_VIEW_URL, '_blank', 'noopener,noreferrer');
+    viewResume();
     setOpen(false);
   };
 
